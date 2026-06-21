@@ -24,6 +24,9 @@
   "channelSearchResultsPerKeyword": 3,
   "maxChannels": 30,
   "maxVideosPerChannel": 100,
+  "excludeShorts": true,
+  "maxShortDurationSeconds": 180,
+  "shortCheckConcurrency": 12,
   "searchContext": "minecraft",
   "contextTerms": [
     "minecraft",

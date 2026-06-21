@@ -77,6 +77,83 @@ function number(value) {
   return Number.parseInt(value || "0", 10) || 0;
 }
 
+function durationSeconds(isoDuration = "") {
+  const match = String(isoDuration).match(
+    /^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?)?$/,
+  );
+  if (!match) return 0;
+  return (
+    number(match[1]) * 86400 +
+    number(match[2]) * 3600 +
+    number(match[3]) * 60 +
+    Number.parseFloat(match[4] || "0")
+  );
+}
+
+const shortStatusCache = new Map();
+
+async function isYouTubeShort(video, attempt = 1) {
+  if (!settings.excludeShorts) return false;
+
+  const maximumShortDuration = number(settings.maxShortDurationSeconds) || 180;
+  if (durationSeconds(video.contentDetails?.duration) > maximumShortDuration) return false;
+  if (!video.id) return false;
+  if (shortStatusCache.has(video.id)) return shortStatusCache.get(video.id);
+
+  try {
+    const response = await fetch(`https://www.youtube.com/shorts/${video.id}`, {
+      method: "HEAD",
+      redirect: "manual",
+      headers: {
+        Accept: "text/html",
+        Cookie: "SOCS=CAI",
+        "User-Agent": "YT-Pulse/1.0",
+      },
+    });
+
+    if ((response.status === 429 || response.status >= 500) && attempt < 4) {
+      await new Promise((resolve) => setTimeout(resolve, 600 * 2 ** attempt));
+      return isYouTubeShort(video, attempt + 1);
+    }
+
+    // YouTube serves actual Shorts at /shorts/VIDEO_ID with 200.
+    // Regular videos redirect from that address to /watch with 303.
+    const isShort = response.status === 200;
+    shortStatusCache.set(video.id, isShort);
+    return isShort;
+  } catch (error) {
+    console.warn(`Shorts check failed for ${video.id}: ${error.message}`);
+    // On a network failure, exclude videos short enough to be Shorts rather
+    // than allowing their inflated Shorts views into long-form statistics.
+    shortStatusCache.set(video.id, true);
+    return true;
+  }
+}
+
+async function regularVideosOnly(videos) {
+  if (!settings.excludeShorts || !videos.length) return videos;
+
+  const regularVideos = [];
+  const concurrency = Math.max(1, number(settings.shortCheckConcurrency) || 12);
+  let nextIndex = 0;
+
+  async function worker() {
+    while (nextIndex < videos.length) {
+      const video = videos[nextIndex];
+      nextIndex += 1;
+      if (!(await isYouTubeShort(video))) regularVideos.push(video);
+    }
+  }
+
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, videos.length) }, () => worker()),
+  );
+
+  return regularVideos.sort((a, b) =>
+    (b.snippet?.publishedAt || "").localeCompare(a.snippet?.publishedAt || ""),
+  );
+}
+
 async function youtube(resource, params, attempt = 1) {
   const url = new URL(`${apiBase}/${resource}`);
   for (const [key, value] of Object.entries({ ...params, key: apiKey })) {
@@ -132,7 +209,7 @@ async function discoverChannels(cutoff) {
     });
 
     const ids = (response.items || []).map((item) => item.id?.videoId).filter(Boolean);
-    const videos = await videoDetails(ids);
+    const videos = await regularVideosOnly(await videoDetails(ids));
 
     for (const video of videos) {
       const matches = matchedKeywords(video);
@@ -303,7 +380,7 @@ async function main() {
     if (!playlistId) continue;
     console.log(`Статистика: ${channel.snippet?.title}`);
     const uploadIds = await getUploads(playlistId, cutoff);
-    const videos = await videoDetails(uploadIds);
+    const videos = await regularVideosOnly(await videoDetails(uploadIds));
     output.push(channelOutput(channel, videos, discovered.get(channel.id)?.keywords, cutoff));
   }
 
@@ -313,6 +390,7 @@ async function main() {
     generatedAt: new Date().toISOString(),
     demo: false,
     source: "youtube-data-api-v3",
+    shortsExcluded: Boolean(settings.excludeShorts),
     keywords,
     channels: output,
   };
