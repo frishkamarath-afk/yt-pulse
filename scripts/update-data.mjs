@@ -350,6 +350,10 @@ function channelOutput(channel, videos, discoveredKeywords, cutoff) {
     subscribers: number(channel.statistics?.subscriberCount),
     averageViewsPeriod: averageViews,
     videosCountPeriod: recentVideos.length,
+    // Legacy aliases keep already-open browser tabs compatible after the
+    // dashboard period changes from three months to a configurable period.
+    averageViews3Months: averageViews,
+    videosCount3Months: recentVideos.length,
     matchedKeywords: [...foundKeywords],
     lastFourVideos: sortedVideos.slice(0, 4).map((video) => ({
       videoId: video.id,
