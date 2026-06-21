@@ -348,8 +348,8 @@ function channelOutput(channel, videos, discoveredKeywords, cutoff) {
       channel.snippet?.thumbnails?.default?.url ||
       "",
     subscribers: number(channel.statistics?.subscriberCount),
-    averageViews3Months: averageViews,
-    videosCount3Months: recentVideos.length,
+    averageViewsPeriod: averageViews,
+    videosCountPeriod: recentVideos.length,
     matchedKeywords: [...foundKeywords],
     lastFourVideos: sortedVideos.slice(0, 4).map((video) => ({
       videoId: video.id,
@@ -363,12 +363,15 @@ function channelOutput(channel, videos, discoveredKeywords, cutoff) {
 }
 
 async function main() {
-  const cutoff = monthsAgoIso(3);
+  const periodMonths = Math.max(1, number(settings.periodMonths) || 2);
+  const minimumAverageViews = Math.max(0, number(settings.minAverageViews) || 200);
+  const maximumChannels = Math.max(1, number(settings.maxChannels) || 100);
+  const cutoff = monthsAgoIso(periodMonths);
   const discovered = await discoverChannels(cutoff);
   const manualIds = await resolveManualChannels();
   const allIds = [...new Set([...manualIds, ...discovered.keys()])].slice(
     0,
-    number(settings.maxChannels) || 30,
+    maximumChannels,
   );
 
   console.log(`К обработке выбрано каналов: ${allIds.length}`);
@@ -381,16 +384,25 @@ async function main() {
     console.log(`Статистика: ${channel.snippet?.title}`);
     const uploadIds = await getUploads(playlistId, cutoff);
     const videos = await regularVideosOnly(await videoDetails(uploadIds));
-    output.push(channelOutput(channel, videos, discovered.get(channel.id)?.keywords, cutoff));
+    const result = channelOutput(
+      channel,
+      videos,
+      discovered.get(channel.id)?.keywords,
+      cutoff,
+    );
+    if (result.averageViewsPeriod > minimumAverageViews) output.push(result);
   }
 
-  output.sort((a, b) => b.averageViews3Months - a.averageViews3Months);
+  output.sort((a, b) => b.averageViewsPeriod - a.averageViewsPeriod);
 
   const payload = {
     generatedAt: new Date().toISOString(),
     demo: false,
     source: "youtube-data-api-v3",
     shortsExcluded: Boolean(settings.excludeShorts),
+    periodMonths,
+    minAverageViews: minimumAverageViews,
+    maxChannels: maximumChannels,
     keywords,
     channels: output,
   };

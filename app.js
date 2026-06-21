@@ -87,6 +87,14 @@ function latestPublishedAt(channel) {
   return channel.lastFourVideos?.[0]?.publishedAt || "";
 }
 
+function averageViews(channel) {
+  return Number(channel.averageViewsPeriod ?? channel.averageViews3Months ?? 0);
+}
+
+function videosCount(channel) {
+  return Number(channel.videosCountPeriod ?? channel.videosCount3Months ?? 0);
+}
+
 function filteredChannels() {
   if (!state.data) return [];
   const query = state.query.trim().toLocaleLowerCase("ru");
@@ -103,10 +111,10 @@ function filteredChannels() {
   });
 
   return channels.sort((a, b) => {
-    if (state.sort === "average-asc") return a.averageViews3Months - b.averageViews3Months;
+    if (state.sort === "average-asc") return averageViews(a) - averageViews(b);
     if (state.sort === "latest") return latestPublishedAt(b).localeCompare(latestPublishedAt(a));
     if (state.sort === "name") return a.title.localeCompare(b.title, "ru");
-    return b.averageViews3Months - a.averageViews3Months;
+    return averageViews(b) - averageViews(a);
   });
 }
 
@@ -169,11 +177,11 @@ function channelRow(channel) {
         </div>
       </td>
       <td class="average-cell">
-        <strong>${formatCompact(channel.averageViews3Months)}</strong>
-        <small>${formatNumber(channel.averageViews3Months)} просмотров</small>
+        <strong>${formatCompact(averageViews(channel))}</strong>
+        <small>${formatNumber(averageViews(channel))} просмотров</small>
       </td>
       <td class="count-cell">
-        <strong>${formatNumber(channel.videosCount3Months)}</strong>
+        <strong>${formatNumber(videosCount(channel))}</strong>
         <small>за период</small>
       </td>
       <td>
@@ -213,7 +221,7 @@ function renderChannels() {
 
 function renderMetrics() {
   const channels = state.data.channels || [];
-  const averages = channels.map((channel) => Number(channel.averageViews3Months || 0));
+  const averages = channels.map(averageViews);
   const totalAverage = averages.length
     ? Math.round(averages.reduce((sum, value) => sum + value, 0) / averages.length)
     : 0;
