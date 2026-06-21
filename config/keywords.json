@@ -22,7 +22,7 @@
   ],
   "searchResultsPerKeyword": 10,
   "channelSearchResultsPerKeyword": 3,
-  "maxChannels": 100,
+  "maxChannels": 50,
   "maxVideosPerChannel": 100,
   "periodMonths": 2,
   "minAverageViews": 200,
