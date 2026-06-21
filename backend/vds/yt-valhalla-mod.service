@@ -1,0 +1,22 @@
+[Unit]
+Description=YT Valhalla mod control API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ytvalhalla
+Group=ytvalhalla
+WorkingDirectory=/opt/yt-valhalla-mod
+EnvironmentFile=/etc/yt-valhalla-mod.env
+ExecStart=/usr/bin/python3 /opt/yt-valhalla-mod/server.py
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/yt-valhalla
+
+[Install]
+WantedBy=multi-user.target

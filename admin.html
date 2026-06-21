@@ -21,7 +21,18 @@
         <a class="back-link" href="index.html">← Вернуться на сайт</a>
       </header>
 
-      <section class="admin-hero">
+      <nav class="admin-tabs" aria-label="Разделы админ-панели">
+        <button class="active" type="button" data-admin-tab="keywords">
+          <span>#</span>
+          Смена тегов
+        </button>
+        <button type="button" data-admin-tab="mod">
+          <span>◉</span>
+          Управление модом
+        </button>
+      </nav>
+
+      <section class="admin-hero" data-admin-panel="keywords">
         <p class="eyebrow">Управление поиском</p>
         <h1>Ключевые фразы</h1>
         <p>
@@ -30,7 +41,7 @@
         </p>
       </section>
 
-      <section class="auth-card" id="auth-card">
+      <section class="auth-card" id="auth-card" data-admin-panel="keywords">
         <div class="auth-copy">
           <span class="card-number">01</span>
           <div>
@@ -79,7 +90,7 @@
         </form>
       </section>
 
-      <section class="editor-card" id="editor-card" hidden>
+      <section class="editor-card" id="editor-card" data-admin-panel="keywords" hidden>
         <div class="editor-head">
           <div>
             <span class="card-number">02</span>
@@ -130,7 +141,7 @@
         </div>
       </section>
 
-      <section class="progress-card" id="progress-card" hidden>
+      <section class="progress-card" id="progress-card" data-admin-panel="keywords" hidden>
         <span class="spinner" aria-hidden="true"></span>
         <div>
           <strong id="progress-title">Сохраняем настройки…</strong>
@@ -138,7 +149,7 @@
         </div>
       </section>
 
-      <section class="success-card" id="success-card" hidden>
+      <section class="success-card" id="success-card" data-admin-panel="keywords" hidden>
         <span class="success-icon">✓</span>
         <div>
           <strong>Настройки сохранены</strong>
@@ -159,6 +170,135 @@
         </div>
       </section>
 
+      <section class="admin-hero" data-admin-panel="mod" hidden>
+        <p class="eyebrow">Удалённое управление</p>
+        <h1>Управление модом</h1>
+        <p>
+          Включайте и выключайте функции Safe Chat Tools, проверяйте состояние API
+          и просматривайте согласованные журналы запусков.
+        </p>
+      </section>
+
+      <section class="auth-card" id="mod-auth-card" data-admin-panel="mod" hidden>
+        <div class="auth-copy">
+          <span class="card-number">01</span>
+          <div>
+            <h2>Ключ управления</h2>
+            <p>
+              Введите отдельный ключ администратора сервиса мода. Он хранится только
+              до закрытия этой вкладки и не публикуется на GitHub Pages.
+            </p>
+          </div>
+        </div>
+
+        <form class="token-form" id="mod-auth-form">
+          <label for="mod-admin-key">Admin key</label>
+          <div class="token-row">
+            <input
+              id="mod-admin-key"
+              type="password"
+              placeholder="Ключ управления модом"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <button class="button button-primary" type="submit">Подключиться</button>
+          </div>
+          <label class="checkbox mod-remember">
+            <input id="remember-mod-key" type="checkbox" />
+            <span>Запомнить до закрытия вкладки</span>
+          </label>
+        </form>
+      </section>
+
+      <section class="mod-control-card" id="mod-control-card" data-admin-panel="mod" hidden>
+        <div class="mod-control-head">
+          <div>
+            <span class="card-number">02</span>
+            <p class="eyebrow">Remote switch</p>
+            <h2>Доступ к функциям мода</h2>
+          </div>
+          <div class="account">
+            <span class="account-dot"></span>
+            <span>API подключён</span>
+            <button id="mod-logout-button" type="button">Выйти</button>
+          </div>
+        </div>
+
+        <div class="mod-switch-panel">
+          <div class="mod-status-copy">
+            <span class="mod-status-badge" id="mod-status-badge">Проверка…</span>
+            <h3 id="mod-status-title">Получаем состояние</h3>
+            <p id="mod-status-description">
+              При выключении открытие меню и автоматизация блокируются у всех установок.
+            </p>
+          </div>
+          <label class="power-switch">
+            <input id="mod-enabled-toggle" type="checkbox" />
+            <span class="power-track"><span class="power-knob"></span></span>
+            <span id="mod-toggle-label">Выключен</span>
+          </label>
+        </div>
+
+        <div class="mod-message-row">
+          <label for="mod-disabled-message">Сообщение при блокировке</label>
+          <div>
+            <input
+              id="mod-disabled-message"
+              type="text"
+              maxlength="160"
+              placeholder="Мод временно отключён администратором."
+            />
+            <button class="button button-secondary" id="save-mod-message" type="button">
+              Сохранить
+            </button>
+          </div>
+        </div>
+
+        <div class="logs-head">
+          <div>
+            <p class="eyebrow">Последние события</p>
+            <h3>Логи запусков</h3>
+          </div>
+          <div>
+            <button class="button button-ghost" id="refresh-mod-logs" type="button">
+              Обновить
+            </button>
+            <button class="button button-danger" id="clear-mod-logs" type="button">
+              Очистить логи
+            </button>
+          </div>
+        </div>
+
+        <div class="logs-table-wrap">
+          <table class="logs-table">
+            <thead>
+              <tr>
+                <th>Время</th>
+                <th>IP</th>
+                <th>Система</th>
+                <th>Java / CPU / RAM</th>
+                <th>Установка</th>
+              </tr>
+            </thead>
+            <tbody id="mod-logs-body"></tbody>
+          </table>
+          <div class="logs-empty" id="mod-logs-empty" hidden>
+            Запусков с подтверждённым согласием пока нет.
+          </div>
+        </div>
+
+        <div class="privacy-note">
+          <strong>Приватность</strong>
+          <p>
+            Мод отправляет данные только после явного согласия пользователя:
+            публичный IP, ОС и архитектуру, Java, число процессоров, доступную память,
+            версию мода и случайный ID установки. Имя Windows, MAC-адреса, серийные
+            номера и личные файлы не собираются.
+          </p>
+        </div>
+      </section>
+
       <footer class="admin-footer">
         <span>YT Valhalla</span>
         <p>© 2026 Valhalla DLC. Все права защищены.</p>
@@ -166,6 +306,8 @@
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="admin.js?v=20260621-1" defer></script>
+    <script src="mod-service-config.js?v=20260621-1"></script>
+    <script src="admin.js?v=20260621-2" defer></script>
+    <script src="mod-admin.js?v=20260621-1" defer></script>
   </body>
 </html>
