@@ -1,7 +1,8 @@
 {
-  "generatedAt": "2026-06-21T05:36:27.773Z",
+  "generatedAt": "2026-06-21T05:45:33.924Z",
   "demo": false,
   "source": "youtube-data-api-v3",
+  "shortsExcluded": true,
   "keywords": [
     "майнкрафт читы",
     "funtime читы",
@@ -25,256 +26,14 @@
   ],
   "channels": [
     {
-      "channelId": "UCGH_TFnS55zxFJ53IoEceBQ",
-      "title": "ʟᴏɴᴇʟʏ",
-      "handle": "@lonely5105",
-      "url": "https://www.youtube.com/channel/UCGH_TFnS55zxFJ53IoEceBQ",
-      "thumbnail": "https://yt3.ggpht.com/fdnGtNkHEwJUxL_0hgRlvM63xgvqt5J7hceobeLZhXx1bDBS6iE0oDUbcykDj3wwJKW356DqS7c=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 2030,
-      "averageViews3Months": 14228,
-      "videosCount3Months": 98,
-      "matchedKeywords": [
-        "reallyworld",
-        "чит"
-      ],
-      "lastFourVideos": [
-        {
-          "videoId": "dWFGUQp7AMo",
-          "title": "🌈 BL.DREAMWORLD.PW #PulseVisuals сайт - pulsevisuals.pro #rwdomer #Reallyworld #FunTime #Minecraft",
-          "url": "https://www.youtube.com/watch?v=dWFGUQp7AMo",
-          "publishedAt": "2026-06-20T20:34:00Z",
-          "views": 1128,
-          "comments": 1
-        },
-        {
-          "videoId": "uLISkGNWIoc",
-          "title": "🌈 BL.DREAMWORLD.PW #PulseVisuals сайт - pulsevisuals.pro #rwdomer #Reallyworld #FunTime #Minecraft",
-          "url": "https://www.youtube.com/watch?v=uLISkGNWIoc",
-          "publishedAt": "2026-06-20T20:10:26Z",
-          "views": 1151,
-          "comments": 2
-        },
-        {
-          "videoId": "8vAs0r8KlEg",
-          "title": "🌈 BL.DREAMWORLD.PW #PulseVisuals сайт - pulsevisuals.pro #rwdomer #Reallyworld #FunTime #Minecraft",
-          "url": "https://www.youtube.com/watch?v=8vAs0r8KlEg",
-          "publishedAt": "2026-06-19T20:20:07Z",
-          "views": 1302,
-          "comments": 3
-        },
-        {
-          "videoId": "YopPqH01dyQ",
-          "title": "🌈 BL.DREAMWORLD.PW #PulseVisuals сайт - pulsevisuals.pro #rwdomer #Reallyworld #FunTime #Minecraft",
-          "url": "https://www.youtube.com/watch?v=YopPqH01dyQ",
-          "publishedAt": "2026-06-19T11:06:45Z",
-          "views": 1246,
-          "comments": 1
-        }
-      ]
-    },
-    {
-      "channelId": "UCeQm0igb_PLAQohc5_bFdfg",
-      "title": "angelgrind",
-      "handle": "@angeigrind",
-      "url": "https://www.youtube.com/channel/UCeQm0igb_PLAQohc5_bFdfg",
-      "thumbnail": "https://yt3.ggpht.com/lqXVwrZL4jWiL6RmXKDtedQNzC4mgDEPZRgJsatKx4LpcNdZ5LNJOpIf3i0DfJ_hHZnm_bIEUw=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 425,
-      "averageViews3Months": 11291,
-      "videosCount3Months": 7,
-      "matchedKeywords": [
-        "reallyworld",
-        "чит",
-        "reallyworld с читами"
-      ],
-      "lastFourVideos": [
-        {
-          "videoId": "T2-Wzb6B7LY",
-          "title": "mc.slimeworld.fun #system_dlc  #minecraft #грифснуля",
-          "url": "https://www.youtube.com/watch?v=T2-Wzb6B7LY",
-          "publishedAt": "2026-06-20T17:40:28Z",
-          "views": 836,
-          "comments": 0
-        },
-        {
-          "videoId": "M-o1_pYnN1A",
-          "title": "system #system_dls  #minecraft",
-          "url": "https://www.youtube.com/watch?v=M-o1_pYnN1A",
-          "publishedAt": "2026-06-20T06:58:19Z",
-          "views": 935,
-          "comments": 0
-        },
-        {
-          "videoId": "6kGb6n_fepA",
-          "title": "system #system_dls  #minecraft",
-          "url": "https://www.youtube.com/watch?v=6kGb6n_fepA",
-          "publishedAt": "2026-06-20T06:58:16Z",
-          "views": 983,
-          "comments": 0
-        },
-        {
-          "videoId": "I_uV7sRkLKw",
-          "title": "Ставьте лайк для большего контента  #minecraft #грифснуля #грифснуля #майнкрафт #майнкрафт #funtime",
-          "url": "https://www.youtube.com/watch?v=I_uV7sRkLKw",
-          "publishedAt": "2026-06-11T14:19:19Z",
-          "views": 32009,
-          "comments": 11
-        }
-      ]
-    },
-    {
-      "channelId": "UCUjJCplR-o8grHVf3KQUEyQ",
-      "title": "sos111",
-      "handle": "@sos111yt",
-      "url": "https://www.youtube.com/channel/UCUjJCplR-o8grHVf3KQUEyQ",
-      "thumbnail": "https://yt3.ggpht.com/-oE21jW0cVkBJ7qgFLw831juQ5Q9-kv7EEBddkvStizMaVnO9RGhxIMZco90R4AIRbW0shQFTXQ=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 82,
-      "averageViews3Months": 7949,
-      "videosCount3Months": 18,
-      "matchedKeywords": [
-        "reallyworld",
-        "чит"
-      ],
-      "lastFourVideos": [
-        {
-          "videoId": "-lCho89whH4",
-          "title": "Я просто добывал песок.. #майнкрафт #reallyworld #funtime #shorts #raidcube #майнкрафт",
-          "url": "https://www.youtube.com/watch?v=-lCho89whH4",
-          "publishedAt": "2026-06-20T14:15:03Z",
-          "views": 1668,
-          "comments": 3
-        },
-        {
-          "videoId": "ZiL-_5kGA8w",
-          "title": "Лучшие сервера Майнкрафт.. #майнкрафт #reallyworld #funtime #shorts #raidcube #майнкрафт",
-          "url": "https://www.youtube.com/watch?v=ZiL-_5kGA8w",
-          "publishedAt": "2026-06-18T12:55:45Z",
-          "views": 1578,
-          "comments": 3
-        },
-        {
-          "videoId": "yRmDSnGEn68",
-          "title": "Я просто зашёл на сервер.. #майнкрафт #reallyworld #funtime #shorts #raidcube #майнкрафт",
-          "url": "https://www.youtube.com/watch?v=yRmDSnGEn68",
-          "publishedAt": "2026-06-15T13:02:00Z",
-          "views": 1543,
-          "comments": 2
-        },
-        {
-          "videoId": "7rsdztXt5yQ",
-          "title": "Я просто следил за игроком.. #майнкрафт #reallyworld #funtime #shorts #justworld #майнкрафт",
-          "url": "https://www.youtube.com/watch?v=7rsdztXt5yQ",
-          "publishedAt": "2026-06-04T12:47:13Z",
-          "views": 29771,
-          "comments": 5
-        }
-      ]
-    },
-    {
-      "channelId": "UCTpOb0gBGm9YhfzwsTJfZTQ",
-      "title": "FreeDon",
-      "handle": "@tt_freedon_su",
-      "url": "https://www.youtube.com/channel/UCTpOb0gBGm9YhfzwsTJfZTQ",
-      "thumbnail": "https://yt3.ggpht.com/WVuk3kI2v0DqNYWHZpdWXuoZaLBKC3gGeic4GDoJ79Zbo5fex_pMTcg_AGzkCy0RgekK4BqdAA=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 2710,
-      "averageViews3Months": 6865,
-      "videosCount3Months": 26,
-      "matchedKeywords": [
-        "reallyworld",
-        "чит",
-        "анархия пвп"
-      ],
-      "lastFourVideos": [
-        {
-          "videoId": "8yvt4hXrtlo",
-          "title": "Не получится FUNTIME Анархия & PvP Сервер | ФАНТАЙМ | Майнкрафт Анархия",
-          "url": "https://www.youtube.com/watch?v=8yvt4hXrtlo",
-          "publishedAt": "2026-06-20T15:47:19Z",
-          "views": 1366,
-          "comments": 6
-        },
-        {
-          "videoId": "f7JeRWCr-ZU",
-          "title": "REALLYWORLD PvP 🔥 ГРИФ/АНАРХИЯ/ПвП| ЛУЧШИЙ PvP СЕРВЕР",
-          "url": "https://www.youtube.com/watch?v=f7JeRWCr-ZU",
-          "publishedAt": "2026-06-20T15:17:40Z",
-          "views": 1489,
-          "comments": 0
-        },
-        {
-          "videoId": "79zYa5FYodA",
-          "title": "Котость | Minecraft HolyWorld Холик Анархия Майнкрафт",
-          "url": "https://www.youtube.com/watch?v=79zYa5FYodA",
-          "publishedAt": "2026-06-19T08:23:33Z",
-          "views": 69,
-          "comments": 2
-        },
-        {
-          "videoId": "Yf3qwZWI8I4",
-          "title": "Гениями становятся | Minecraft HolyWorld Холик Анархия Майнкрафт",
-          "url": "https://www.youtube.com/watch?v=Yf3qwZWI8I4",
-          "publishedAt": "2026-06-19T08:14:16Z",
-          "views": 21566,
-          "comments": 16
-        }
-      ]
-    },
-    {
-      "channelId": "UCotAKIP0r6yj-hjdSnDYsRA",
-      "title": "Ramzes MW",
-      "handle": "@ramzesmw183",
-      "url": "https://www.youtube.com/channel/UCotAKIP0r6yj-hjdSnDYsRA",
-      "thumbnail": "https://yt3.ggpht.com/_Ctz16nWRzln6W74h2K21xA1mNp9OH1OOSxb6RVusO9dsE6i6_zp7X8bYfw_opbv08IUDGqjmec=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 5240,
-      "averageViews3Months": 6577,
-      "videosCount3Months": 100,
-      "matchedKeywords": [
-        "reallyworld",
-        "чит"
-      ],
-      "lastFourVideos": [
-        {
-          "videoId": "0Fn8GL7PqKY",
-          "title": "ЛУЧШАЯ КОПИЯ РВ 1.16.5 MagicWorld | #funtime #minecraft #reallyworld #holyworldlite #майнкрафт #рек",
-          "url": "https://www.youtube.com/watch?v=0Fn8GL7PqKY",
-          "publishedAt": "2026-06-20T16:18:31Z",
-          "views": 1394,
-          "comments": 1
-        },
-        {
-          "videoId": "xv3e8w1wsDM",
-          "title": "ЛУЧШАЯ КОПИЯ РВ 1.16.5 MagicWorld | #funtime #minecraft #reallyworld #holyworldlite #майнкрафт #рек",
-          "url": "https://www.youtube.com/watch?v=xv3e8w1wsDM",
-          "publishedAt": "2026-06-19T11:20:15Z",
-          "views": 1514,
-          "comments": 7
-        },
-        {
-          "videoId": "LBVjhQKASEk",
-          "title": "ЛУЧШАЯ КОПИЯ РВ 1.16.5 MagicWorld | #funtime #minecraft #reallyworld #holyworldlite #майнкрафт #рек",
-          "url": "https://www.youtube.com/watch?v=LBVjhQKASEk",
-          "publishedAt": "2026-06-09T15:41:05Z",
-          "views": 5690,
-          "comments": 17
-        },
-        {
-          "videoId": "FcnzKppu_xo",
-          "title": "ЛУЧШАЯ КОПИЯ РВ 1.16.5 MagicWorld | #funtime #minecraft #reallyworld #holyworldlite #майнкрафт #рек",
-          "url": "https://www.youtube.com/watch?v=FcnzKppu_xo",
-          "publishedAt": "2026-06-09T15:40:56Z",
-          "views": 1654,
-          "comments": 3
-        }
-      ]
-    },
-    {
       "channelId": "UCTERx-eZmNeg00cOi5VuvOQ",
       "title": "Дэйп - ПвП",
       "handle": "@dapetier",
       "url": "https://www.youtube.com/channel/UCTERx-eZmNeg00cOi5VuvOQ",
       "thumbnail": "https://yt3.ggpht.com/nQifU3jZ-yxrpPjZUVb1qLy-YK6-f4NukaHDwFstOddKdq-DRdZ_8kCuzVLLsVb0W5PeDelW_QQ=s240-c-k-c0x00ffffff-no-rj",
       "subscribers": 2620,
-      "averageViews3Months": 5529,
-      "videosCount3Months": 54,
+      "averageViews3Months": 3941,
+      "videosCount3Months": 45,
       "matchedKeywords": [
         "анархия пвп",
         "reallyworld",
@@ -286,7 +45,7 @@
           "title": "БЕТА-ТЕСТ моего ПВП Сервера ! (наконец-то ..)",
           "url": "https://www.youtube.com/watch?v=QL2fVVnCVfE",
           "publishedAt": "2026-06-21T02:37:35Z",
-          "views": 672,
+          "views": 673,
           "comments": 0
         },
         {
@@ -316,148 +75,113 @@
       ]
     },
     {
-      "channelId": "UC2Xx4IdcrdR1eBfacKQylgg",
-      "title": "Bloody87",
-      "handle": "@bloody5105",
-      "url": "https://www.youtube.com/channel/UC2Xx4IdcrdR1eBfacKQylgg",
-      "thumbnail": "https://yt3.ggpht.com/rrmu2DhpQim6EeY_ZFuExo4TaZ_vhjuj88LauwFAXeir7hCCNJXg59jjXGzUaUi1crfCAxdtQQ=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 923,
-      "averageViews3Months": 5448,
-      "videosCount3Months": 10,
-      "matchedKeywords": [
-        "reallyworld",
-        "чит"
-      ],
-      "lastFourVideos": [
-        {
-          "videoId": "ZjxpUw3yuR0",
-          "title": "🌈 BL.DREAMWORLD.PW #PulseVisuals сайт - pulsevisuals.pro #rwdomer #Reallyworld #FunTime #Minecraft",
-          "url": "https://www.youtube.com/watch?v=ZjxpUw3yuR0",
-          "publishedAt": "2026-06-20T20:09:59Z",
-          "views": 1356,
-          "comments": 2
-        },
-        {
-          "videoId": "Pn_hs2ENQGc",
-          "title": "🌈 BL.DREAMWORLD.PW #PulseVisuals сайт - pulsevisuals.pro #rwdomer #Reallyworld #FunTime #Minecraft",
-          "url": "https://www.youtube.com/watch?v=Pn_hs2ENQGc",
-          "publishedAt": "2026-06-20T20:08:31Z",
-          "views": 0,
-          "comments": 0
-        },
-        {
-          "videoId": "yJUnRdHNgBY",
-          "title": "🌈 BL.DREAMWORLD.PW #PulseVisuals сайт - pulsevisuals.pro #rwdomer #Reallyworld #FunTime #Minecraft",
-          "url": "https://www.youtube.com/watch?v=yJUnRdHNgBY",
-          "publishedAt": "2026-06-19T18:12:19Z",
-          "views": 1511,
-          "comments": 0
-        },
-        {
-          "videoId": "zN_mv72HBmA",
-          "title": "🌈 BL.DREAMWORLD.PW #PulseVisuals сайт - pulsevisuals.pro #rwdomer #Reallyworld #FunTime #Minecraft",
-          "url": "https://www.youtube.com/watch?v=zN_mv72HBmA",
-          "publishedAt": "2026-06-17T11:48:39Z",
-          "views": 1368,
-          "comments": 5
-        }
-      ]
-    },
-    {
-      "channelId": "UCAfp5V5mdeSDV77NY9xxVrw",
-      "title": "FAER",
-      "handle": "@mrfaeryt",
-      "url": "https://www.youtube.com/channel/UCAfp5V5mdeSDV77NY9xxVrw",
-      "thumbnail": "https://yt3.ggpht.com/-dRpB_ZlpMXvHSatC39h0sIRntBixMEvX5wNljss9IeRt87aeSWcWeJaaonhszr6_odth1f5=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 1390,
-      "averageViews3Months": 1602,
-      "videosCount3Months": 9,
+      "channelId": "UCGKOmqSZiy68vB4B5Jh5ZCA",
+      "title": "Timka Trupoedow",
+      "handle": "@timkatrupoedow",
+      "url": "https://www.youtube.com/channel/UCGKOmqSZiy68vB4B5Jh5ZCA",
+      "thumbnail": "https://yt3.ggpht.com/Dw7XgLTDtE93oA_OephIkUcIe3I6dFWb0hp1HWZMyb9KaIbawvh995_1JkR88g6dG8CMkgRoiQ=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 1030,
+      "averageViews3Months": 991,
+      "videosCount3Months": 29,
       "matchedKeywords": [
         "майнкрафт читы",
-        "проверка на читы",
+        "анархия пвп",
         "reallyworld",
-        "чит"
+        "читы на reallyworld",
+        "чит",
+        "reallyworld с читами"
       ],
       "lastFourVideos": [
         {
-          "videoId": "sbltFwfJqKE",
-          "title": "ЗАПРЕЩЁННАЯ ЛОВУШКА НА СПАВНЕ?! | ТРАПЕР ШОУ на Сервере FUNTIME REALLYWORLD JUNGLEMINE",
-          "url": "https://www.youtube.com/watch?v=sbltFwfJqKE",
-          "publishedAt": "2026-06-20T14:00:12Z",
-          "views": 1635,
-          "comments": 2
+          "videoId": "qyMrmo1VxTU",
+          "title": "ОДИН ДЕНЬ ИЗ ЖИЗНИ ЧИТЕРА НА АНАРХИИ HOLYWORLD LITE",
+          "url": "https://www.youtube.com/watch?v=qyMrmo1VxTU",
+          "publishedAt": "2026-06-20T11:03:25Z",
+          "views": 342,
+          "comments": 12
         },
         {
-          "videoId": "8jsYynbbv_M",
-          "title": "ЗАПРЕЩЁННАЯ ЛОВУШКА НА СПАВНЕ?! | ТРАПЕР ШОУ на Сервере FUNTIME REALLYWORLD JUNGLEMINE",
-          "url": "https://www.youtube.com/watch?v=8jsYynbbv_M",
-          "publishedAt": "2026-06-19T12:30:39Z",
-          "views": 1181,
-          "comments": 2
+          "videoId": "hB60UUpgFP8",
+          "title": "НОВЫЙ 100% NOSLOW ПОД HOLYWORLD В DELUXEDLC",
+          "url": "https://www.youtube.com/watch?v=hB60UUpgFP8",
+          "publishedAt": "2026-06-17T10:55:07Z",
+          "views": 555,
+          "comments": 11
         },
         {
-          "videoId": "z-QAI1nEUQY",
-          "title": "ЗАПРЕЩЁННАЯ ЛОВУШКА НА СПАВНЕ?! | ТРАПЕР ШОУ на Сервере FUNTIME REALLYWORLD JUNGLEMINE",
-          "url": "https://www.youtube.com/watch?v=z-QAI1nEUQY",
-          "publishedAt": "2026-06-17T15:21:30Z",
-          "views": 3124,
-          "comments": 3
-        },
-        {
-          "videoId": "rTNLClSeO9Q",
-          "title": "ЗАПРЕЩЁННАЯ ЛОВУШКА НА СПАВНЕ?! | ТРАПЕР ШОУ на Сервере FUNTIME REALLYWORLD JUNGLEMINE",
-          "url": "https://www.youtube.com/watch?v=rTNLClSeO9Q",
-          "publishedAt": "2026-06-13T12:00:36Z",
-          "views": 395,
-          "comments": 7
-        }
-      ]
-    },
-    {
-      "channelId": "UCiB--4KDKMT2jBvD7arNAMg",
-      "title": "NAVISMOKI",
-      "handle": "@smokinavi",
-      "url": "https://www.youtube.com/channel/UCiB--4KDKMT2jBvD7arNAMg",
-      "thumbnail": "https://yt3.ggpht.com/4_VzxeU_dSBIeMQuk3v9acVUHKbMoS96MXRPfNWrGvJTlp_WAJSKfY3NMZfCbubgHKUFxMXLwJE=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 9300,
-      "averageViews3Months": 1295,
-      "videosCount3Months": 15,
-      "matchedKeywords": [
-        "reallyworld",
-        "чит"
-      ],
-      "lastFourVideos": [
-        {
-          "videoId": "fTxBnXgPLfs",
-          "title": "КУРАТОР ТАК И НЕ ОТВЕТИЛ",
-          "url": "https://www.youtube.com/watch?v=fTxBnXgPLfs",
-          "publishedAt": "2026-06-20T19:37:56Z",
-          "views": 2020,
-          "comments": 2
-        },
-        {
-          "videoId": "x-N8jThcTf0",
-          "title": "ОТКРЫЛ СВОЙ СЕРВЕР ICEGRIEF! | #minecraft #майнкрафт",
-          "url": "https://www.youtube.com/watch?v=x-N8jThcTf0",
-          "publishedAt": "2026-06-20T17:18:43Z",
-          "views": 45,
+          "videoId": "eiqJ9Ng-PbY",
+          "title": "Я ОТКАЧАЛ ЖИР С ПУЗА!!! С 0 ДО ЭТЕРНИТИ НА АНАРХИИ HolyWorld",
+          "url": "https://www.youtube.com/watch?v=eiqJ9Ng-PbY",
+          "publishedAt": "2026-06-16T16:25:12Z",
+          "views": 809,
           "comments": 9
         },
         {
-          "videoId": "pgu0oVn3Axw",
-          "title": "УБИЛ АДМИНА | VIRTUSMINE #майнкрафт #minecraft",
-          "url": "https://www.youtube.com/watch?v=pgu0oVn3Axw",
-          "publishedAt": "2026-06-16T12:24:51Z",
-          "views": 2421,
-          "comments": 2
+          "videoId": "NNYb3Iznhjs",
+          "title": "Я ОТРАСТИЛ СЕБЕ БОЛЬШОЕ ПУЗО! 20 BPS СПИДЫ ПОД ХОЛИ ВОРЛД, НЕ КЛИКБЕЙТ!!!",
+          "url": "https://www.youtube.com/watch?v=NNYb3Iznhjs",
+          "publishedAt": "2026-06-14T10:32:10Z",
+          "views": 1175,
+          "comments": 22
+        }
+      ]
+    },
+    {
+      "channelId": "UCy0OQ2DnybEidN8lCg--uuQ",
+      "title": "xWincher",
+      "handle": "@xwincher",
+      "url": "https://www.youtube.com/channel/UCy0OQ2DnybEidN8lCg--uuQ",
+      "thumbnail": "https://yt3.ggpht.com/DwVoyFaVm-TvLYvxnfo-l_gs3lfx-u2yJdOSXhksgSneuIIXBHLLOhzHsS63U81bekTlE6tNWg=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 286,
+      "averageViews3Months": 813,
+      "videosCount3Months": 17,
+      "matchedKeywords": [
+        "майнкрафт читы",
+        "reallyworld",
+        "читы на reallyworld",
+        "чит",
+        "reallyworld с читами",
+        "pouch",
+        "pouch client",
+        "catlavan",
+        "valhalla",
+        "metahvh",
+        "проверка на читы",
+        "читы 1.16.5",
+        "анархия пвп"
+      ],
+      "lastFourVideos": [
+        {
+          "videoId": "102kpfcUyw4",
+          "title": "ОБНОВЛЕНИЕ ЛУЧШЕГО БЕСПЛАТНОГО чита ПОД REALLYWORLD ! РАЗНОС с ЛУЧШИМ КЛАНОМ и ЧИТОМ POUCH 1.16.5",
+          "url": "https://www.youtube.com/watch?v=102kpfcUyw4",
+          "publishedAt": "2026-06-20T10:32:11Z",
+          "views": 532,
+          "comments": 76
         },
         {
-          "videoId": "9Q29RNA6pfg",
-          "title": "СТРИМ НА VIRTUSMINE ! #майнкрафт #minecraft",
-          "url": "https://www.youtube.com/watch?v=9Q29RNA6pfg",
-          "publishedAt": "2026-06-15T11:08:32Z",
-          "views": 22,
-          "comments": 0
+          "videoId": "AHbfoQH8vDA",
+          "title": "С НУЛЯ ДО НЕБЕС ЗА СУТКИ! ВЫБИЛ 8 ЭЛИТР -  ОКУПИЛ POUCH 1.16.5 НА REALLYWORLD ПОЛНОЕ РАЗВИТИЕ",
+          "url": "https://www.youtube.com/watch?v=AHbfoQH8vDA",
+          "publishedAt": "2026-06-16T11:55:18Z",
+          "views": 1115,
+          "comments": 74
+        },
+        {
+          "videoId": "lnBcIWwrZ8s",
+          "title": "СТАЛ СИЛЬНЕЙШИМ с кита ПЕГАСА до НЕБЕС ! РАЗВИТИЕ с ЧИТОМ POUCH 1.21.4 на REALLYWORLD | УБИЛ ВСЕХ",
+          "url": "https://www.youtube.com/watch?v=lnBcIWwrZ8s",
+          "publishedAt": "2026-06-13T11:47:51Z",
+          "views": 1431,
+          "comments": 88
+        },
+        {
+          "videoId": "PSNWukCYl0w",
+          "title": "С НУЛЯ ДО НЕБЕС С НОВЫМ POUCH CLIENT 1.16.5 | ВЫБИЛ 12 ЭЛИТР ЗА ОДИН ВЕЧЕР НА REALLYWORLD | РАЗВИТИЕ",
+          "url": "https://www.youtube.com/watch?v=PSNWukCYl0w",
+          "publishedAt": "2026-06-10T10:57:04Z",
+          "views": 2875,
+          "comments": 101
         }
       ]
     },
@@ -468,7 +192,7 @@
       "url": "https://www.youtube.com/channel/UC6V-337Gelyas0kg74L5whw",
       "thumbnail": "https://yt3.ggpht.com/-2mOILPaViEAiQEobzrcUzHlXmR4tkF8k0H9MSe3bzFlystBDK3L5DO9NnT1W5N8yybOw79FNA=s240-c-k-c0x00ffffff-no-rj",
       "subscribers": 120,
-      "averageViews3Months": 774,
+      "averageViews3Months": 773,
       "videosCount3Months": 18,
       "matchedKeywords": [
         "анархия пвп",
@@ -510,158 +234,14 @@
       ]
     },
     {
-      "channelId": "UC8-Jr7hizHxj3T-U5Lx5yaA",
-      "title": "Angelo4ik",
-      "handle": "@angelo4ikc",
-      "url": "https://www.youtube.com/channel/UC8-Jr7hizHxj3T-U5Lx5yaA",
-      "thumbnail": "https://yt3.ggpht.com/-uWYSGMYlUBR8BN0VKqxNjBm5vTmj4LwU5nxYVlOzrpdWxx1NlbVpqyKz5hZbhiV31hS1VYqjw=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 298,
-      "averageViews3Months": 768,
-      "videosCount3Months": 14,
-      "matchedKeywords": [
-        "reallyworld",
-        "чит",
-        "reallyworld с читами"
-      ],
-      "lastFourVideos": [
-        {
-          "videoId": "SvZ8_blokmY",
-          "title": "Дуэльки | LEGENDSGRIEF",
-          "url": "https://www.youtube.com/watch?v=SvZ8_blokmY",
-          "publishedAt": "2026-06-20T15:42:30Z",
-          "views": 116,
-          "comments": 0
-        },
-        {
-          "videoId": "7ky9eCGBRUs",
-          "title": "CУПЧИК ГОРОХОВЫЙ | LEGENDSGRIEF | mc.legendsgrief.pw #майнкрафт #актив #minecraft #08сервер #подпиши",
-          "url": "https://www.youtube.com/watch?v=7ky9eCGBRUs",
-          "publishedAt": "2026-06-20T14:29:42Z",
-          "views": 833,
-          "comments": 1
-        },
-        {
-          "videoId": "qLc-dPqxUX8",
-          "title": "АЛМАЗИКИ(( | LEGENDSGRIEF | mc.legendsgrief.pw #майнкрафт #08сервер #08сервер #minecraft #подпишись",
-          "url": "https://www.youtube.com/watch?v=qLc-dPqxUX8",
-          "publishedAt": "2026-06-20T13:53:53Z",
-          "views": 1767,
-          "comments": 0
-        },
-        {
-          "videoId": "5SqmlBXT06w",
-          "title": "Стол для двоих | LEGENDSGRIEF #майнкрафт #08сервер #актив #подпишись #грифснуля #minecraft",
-          "url": "https://www.youtube.com/watch?v=5SqmlBXT06w",
-          "publishedAt": "2026-06-20T08:36:46Z",
-          "views": 1272,
-          "comments": 2
-        }
-      ]
-    },
-    {
-      "channelId": "UC9Oc3cnPXgiOFoyDtq23Q2Q",
-      "title": "NUCLEO RESOURCEPACK",
-      "handle": "@nucleo_resourcepack",
-      "url": "https://www.youtube.com/channel/UC9Oc3cnPXgiOFoyDtq23Q2Q",
-      "thumbnail": "https://yt3.ggpht.com/8HZ2Jfz1snQdx_0FZN3B--M-rw0yJ8fJGmTBK_3mDxAc0WxHzmRbMnhPQPcia22ExFpBwpobMx0=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 11,
-      "averageViews3Months": 745,
-      "videosCount3Months": 20,
-      "matchedKeywords": [
-        "reallyworld",
-        "чит"
-      ],
-      "lastFourVideos": [
-        {
-          "videoId": "NOKue7twp3U",
-          "title": "ТОП ☢️ ЛУЧШИХ РП ДЛЯ ПВП НА 1.16.5 - 1.21 #shorts #nucleorp",
-          "url": "https://www.youtube.com/watch?v=NOKue7twp3U",
-          "publishedAt": "2026-06-20T17:51:09Z",
-          "views": 1659,
-          "comments": 1
-        },
-        {
-          "videoId": "KZBPsLyi0wE",
-          "title": "🔥 ТОПОВЫЕ РП ДЛЯ ПВП 1.16.5 - 1.21+  |  FUNTIME |  FUNSKY |  REALLYWORLD",
-          "url": "https://www.youtube.com/watch?v=KZBPsLyi0wE",
-          "publishedAt": "2026-06-20T17:47:43Z",
-          "views": 24,
-          "comments": 1
-        },
-        {
-          "videoId": "FLTOD7k1IiA",
-          "title": "ТОП ☢️ ЛУЧШИХ РП ДЛЯ ПВП НА 1.16.5 - 1.21 #shorts #nucleorp",
-          "url": "https://www.youtube.com/watch?v=FLTOD7k1IiA",
-          "publishedAt": "2026-06-19T13:16:08Z",
-          "views": 1610,
-          "comments": 4
-        },
-        {
-          "videoId": "jr1EkcrU_sw",
-          "title": "🔥 ТОПОВЫЕ РП ДЛЯ ПВП 1.16.5 - 1.21+  |  FUNTIME |  FUNSKY |  REALLYWORLD",
-          "url": "https://www.youtube.com/watch?v=jr1EkcrU_sw",
-          "publishedAt": "2026-06-19T13:08:49Z",
-          "views": 54,
-          "comments": 1
-        }
-      ]
-    },
-    {
-      "channelId": "UCjG6G9aNvB80XIUYj4ucKHg",
-      "title": "Версап",
-      "handle": "@wersup",
-      "url": "https://www.youtube.com/channel/UCjG6G9aNvB80XIUYj4ucKHg",
-      "thumbnail": "https://yt3.ggpht.com/i6GVgK-7oEu-ReIi4VcWUF5XmrnB-9XXgZqizhqOMGTDhvirPBRp9D6UrI6EwcZA7iu81HZm=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 1720,
-      "averageViews3Months": 511,
-      "videosCount3Months": 83,
-      "matchedKeywords": [
-        "чит"
-      ],
-      "lastFourVideos": [
-        {
-          "videoId": "t6qQDlaOD4s",
-          "title": "играем в майнкрафт funtime minecraft cheat 1.16.5",
-          "url": "https://www.youtube.com/watch?v=t6qQDlaOD4s",
-          "publishedAt": "2026-06-21T02:46:38Z",
-          "views": 37,
-          "comments": 0
-        },
-        {
-          "videoId": "76aXmpNnQo4",
-          "title": "🫨😦🥱🫨 стрим !!! #рекомендации #geometrydash #gd #minecraftcommunity #подпишись #тренд #майнкрафт",
-          "url": "https://www.youtube.com/watch?v=76aXmpNnQo4",
-          "publishedAt": "2026-06-20T12:08:18Z",
-          "views": 1028,
-          "comments": 6
-        },
-        {
-          "videoId": "gW7Yln4SuCE",
-          "title": "☄️💙🩵НЕ ПРОПУСТИ !! #рекомендации #minecraft #майнкрафт #minecraftcommunity #подпишись #тренд #cat",
-          "url": "https://www.youtube.com/watch?v=gW7Yln4SuCE",
-          "publishedAt": "2026-06-17T15:19:57Z",
-          "views": 731,
-          "comments": 1
-        },
-        {
-          "videoId": "jNKjgiU1tsM",
-          "title": "играем в майнкрафт funtime minecraft cheat 1.16.5",
-          "url": "https://www.youtube.com/watch?v=jNKjgiU1tsM",
-          "publishedAt": "2026-06-17T04:32:38Z",
-          "views": 64,
-          "comments": 0
-        }
-      ]
-    },
-    {
       "channelId": "UCUhGGCW6EvVChcp3AIFkcag",
       "title": "Twister",
       "handle": "@twister3adrot-r2c",
       "url": "https://www.youtube.com/channel/UCUhGGCW6EvVChcp3AIFkcag",
       "thumbnail": "https://yt3.ggpht.com/LC8IzXjE75_shXqPdPVzxB69VN-21khoSyEQkG0wxfJQbQoDf6yxApNV3iiHra1lB_eeLFfZ=s240-c-k-c0x00ffffff-no-rj",
       "subscribers": 101,
-      "averageViews3Months": 490,
-      "videosCount3Months": 8,
+      "averageViews3Months": 387,
+      "videosCount3Months": 2,
       "matchedKeywords": [
         "майнкрафт читы",
         "reallyworld",
@@ -676,182 +256,70 @@
           "title": "ЭТО РЕАЛЬНО ЛУЧШИЙ БЕСПЛАТНЫЙ ЧИТ НА МАЙНКРАФТ - Майнкрафт читы",
           "url": "https://www.youtube.com/watch?v=kaui0U1GbuI",
           "publishedAt": "2026-06-20T16:42:20Z",
-          "views": 458,
+          "views": 460,
           "comments": 32
         },
         {
-          "videoId": "QGQDhFyE0L4",
-          "title": "КРАСИВАЯ КОСМЕТИКА В БЕСПЛАТНОМ ЧИТЕ!  #майнкрафт  #читы #проверка",
-          "url": "https://www.youtube.com/watch?v=QGQDhFyE0L4",
-          "publishedAt": "2026-06-20T15:45:46Z",
-          "views": 39,
-          "comments": 3
-        },
-        {
-          "videoId": "wkYA7jKOf_o",
-          "title": "Этот ЧИТ НЕ ОСТАВИТ ШАНСОВ...  #майнкрафт #читы #проверка",
-          "url": "https://www.youtube.com/watch?v=wkYA7jKOf_o",
-          "publishedAt": "2026-06-20T07:29:20Z",
-          "views": 762,
-          "comments": 1
-        },
-        {
-          "videoId": "3p3VKqQzZtE",
-          "title": "Проверил ЧИТЫ С ИНТЕРНЕТА...  #майнкрафт #читы #проверка",
-          "url": "https://www.youtube.com/watch?v=3p3VKqQzZtE",
-          "publishedAt": "2026-06-19T16:05:01Z",
-          "views": 1901,
-          "comments": 1
+          "videoId": "kACqvNg1nxE",
+          "title": "СРАВНИЛ ЛУЧШИЕ БЕСПЛАТНЫЙ ЧИТЫ ДЛЯ МАЙНКРАФТ 2026 ❘ Майнкрафт анархия WASTELAND | NIGHTIX | NIGHTDLC",
+          "url": "https://www.youtube.com/watch?v=kACqvNg1nxE",
+          "publishedAt": "2026-06-19T09:02:12Z",
+          "views": 313,
+          "comments": 44
         }
       ]
     },
     {
-      "channelId": "UCRMNFCHPDEmd9rMKRfTj-cQ",
-      "title": "ChebypelyaYT",
-      "handle": "@chebypelya_yt",
-      "url": "https://www.youtube.com/channel/UCRMNFCHPDEmd9rMKRfTj-cQ",
-      "thumbnail": "https://yt3.ggpht.com/ptq9sMKPh9frKAE-FQ8ycszEmeX9qT-Qe0xSJxBqsEpTJZ_rCgbTIVFqPNYfWHzn4UTV9q65vKQ=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 41,
-      "averageViews3Months": 283,
-      "videosCount3Months": 11,
+      "channelId": "UCdgcAVn5prBGxd0EQi1yXIg",
+      "title": "antrophytov",
+      "handle": "@tempmute",
+      "url": "https://www.youtube.com/channel/UCdgcAVn5prBGxd0EQi1yXIg",
+      "thumbnail": "https://yt3.ggpht.com/CEITMaSjrv1Mwc9TC-ujAaKZqy9tPasu6odl1GYuAC8agRMdTLtrx3_ptMGibPFDqGmpkeDwyg=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 76,
+      "averageViews3Months": 337,
+      "videosCount3Months": 5,
       "matchedKeywords": [
         "майнкрафт читы",
+        "проверка на читы",
         "reallyworld",
-        "чит",
-        "анархия пвп",
         "читы на reallyworld",
-        "reallyworld с читами",
-        "catlavan"
-      ],
-      "lastFourVideos": [
-        {
-          "videoId": "TWJ3cYRo5TY",
-          "title": "🚀СТРИМ НА REALLYWORLD 🚀ROUGEWORLD🚀CHEATS",
-          "url": "https://www.youtube.com/watch?v=TWJ3cYRo5TY",
-          "publishedAt": "2026-06-21T03:31:40Z",
-          "views": 15,
-          "comments": 0
-        },
-        {
-          "videoId": "NsFbZioxH6I",
-          "title": "🚀СТРИМ НА REALLYWORLD 🚀ROUGEWORLD🚀CHEATS",
-          "url": "https://www.youtube.com/watch?v=NsFbZioxH6I",
-          "publishedAt": "2026-06-18T22:48:45Z",
-          "views": 23,
-          "comments": 0
-        },
-        {
-          "videoId": "3tQHztvP5ko",
-          "title": "Моя трансляция",
-          "url": "https://www.youtube.com/watch?v=3tQHztvP5ko",
-          "publishedAt": "2026-06-18T22:14:20Z",
-          "views": 3,
-          "comments": 0
-        },
-        {
-          "videoId": "i-30N5Y86Yk",
-          "title": "🚀СТРИМ НА REALLYWORLD 🚀ROUGEWORLD🚀CHEATS",
-          "url": "https://www.youtube.com/watch?v=i-30N5Y86Yk",
-          "publishedAt": "2026-06-18T06:51:33Z",
-          "views": 31,
-          "comments": 0
-        }
-      ]
-    },
-    {
-      "channelId": "UCTx8LyfOwus3lV_oIeLH0Yw",
-      "title": "FizichNew",
-      "handle": "@fizichnew",
-      "url": "https://www.youtube.com/channel/UCTx8LyfOwus3lV_oIeLH0Yw",
-      "thumbnail": "https://yt3.ggpht.com/vByZ14KpkYD6h3ZhoWVpM0cjhq2lqak0joM_NESWUUmYoVu4m_H8tNpMgxMv6npRpXRKE_jcWg=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 20,
-      "averageViews3Months": 261,
-      "videosCount3Months": 21,
-      "matchedKeywords": [
-        "reallyworld",
-        "чит"
-      ],
-      "lastFourVideos": [
-        {
-          "videoId": "fvjBTtxj1jA",
-          "title": "ГАЙД НА СКАЧИВАНИЕ КРЯКА WEXSIDE CLIENT | MINECRAFT | FUNTIME",
-          "url": "https://www.youtube.com/watch?v=fvjBTtxj1jA",
-          "publishedAt": "2026-06-20T15:36:22Z",
-          "views": 52,
-          "comments": 18
-        },
-        {
-          "videoId": "6-zJO4uQZso",
-          "title": "ГАЙД НА СКАЧИВАНИЕ КРЯКА DIMASIK CLIENT | MINECRAFT | FUNTIME",
-          "url": "https://www.youtube.com/watch?v=6-zJO4uQZso",
-          "publishedAt": "2026-06-19T09:19:34Z",
-          "views": 123,
-          "comments": 12
-        },
-        {
-          "videoId": "wEwtuw6g07I",
-          "title": "ГАЙД НА СКАЧИВАНИЕ NIGHT DLC/NIGHTIX 1.21.4 | MINECRAFT | FUNTIME",
-          "url": "https://www.youtube.com/watch?v=wEwtuw6g07I",
-          "publishedAt": "2026-06-17T08:43:20Z",
-          "views": 404,
-          "comments": 11
-        },
-        {
-          "videoId": "dDWzI2pwy6A",
-          "title": "Новый лучший бесплатный софт для 1.21.4 minecraft",
-          "url": "https://www.youtube.com/watch?v=dDWzI2pwy6A",
-          "publishedAt": "2026-06-07T09:11:17Z",
-          "views": 227,
-          "comments": 8
-        }
-      ]
-    },
-    {
-      "channelId": "UCbgCLPWccOIVUYhNjoiOl-A",
-      "title": "Frixyyy",
-      "handle": "@frixyyy-u5r",
-      "url": "https://www.youtube.com/channel/UCbgCLPWccOIVUYhNjoiOl-A",
-      "thumbnail": "https://yt3.ggpht.com/72riUCGAOesGRTTR4GHwNDji4KZ7M_VLkryW72VfYEpV0vHK4rsek3O2HuFC-ou6LaV0JFW0xw=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 13,
-      "averageViews3Months": 243,
-      "videosCount3Months": 13,
-      "matchedKeywords": [
-        "reallyworld",
+        "catlavan",
         "чит",
-        "проверка на читы"
+        "reallyworld с читами",
+        "читы 1.16.5"
       ],
       "lastFourVideos": [
         {
-          "videoId": "K45pJU0-Lo4",
-          "title": "ВЫБИЛ ТОПОВЫЕ ИНВЕНТАРИ НА MOONMC",
-          "url": "https://www.youtube.com/watch?v=K45pJU0-Lo4",
-          "publishedAt": "2026-06-20T18:28:47Z",
-          "views": 177,
-          "comments": 0
+          "videoId": "4EL3JeKjPMg",
+          "title": "ПРИЗЕМЛИЛСЯ НА SLIMEWORLD С ЛУЧШЕГО ЧИТА RESTANCE 1.16.5 | RELEASE",
+          "url": "https://www.youtube.com/watch?v=4EL3JeKjPMg",
+          "publishedAt": "2026-06-20T20:11:13Z",
+          "views": 20,
+          "comments": 1
         },
         {
-          "videoId": "hFMa2NvYIZg",
-          "title": "👹👑ВЫБИЛ ВСЕ ДОНКИ СЕРВЕРА С ЛУЧШИЙ ТИММЕЙТОМ? 👑🤑NEW WIPE",
-          "url": "https://www.youtube.com/watch?v=hFMa2NvYIZg",
-          "publishedAt": "2026-06-20T10:01:05Z",
-          "views": 44,
+          "videoId": "KqLQXFcKi2s",
+          "title": "ГРИФ НА REALLYWORLD В НАЧАЛЕ ВАЙПА | SLIMEWORLD | 2 GRIEF",
+          "url": "https://www.youtube.com/watch?v=KqLQXFcKi2s",
+          "publishedAt": "2026-06-08T20:07:14Z",
+          "views": 236,
+          "comments": 7
+        },
+        {
+          "videoId": "jxqkgACNkZM",
+          "title": "DIMASIK RECODE НЕ ОСТАВИЛ ШАНСА ИГРОКАМ SLIMEWORLD | 2 GRIEF | REALLYWORLD",
+          "url": "https://www.youtube.com/watch?v=jxqkgACNkZM",
+          "publishedAt": "2026-05-28T07:21:16Z",
+          "views": 572,
           "comments": 3
         },
         {
-          "videoId": "v91DGWamZXs",
-          "title": "ПОГРИФЕРИЛ НА ТОПОМ СЕРВЕРЕ ПЕРЕД ВАЙПОМ | MOONRISE | SUNRISE | REALLYWORLD | FUNNTIME",
-          "url": "https://www.youtube.com/watch?v=v91DGWamZXs",
-          "publishedAt": "2026-06-12T17:59:35Z",
-          "views": 45,
-          "comments": 0
-        },
-        {
-          "videoId": "n1u2FFC2pkY",
-          "title": "СКАЧАЛ ЧИТЫ И УБИЛ ПОЛ СЕРВЕРА MOONMC | SUNRISE | FUNTIME | REALYWORLD",
-          "url": "https://www.youtube.com/watch?v=n1u2FFC2pkY",
-          "publishedAt": "2026-06-10T18:57:43Z",
-          "views": 81,
-          "comments": 0
+          "videoId": "S3EtynGa2bQ",
+          "title": "НИКТО НЕ ВЫДЕРЖАЛ ЭТОТ ПЕРЕГОН | QUICK 1.16.5 | BINGOHVH",
+          "url": "https://www.youtube.com/watch?v=S3EtynGa2bQ",
+          "publishedAt": "2026-05-01T16:52:36Z",
+          "views": 336,
+          "comments": 3
         }
       ]
     },
@@ -931,7 +399,7 @@
           "title": "PvP FunTime",
           "url": "https://www.youtube.com/watch?v=h5tEvHqU-Z0",
           "publishedAt": "2026-06-20T20:57:10Z",
-          "views": 15,
+          "views": 17,
           "comments": 0
         },
         {
@@ -947,7 +415,7 @@
           "title": "смешная нарезка смертей",
           "url": "https://www.youtube.com/watch?v=2G3KoJn6ae8",
           "publishedAt": "2026-06-11T19:19:38Z",
-          "views": 137,
+          "views": 138,
           "comments": 2
         },
         {
@@ -957,6 +425,59 @@
           "publishedAt": "2026-06-09T19:59:12Z",
           "views": 156,
           "comments": 6
+        }
+      ]
+    },
+    {
+      "channelId": "UCsbVdyi0dir6gDRjJtAi_PA",
+      "title": "Sp1draN",
+      "handle": "@sp1dranboost",
+      "url": "https://www.youtube.com/channel/UCsbVdyi0dir6gDRjJtAi_PA",
+      "thumbnail": "https://yt3.ggpht.com/RItJn7QbtSC-3ewHaDpupB7rDuG2H7dG96ptrw3gVQew_fxq-apO8LaArAhmNPhOEye5-7fM=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 748,
+      "averageViews3Months": 154,
+      "videosCount3Months": 49,
+      "matchedKeywords": [
+        "майнкрафт читы",
+        "reallyworld",
+        "читы на reallyworld",
+        "чит",
+        "reallyworld с читами",
+        "анархия пвп",
+        "catlavan"
+      ],
+      "lastFourVideos": [
+        {
+          "videoId": "cvbuu93V_Dk",
+          "title": "HVH С ЛУЧШИМ ЧИТОМ RASTYCLIENT 2.8 НА HVH ПРОЕКТЕ REALLYWORLD HOLYWORLD FUNTIME CAKEWORLD",
+          "url": "https://www.youtube.com/watch?v=cvbuu93V_Dk",
+          "publishedAt": "2026-06-20T11:41:56Z",
+          "views": 11,
+          "comments": 0
+        },
+        {
+          "videoId": "i4_KaC_VHgE",
+          "title": "РАЗВИТИЕ С НУЛЯ С ЛУЧШИМ ЧИТОМ RASTYCLIENT 2.8 НА REALLYWORLD FUNTIME HOLYWORLD CAKEWORLD EXPLOIT",
+          "url": "https://www.youtube.com/watch?v=i4_KaC_VHgE",
+          "publishedAt": "2026-06-17T07:15:24Z",
+          "views": 94,
+          "comments": 3
+        },
+        {
+          "videoId": "zKpRyo1xPR0",
+          "title": "СРОЧНО ВЫШЕЛ ЛЕГИТНЫЙ ЧИТ НА МАЙНКРАФТ С ЛУЧШИМ ДЮПОМ ОБХОДАМИ REALLYWORLD FUNTIME HOLYWORLD 8 БЛОК",
+          "url": "https://www.youtube.com/watch?v=zKpRyo1xPR0",
+          "publishedAt": "2026-06-15T05:44:59Z",
+          "views": 109,
+          "comments": 2
+        },
+        {
+          "videoId": "htUvivTM0vo",
+          "title": "ЗАЛЕТЕЛ НА FUNTIME УБИЛ ВЕСЬ СЕРВЕР С ЛУЧШИМ ЧИТОМ RASTCLIENT 2.8 REALLYWORLD HOLYWORLD REALLYWORLD",
+          "url": "https://www.youtube.com/watch?v=htUvivTM0vo",
+          "publishedAt": "2026-06-12T06:58:08Z",
+          "views": 51,
+          "comments": 3
         }
       ]
     },
@@ -1013,6 +534,58 @@
       ]
     },
     {
+      "channelId": "UCVN0dYkcqTp_pptKvp3NUpA",
+      "title": "Grin4iks",
+      "handle": "@grin4iks",
+      "url": "https://www.youtube.com/channel/UCVN0dYkcqTp_pptKvp3NUpA",
+      "thumbnail": "https://yt3.ggpht.com/WEcZ3tSbQmzJgw3k4GyXKBAg24LAnE6dZUUDQH4w-TfvTy6XbT0hx-eosd_C3kDEwOCQ67TBmQ=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 288,
+      "averageViews3Months": 109,
+      "videosCount3Months": 1,
+      "matchedKeywords": [
+        "проверка на читы",
+        "reallyworld",
+        "читы на reallyworld",
+        "чит",
+        "reallyworld с читами",
+        "анархия пвп"
+      ],
+      "lastFourVideos": [
+        {
+          "videoId": "e-eVtW7hQ8g",
+          "title": "СЛОВИЛ МАТЬ ЗАКО ЗА ЛОУ С ЛУЧШИМ АВТОБАЕМ APPLEBUY | AppleBuy | Holyworld | ХолиВорлд",
+          "url": "https://www.youtube.com/watch?v=e-eVtW7hQ8g",
+          "publishedAt": "2026-06-20T14:13:34Z",
+          "views": 109,
+          "comments": 0
+        },
+        {
+          "videoId": "llXm9lIWz2k",
+          "title": "ЗАБРАЛ ВСЕ САПФИРЫ У ЗАКО НА ПВП АНКЕ HOLYWORLD LITE | ЛУЧШИЙ ЗАРАБОТОК НА HOLYWORLD | VortexClient",
+          "url": "https://www.youtube.com/watch?v=llXm9lIWz2k",
+          "publishedAt": "2025-03-03T09:12:35Z",
+          "views": 80,
+          "comments": 2
+        },
+        {
+          "videoId": "zmkTuT3t2Jc",
+          "title": "Зашел на вайп Анархии HolyWorld Lite СПУСТЯ ПОЛГОДА с Читом Nursultan Client 1.16.5 Холиворлд",
+          "url": "https://www.youtube.com/watch?v=zmkTuT3t2Jc",
+          "publishedAt": "2025-01-15T23:48:52Z",
+          "views": 83,
+          "comments": 0
+        },
+        {
+          "videoId": "rjJmXmG1Pcw",
+          "title": "✔💌УБИЛ ВСЕ КОПИИ ФАНТАЙМА С ЛУЧШИМ БЕСПЛАТНЫМ ЧИТОМ // CRACK NEVERNIGHT // КРЯК НЕВЕРНАЙТ✔💌",
+          "url": "https://www.youtube.com/watch?v=rjJmXmG1Pcw",
+          "publishedAt": "2024-07-24T16:54:20Z",
+          "views": 1745,
+          "comments": 18
+        }
+      ]
+    },
+    {
       "channelId": "UCq8gOb1Yx_pQ0ufLKeOlHyQ",
       "title": "shizy",
       "handle": "@shizy67",
@@ -1032,7 +605,7 @@
           "title": "Жёсткая пеха FunTime 100 kills",
           "url": "https://www.youtube.com/watch?v=ZrEsegfqsZU",
           "publishedAt": "2026-06-20T21:19:48Z",
-          "views": 35,
+          "views": 37,
           "comments": 3
         },
         {
@@ -1058,6 +631,54 @@
           "publishedAt": "2026-06-08T17:16:24Z",
           "views": 144,
           "comments": 3
+        }
+      ]
+    },
+    {
+      "channelId": "UC9Oc3cnPXgiOFoyDtq23Q2Q",
+      "title": "NUCLEO RESOURCEPACK",
+      "handle": "@nucleo_resourcepack",
+      "url": "https://www.youtube.com/channel/UC9Oc3cnPXgiOFoyDtq23Q2Q",
+      "thumbnail": "https://yt3.ggpht.com/8HZ2Jfz1snQdx_0FZN3B--M-rw0yJ8fJGmTBK_3mDxAc0WxHzmRbMnhPQPcia22ExFpBwpobMx0=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 11,
+      "averageViews3Months": 102,
+      "videosCount3Months": 10,
+      "matchedKeywords": [
+        "reallyworld",
+        "чит"
+      ],
+      "lastFourVideos": [
+        {
+          "videoId": "KZBPsLyi0wE",
+          "title": "🔥 ТОПОВЫЕ РП ДЛЯ ПВП 1.16.5 - 1.21+  |  FUNTIME |  FUNSKY |  REALLYWORLD",
+          "url": "https://www.youtube.com/watch?v=KZBPsLyi0wE",
+          "publishedAt": "2026-06-20T17:47:43Z",
+          "views": 24,
+          "comments": 1
+        },
+        {
+          "videoId": "jr1EkcrU_sw",
+          "title": "🔥 ТОПОВЫЕ РП ДЛЯ ПВП 1.16.5 - 1.21+  |  FUNTIME |  FUNSKY |  REALLYWORLD",
+          "url": "https://www.youtube.com/watch?v=jr1EkcrU_sw",
+          "publishedAt": "2026-06-19T13:08:49Z",
+          "views": 54,
+          "comments": 1
+        },
+        {
+          "videoId": "oZkArTlXd7I",
+          "title": "🔥 ТОПОВЫЕ РП ДЛЯ ПВП 1.16.5 - 1.21+  |  FUNTIME |  FUNSKY |  REALLYWORLD",
+          "url": "https://www.youtube.com/watch?v=oZkArTlXd7I",
+          "publishedAt": "2026-06-18T09:01:20Z",
+          "views": 71,
+          "comments": 1
+        },
+        {
+          "videoId": "4hdh8oeqtjA",
+          "title": "PVP WELLMINE / FUNTIME | FUNSKY | REALLYWORLD",
+          "url": "https://www.youtube.com/watch?v=4hdh8oeqtjA",
+          "publishedAt": "2026-06-17T04:34:11Z",
+          "views": 59,
+          "comments": 1
         }
       ]
     },
@@ -1113,6 +734,105 @@
       ]
     },
     {
+      "channelId": "UCbD76hHln_zxE1LYUlkBmXg",
+      "title": "Oderzhanie",
+      "handle": "@oderzhanie-1337",
+      "url": "https://www.youtube.com/channel/UCbD76hHln_zxE1LYUlkBmXg",
+      "thumbnail": "https://yt3.ggpht.com/sMLoHFgLOx5F4BmVyfUzs98wCVB42QpCzBbeSpow7jfsEAqdOfdWimzl9OoPGHf58LzDMpF0MQ=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 7,
+      "averageViews3Months": 95,
+      "videosCount3Months": 4,
+      "matchedKeywords": [
+        "майнкрафт читы",
+        "reallyworld",
+        "читы на reallyworld",
+        "чит",
+        "reallyworld с читами"
+      ],
+      "lastFourVideos": [
+        {
+          "videoId": "jKOZn8c8KE8",
+          "title": "ВПЕРВЫЕ НА HOLYWORLD С ЛУЧШИМ ЧИТОМ NUCLEAR BETA  | РАБОЧИЕ СПИДЫ | НОВЫЙ ОБХОД ПРОВЕРОК??",
+          "url": "https://www.youtube.com/watch?v=jKOZn8c8KE8",
+          "publishedAt": "2026-06-20T13:14:29Z",
+          "views": 48,
+          "comments": 3
+        },
+        {
+          "videoId": "dL2ZDmMipXA",
+          "title": "УБИЛ ВСЕХ НА СЕРВЕРЕ REALLYWORLD С ЛУЧШИМ ЧИТОМ NUCLEAR BETA | РАБОЧИЙ DISABLER | В РОЛИКЕ 3 КЛЮЧА",
+          "url": "https://www.youtube.com/watch?v=dL2ZDmMipXA",
+          "publishedAt": "2026-06-18T09:37:24Z",
+          "views": 87,
+          "comments": 5
+        },
+        {
+          "videoId": "B58mdjabkWA",
+          "title": "НОВЫЙ ELYTRA TARGET В ЛУЧШЕМ ЧИТЕ NUCLEAR RECODE | РАБОЧИЙ DISABLER | ИТОГИ РОЗЫГРЫША",
+          "url": "https://www.youtube.com/watch?v=B58mdjabkWA",
+          "publishedAt": "2026-06-16T09:46:23Z",
+          "views": 149,
+          "comments": 5
+        },
+        {
+          "videoId": "eNaC4pU5zqY",
+          "title": "ЭТО ЛУЧШИЙ ЧИТ В 2026 ГОДУ В ПВП НА REALLYWORLD | РАБОЧИЙ DISABLER В NUCLEAR BETA | розыгрыш",
+          "url": "https://www.youtube.com/watch?v=eNaC4pU5zqY",
+          "publishedAt": "2026-06-14T19:31:17Z",
+          "views": 95,
+          "comments": 5
+        }
+      ]
+    },
+    {
+      "channelId": "UCTx8LyfOwus3lV_oIeLH0Yw",
+      "title": "FizichNew",
+      "handle": "@fizichnew",
+      "url": "https://www.youtube.com/channel/UCTx8LyfOwus3lV_oIeLH0Yw",
+      "thumbnail": "https://yt3.ggpht.com/vByZ14KpkYD6h3ZhoWVpM0cjhq2lqak0joM_NESWUUmYoVu4m_H8tNpMgxMv6npRpXRKE_jcWg=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 20,
+      "averageViews3Months": 95,
+      "videosCount3Months": 17,
+      "matchedKeywords": [
+        "reallyworld",
+        "чит"
+      ],
+      "lastFourVideos": [
+        {
+          "videoId": "fvjBTtxj1jA",
+          "title": "ГАЙД НА СКАЧИВАНИЕ КРЯКА WEXSIDE CLIENT | MINECRAFT | FUNTIME",
+          "url": "https://www.youtube.com/watch?v=fvjBTtxj1jA",
+          "publishedAt": "2026-06-20T15:36:22Z",
+          "views": 53,
+          "comments": 18
+        },
+        {
+          "videoId": "6-zJO4uQZso",
+          "title": "ГАЙД НА СКАЧИВАНИЕ КРЯКА DIMASIK CLIENT | MINECRAFT | FUNTIME",
+          "url": "https://www.youtube.com/watch?v=6-zJO4uQZso",
+          "publishedAt": "2026-06-19T09:19:34Z",
+          "views": 123,
+          "comments": 12
+        },
+        {
+          "videoId": "wEwtuw6g07I",
+          "title": "ГАЙД НА СКАЧИВАНИЕ NIGHT DLC/NIGHTIX 1.21.4 | MINECRAFT | FUNTIME",
+          "url": "https://www.youtube.com/watch?v=wEwtuw6g07I",
+          "publishedAt": "2026-06-17T08:43:20Z",
+          "views": 403,
+          "comments": 11
+        },
+        {
+          "videoId": "dDWzI2pwy6A",
+          "title": "Новый лучший бесплатный софт для 1.21.4 minecraft",
+          "url": "https://www.youtube.com/watch?v=dDWzI2pwy6A",
+          "publishedAt": "2026-06-07T09:11:17Z",
+          "views": 227,
+          "comments": 8
+        }
+      ]
+    },
+    {
       "channelId": "UCqWPfcWXIXZFqW8UWgMUBZQ",
       "title": "brit1437",
       "handle": "@brit1437",
@@ -1139,7 +859,7 @@
           "title": "🔥 ОТКРЫЛ СВОЙ ГРИФЕРСКИЙ СЕРВЕР МАЙНКРАФТ 1.16.5 WANDYGRIEF» РАЗДАЧА ПРИВИЛЕГИЙ #shorts",
           "url": "https://www.youtube.com/watch?v=imLGdSy5qc4",
           "publishedAt": "2026-06-20T17:12:18Z",
-          "views": 127,
+          "views": 126,
           "comments": 2
         },
         {
@@ -1215,6 +935,110 @@
       ]
     },
     {
+      "channelId": "UCiB--4KDKMT2jBvD7arNAMg",
+      "title": "NAVISMOKI",
+      "handle": "@smokinavi",
+      "url": "https://www.youtube.com/channel/UCiB--4KDKMT2jBvD7arNAMg",
+      "thumbnail": "https://yt3.ggpht.com/4_VzxeU_dSBIeMQuk3v9acVUHKbMoS96MXRPfNWrGvJTlp_WAJSKfY3NMZfCbubgHKUFxMXLwJE=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 9300,
+      "averageViews3Months": 73,
+      "videosCount3Months": 4,
+      "matchedKeywords": [
+        "reallyworld",
+        "чит"
+      ],
+      "lastFourVideos": [
+        {
+          "videoId": "x-N8jThcTf0",
+          "title": "ОТКРЫЛ СВОЙ СЕРВЕР ICEGRIEF! | #minecraft #майнкрафт",
+          "url": "https://www.youtube.com/watch?v=x-N8jThcTf0",
+          "publishedAt": "2026-06-20T17:18:43Z",
+          "views": 46,
+          "comments": 9
+        },
+        {
+          "videoId": "9Q29RNA6pfg",
+          "title": "СТРИМ НА VIRTUSMINE ! #майнкрафт #minecraft",
+          "url": "https://www.youtube.com/watch?v=9Q29RNA6pfg",
+          "publishedAt": "2026-06-15T11:08:32Z",
+          "views": 22,
+          "comments": 0
+        },
+        {
+          "videoId": "KQFl10KirbU",
+          "title": "ГАЙД НА ТОП ЗАРАБОТОК НА VIRTUSMINE! | #minecraft #майнкрафт",
+          "url": "https://www.youtube.com/watch?v=KQFl10KirbU",
+          "publishedAt": "2026-06-11T08:35:45Z",
+          "views": 115,
+          "comments": 8
+        },
+        {
+          "videoId": "dg-XqHa6LHs",
+          "title": "ГАЙД КАК ПОЛУЧИТЬ ЮТУБЕРКУ НА VIRTUSMINE? | #minecraft #майнкрафт",
+          "url": "https://www.youtube.com/watch?v=dg-XqHa6LHs",
+          "publishedAt": "2026-06-10T08:27:44Z",
+          "views": 107,
+          "comments": 0
+        }
+      ]
+    },
+    {
+      "channelId": "UCgEfUbg4ybPL2JgnH2ZGR2Q",
+      "title": "pozerr",
+      "handle": "@pozerrs",
+      "url": "https://www.youtube.com/channel/UCgEfUbg4ybPL2JgnH2ZGR2Q",
+      "thumbnail": "https://yt3.ggpht.com/hZxL5D7UAQzWjQRoJmWHh2lSFWDWZcQDQFNHk1lMHbDdPGNoU8dN2oKaFxxTTNjTk3JkdesN=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 18,
+      "averageViews3Months": 64,
+      "videosCount3Months": 17,
+      "matchedKeywords": [
+        "майнкрафт читы",
+        "анархия пионер",
+        "holyworld читы",
+        "reallyworld",
+        "чит",
+        "reallyworld с читами",
+        "проверка на читы",
+        "читы на reallyworld",
+        "catlavan",
+        "читы 1.16.5"
+      ],
+      "lastFourVideos": [
+        {
+          "videoId": "fg3Lsq6lgC0",
+          "title": "ЗАШОЛ ВПЕРВЫЕ НА SantyWorld С ЧИТОМ | NURSULTAN CLIENT 1.16.5",
+          "url": "https://www.youtube.com/watch?v=fg3Lsq6lgC0",
+          "publishedAt": "2026-06-20T19:22:51Z",
+          "views": 9,
+          "comments": 0
+        },
+        {
+          "videoId": "EJmrd2Wjxj4",
+          "title": "ЛУЧШИЙ ЧИТ В 2026 ГОДУ? НА GHOSTWORLD И ЭТО ЧИТ PHOBIA CLIENT 1.16.5",
+          "url": "https://www.youtube.com/watch?v=EJmrd2Wjxj4",
+          "publishedAt": "2026-06-04T19:10:28Z",
+          "views": 275,
+          "comments": 0
+        },
+        {
+          "videoId": "8eUGyhOPXt4",
+          "title": "ВЛЕТЕЛ НА КОПИЮ РВ С ТИМЕЙТОМ ИГРАЛ НА СЕРВЕРЕ top.ghostworld.pw С ЧИТОМ Phobia client",
+          "url": "https://www.youtube.com/watch?v=8eUGyhOPXt4",
+          "publishedAt": "2026-06-04T16:19:41Z",
+          "views": 86,
+          "comments": 0
+        },
+        {
+          "videoId": "0vR0qiGhJVI",
+          "title": "ОНИ ХОТЕЛИ ДАТЬ ОТПОР НЕПОЛУЧИЛОСЬ УБИЛ БИЧЕЙ НА COBRAGRIEF С ЧИТОМ nursultan client",
+          "url": "https://www.youtube.com/watch?v=0vR0qiGhJVI",
+          "publishedAt": "2026-05-06T16:46:48Z",
+          "views": 90,
+          "comments": 0
+        }
+      ]
+    },
+    {
       "channelId": "UCZtelMURzjEZOfyQJEDaejA",
       "title": "Ebrober",
       "handle": "@ebrober",
@@ -1267,51 +1091,55 @@
       ]
     },
     {
-      "channelId": "UCVp1W5_PlLZWYFTF_LuOdoQ",
-      "title": "Ozin",
-      "handle": "@ozin83",
-      "url": "https://www.youtube.com/channel/UCVp1W5_PlLZWYFTF_LuOdoQ",
-      "thumbnail": "https://yt3.ggpht.com/fmEvsoBKpZLnUql7JabdU3cGhZMDQGmdJZzBEmbjKlR57zwYhGA0GxoytMnKoa-0UbcX2io6PA=s240-c-k-c0x00ffffff-no-rj",
-      "subscribers": 533,
+      "channelId": "UCgTTdU4ihICY-5zmdsYO6Hw",
+      "title": "Nefq",
+      "handle": "@nefq2",
+      "url": "https://www.youtube.com/channel/UCgTTdU4ihICY-5zmdsYO6Hw",
+      "thumbnail": "https://yt3.ggpht.com/0lMsQg8E0RzjU35_xT_NnCmaxkj0QR1hI6v2Ge1VpwMn7egj97xtdMCyTQA11pm0Yc5K7FNV=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 10,
       "averageViews3Months": 62,
-      "videosCount3Months": 5,
+      "videosCount3Months": 14,
       "matchedKeywords": [
+        "проверка на читы",
         "reallyworld",
         "чит",
-        "анархия пвп"
+        "reallyworld с читами",
+        "анархия пвп",
+        "майнкрафт читы",
+        "читы на reallyworld"
       ],
       "lastFourVideos": [
         {
-          "videoId": "GmIKgOPnNd8",
-          "title": "Убил Ютубера | VIRTUSMINE#майнкрафт #minecraft",
-          "url": "https://www.youtube.com/watch?v=GmIKgOPnNd8",
-          "publishedAt": "2026-06-20T12:36:45Z",
-          "views": 6,
+          "videoId": "6PchbafRH70",
+          "title": "Распенил Holyworld  С Лучшим Читом Zenith Client",
+          "url": "https://www.youtube.com/watch?v=6PchbafRH70",
+          "publishedAt": "2026-06-20T11:38:12Z",
+          "views": 7,
+          "comments": 0
+        },
+        {
+          "videoId": "TSLEW_MNJu8",
+          "title": "Сравнение 2 Читов CELESTIAL BETA vs ZENITH CLIENT  На Сервере SpookyTime",
+          "url": "https://www.youtube.com/watch?v=TSLEW_MNJu8",
+          "publishedAt": "2026-06-19T12:14:27Z",
+          "views": 54,
           "comments": 1
         },
         {
-          "videoId": "w9f-cjRGkSQ",
-          "title": "😱Спидран по бану😱",
-          "url": "https://www.youtube.com/watch?v=w9f-cjRGkSQ",
-          "publishedAt": "2026-06-01T18:46:11Z",
-          "views": 100,
-          "comments": 7
+          "videoId": "cGAKj9GqcOg",
+          "title": "Играю с ЛУЧШИМ ЧИТОМ ZENITH CLIENT на сервере SpookyTime",
+          "url": "https://www.youtube.com/watch?v=cGAKj9GqcOg",
+          "publishedAt": "2026-06-18T13:51:40Z",
+          "views": 70,
+          "comments": 8
         },
         {
-          "videoId": "-tlDoJDV7I4",
-          "title": "РУДА БЕСКОНЕЧНЫЙ СТРИМ ПУК  ПРЯМ НА СТРИМЕ 😱 #shorts #minecraft #майнкрафт #oremine #ruda",
-          "url": "https://www.youtube.com/watch?v=-tlDoJDV7I4",
-          "publishedAt": "2026-04-03T13:46:09Z",
-          "views": 89,
-          "comments": 0
-        },
-        {
-          "videoId": "XiE1ehjjdcU",
-          "title": "1 ПРОТИВ ВСЕГО СЕРВЕРА на СТОЛБАХ в Майнкрафт!😱 #shorts #minecraft #майнкрафт #oremine #ruda",
-          "url": "https://www.youtube.com/watch?v=XiE1ehjjdcU",
-          "publishedAt": "2026-04-03T13:42:24Z",
-          "views": 38,
-          "comments": 0
+          "videoId": "gJititJ_h_o",
+          "title": "Сходил дуэли на сервере SkyTime,  C ЛУЧШИМИ ВИЗУАЛАМИ LinkenVisuals",
+          "url": "https://www.youtube.com/watch?v=gJititJ_h_o",
+          "publishedAt": "2026-06-16T06:36:58Z",
+          "views": 70,
+          "comments": 2
         }
       ]
     },
@@ -1368,6 +1196,101 @@
           "publishedAt": "2026-06-04T12:27:12Z",
           "views": 108,
           "comments": 0
+        }
+      ]
+    },
+    {
+      "channelId": "UCH1pyNjP0Db2UT9_EuVXmYw",
+      "title": "ifeelapathy",
+      "handle": "@ifeelapathy",
+      "url": "https://www.youtube.com/channel/UCH1pyNjP0Db2UT9_EuVXmYw",
+      "thumbnail": "https://yt3.ggpht.com/T98bMSKDNPoIEbtl0aMgIL90rplhhPqjO6PucZvoCigVETjAkEwMo00hebabET6nOeFkxNeCJg=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 5,
+      "averageViews3Months": 47,
+      "videosCount3Months": 3,
+      "matchedKeywords": [
+        "reallyworld",
+        "чит"
+      ],
+      "lastFourVideos": [
+        {
+          "videoId": "kOl_CZI4MAk",
+          "title": "Поубивал типов на рейдкубе | FlateMine | Jascube | FunTime | holyworld | raidcube",
+          "url": "https://www.youtube.com/watch?v=kOl_CZI4MAk",
+          "publishedAt": "2026-06-20T16:01:25Z",
+          "views": 21,
+          "comments": 0
+        },
+        {
+          "videoId": "HeYOS-zB90c",
+          "title": "ПОГРИФЕРИЛ ТИПОВ НА ЛУЧШЕМ СЕРВЕРЕ РЕЙДКУБ АЙПИ В ОПИСАНИИ!!!!!!",
+          "url": "https://www.youtube.com/watch?v=HeYOS-zB90c",
+          "publishedAt": "2026-06-05T16:33:46Z",
+          "views": 51,
+          "comments": 0
+        },
+        {
+          "videoId": "_Ke2Ukbi5Wk",
+          "title": "Я УБИЛ ВЕСЬ И В ТОМ ЧИСЛЕ АГРО ШКОЛОТУ АЙПИ В ОПИСАНИЕ RAIDCUBE ARESMINE JASCUBE LONYGRIEF",
+          "url": "https://www.youtube.com/watch?v=_Ke2Ukbi5Wk",
+          "publishedAt": "2026-06-03T12:27:26Z",
+          "views": 68,
+          "comments": 0
+        },
+        {
+          "videoId": "EKO4P8G_UPI",
+          "title": "АДМИН ВЫДАЛ ИНВ ЗА 100К РУБ И Я ПОУБИВАЛ ПРОФИ НА СЕРВЕРЕ LONYGRIEF (mc.lonygrief.me)",
+          "url": "https://www.youtube.com/watch?v=EKO4P8G_UPI",
+          "publishedAt": "2026-03-10T07:34:01Z",
+          "views": 58,
+          "comments": 0
+        }
+      ]
+    },
+    {
+      "channelId": "UCjG6G9aNvB80XIUYj4ucKHg",
+      "title": "Версап",
+      "handle": "@wersup",
+      "url": "https://www.youtube.com/channel/UCjG6G9aNvB80XIUYj4ucKHg",
+      "thumbnail": "https://yt3.ggpht.com/i6GVgK-7oEu-ReIi4VcWUF5XmrnB-9XXgZqizhqOMGTDhvirPBRp9D6UrI6EwcZA7iu81HZm=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 1720,
+      "averageViews3Months": 32,
+      "videosCount3Months": 23,
+      "matchedKeywords": [
+        "чит"
+      ],
+      "lastFourVideos": [
+        {
+          "videoId": "t6qQDlaOD4s",
+          "title": "играем в майнкрафт funtime minecraft cheat 1.16.5",
+          "url": "https://www.youtube.com/watch?v=t6qQDlaOD4s",
+          "publishedAt": "2026-06-21T02:46:38Z",
+          "views": 37,
+          "comments": 0
+        },
+        {
+          "videoId": "jNKjgiU1tsM",
+          "title": "играем в майнкрафт funtime minecraft cheat 1.16.5",
+          "url": "https://www.youtube.com/watch?v=jNKjgiU1tsM",
+          "publishedAt": "2026-06-17T04:32:38Z",
+          "views": 64,
+          "comments": 0
+        },
+        {
+          "videoId": "aOskWFL2EEk",
+          "title": "играем в майнкрафт funtime minecraft cheat 1.16.5",
+          "url": "https://www.youtube.com/watch?v=aOskWFL2EEk",
+          "publishedAt": "2026-06-16T03:37:53Z",
+          "views": 17,
+          "comments": 0
+        },
+        {
+          "videoId": "VwBZl5G_RsA",
+          "title": "играем в майнкрафт funtime minecraft cheat 1.16.5",
+          "url": "https://www.youtube.com/watch?v=VwBZl5G_RsA",
+          "publishedAt": "2026-06-15T19:14:28Z",
+          "views": 49,
+          "comments": 2
         }
       ]
     },
@@ -1431,7 +1354,7 @@
       "url": "https://www.youtube.com/channel/UCc0C3OGpNRebFYmlnJEmAFQ",
       "thumbnail": "https://yt3.ggpht.com/8U6R9V6jMvuZYDkIuCrIEvS0hvq9yX6oK8hDXMMdKUe8vO-DBxt0NoGJl8eMo7wzvTEiupO5=s240-c-k-c0x00ffffff-no-rj",
       "subscribers": 1990,
-      "averageViews3Months": 31,
+      "averageViews3Months": 32,
       "videosCount3Months": 2,
       "matchedKeywords": [
         "майнкрафт читы",
@@ -1457,7 +1380,7 @@
           "title": "ZENITH DLC - ЛУЧШИЙ ЧИТ на МАЙНКРАФТ",
           "url": "https://www.youtube.com/watch?v=fWO2X939ccQ",
           "publishedAt": "2026-06-20T14:27:39Z",
-          "views": 58,
+          "views": 59,
           "comments": 4
         },
         {
@@ -1475,6 +1398,58 @@
           "publishedAt": "2025-10-14T07:00:16Z",
           "views": 731,
           "comments": 16
+        }
+      ]
+    },
+    {
+      "channelId": "UCRMNFCHPDEmd9rMKRfTj-cQ",
+      "title": "ChebypelyaYT",
+      "handle": "@chebypelya_yt",
+      "url": "https://www.youtube.com/channel/UCRMNFCHPDEmd9rMKRfTj-cQ",
+      "thumbnail": "https://yt3.ggpht.com/ptq9sMKPh9frKAE-FQ8ycszEmeX9qT-Qe0xSJxBqsEpTJZ_rCgbTIVFqPNYfWHzn4UTV9q65vKQ=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 41,
+      "averageViews3Months": 22,
+      "videosCount3Months": 7,
+      "matchedKeywords": [
+        "майнкрафт читы",
+        "reallyworld",
+        "чит",
+        "анархия пвп",
+        "читы на reallyworld",
+        "reallyworld с читами"
+      ],
+      "lastFourVideos": [
+        {
+          "videoId": "TWJ3cYRo5TY",
+          "title": "🚀СТРИМ НА REALLYWORLD 🚀ROUGEWORLD🚀CHEATS",
+          "url": "https://www.youtube.com/watch?v=TWJ3cYRo5TY",
+          "publishedAt": "2026-06-21T03:31:40Z",
+          "views": 15,
+          "comments": 0
+        },
+        {
+          "videoId": "NsFbZioxH6I",
+          "title": "🚀СТРИМ НА REALLYWORLD 🚀ROUGEWORLD🚀CHEATS",
+          "url": "https://www.youtube.com/watch?v=NsFbZioxH6I",
+          "publishedAt": "2026-06-18T22:48:45Z",
+          "views": 23,
+          "comments": 0
+        },
+        {
+          "videoId": "3tQHztvP5ko",
+          "title": "Моя трансляция",
+          "url": "https://www.youtube.com/watch?v=3tQHztvP5ko",
+          "publishedAt": "2026-06-18T22:14:20Z",
+          "views": 3,
+          "comments": 0
+        },
+        {
+          "videoId": "i-30N5Y86Yk",
+          "title": "🚀СТРИМ НА REALLYWORLD 🚀ROUGEWORLD🚀CHEATS",
+          "url": "https://www.youtube.com/watch?v=i-30N5Y86Yk",
+          "publishedAt": "2026-06-18T06:51:33Z",
+          "views": 31,
+          "comments": 0
         }
       ]
     },
@@ -1528,6 +1503,48 @@
           "publishedAt": "2025-07-21T23:24:47Z",
           "views": 125,
           "comments": 1
+        }
+      ]
+    },
+    {
+      "channelId": "UCoJMeXrNRc_pmRKNbdxJRbQ",
+      "title": "BruhStudio × Сборки серверов Minecraft",
+      "handle": "@bruhstudio-minecraft",
+      "url": "https://www.youtube.com/channel/UCoJMeXrNRc_pmRKNbdxJRbQ",
+      "thumbnail": "https://yt3.ggpht.com/BeFtIO8h9gTx6VKO0RMlnLqvv8tsb6z_I_lAeFv9Ki3m5r00SyV4SJjKB0U9gfZ9PzHB6Ogapdw=s240-c-k-c0x00ffffff-no-rj",
+      "subscribers": 236,
+      "averageViews3Months": 0,
+      "videosCount3Months": 1,
+      "matchedKeywords": [
+        "майнкрафт читы",
+        "reallyworld",
+        "чит",
+        "funtime читы"
+      ],
+      "lastFourVideos": [
+        {
+          "videoId": "qhWV60tMpbI",
+          "title": "🎉Слив ПОЛНОЙ КОПИИ сборки СЕРВЕРА FUNTIME 1.21 🎊 | HOLYWORLD | REALLYWORLD | BRUHTIME v1.2",
+          "url": "https://www.youtube.com/watch?v=qhWV60tMpbI",
+          "publishedAt": "2026-06-20T22:45:05Z",
+          "views": 0,
+          "comments": 0
+        },
+        {
+          "videoId": "8n_tpLoObsE",
+          "title": "СЛИВ ЛЕТНЕЙ СБОРКИ HOLYWORLD LITE 2024 | REALLYWORLD | FUNTIME | HOLYLITE | MINECRAFT 1.16.5",
+          "url": "https://www.youtube.com/watch?v=8n_tpLoObsE",
+          "publishedAt": "2024-08-15T10:48:14Z",
+          "views": 2012,
+          "comments": 17
+        },
+        {
+          "videoId": "eXCJAnmvHoM",
+          "title": "СЛИВ НОВОЙ СБОРКИ REALLYWORLD АПРЕЛЬ 2024 | ПОЛНАЯ КОПИЯ СБОРКИ | FUNTIME | HELLHUB | SKIBIDI TOILET",
+          "url": "https://www.youtube.com/watch?v=eXCJAnmvHoM",
+          "publishedAt": "2024-04-20T17:29:22Z",
+          "views": 1013,
+          "comments": 8
         }
       ]
     }
