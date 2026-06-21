@@ -583,6 +583,29 @@ details p {
   border-color: rgba(255, 113, 91, 0.35);
 }
 
+.admin-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 55px;
+  border-top: 1px solid var(--line);
+  padding: 22px 0;
+  color: #5d626e;
+  font-size: 9px;
+}
+
+.admin-footer span {
+  color: var(--muted);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.admin-footer p {
+  margin: 0;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -663,6 +686,11 @@ details p {
   }
 
   .editor-actions > div {
+    flex-direction: column;
+  }
+
+  .admin-footer {
+    align-items: flex-start;
     flex-direction: column;
   }
 }
