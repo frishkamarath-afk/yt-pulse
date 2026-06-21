@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Админ-панель управления поисковыми фразами YT Pulse." />
+    <meta name="theme-color" content="#0b0d12" />
+    <title>Админ-панель — YT Pulse</title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <main class="admin-shell">
+      <header class="admin-header">
+        <a class="brand" href="index.html">
+          <span class="brand-mark" aria-hidden="true">▶</span>
+          <span>
+            <strong>YT Pulse</strong>
+            <small>admin console</small>
+          </span>
+        </a>
+        <a class="back-link" href="index.html">← Вернуться на сайт</a>
+      </header>
+
+      <section class="admin-hero">
+        <p class="eyebrow">Управление поиском</p>
+        <h1>Ключевые фразы</h1>
+        <p>
+          Добавляйте и удаляйте фразы, по которым сборщик находит YouTube-каналы и ролики.
+          После сохранения статистика обновится автоматически.
+        </p>
+      </section>
+
+      <section class="auth-card" id="auth-card">
+        <div class="auth-copy">
+          <span class="card-number">01</span>
+          <div>
+            <h2>Подключение к GitHub</h2>
+            <p>
+              Нужен персональный токен с доступом к репозиторию
+              <strong>frishkamarath-afk/yt-pulse</strong>. Он используется только в этой вкладке.
+            </p>
+          </div>
+        </div>
+
+        <form class="token-form" id="token-form">
+          <label for="github-token">GitHub token</label>
+          <div class="token-row">
+            <input
+              id="github-token"
+              type="password"
+              placeholder="github_pat_… или ghp_…"
+              autocomplete="off"
+              spellcheck="false"
+              required
+            />
+            <button class="button button-primary" type="submit">Подключиться</button>
+          </div>
+          <div class="auth-options">
+            <label class="checkbox">
+              <input id="remember-token" type="checkbox" />
+              <span>Запомнить до закрытия вкладки</span>
+            </label>
+            <a
+              href="https://github.com/settings/personal-access-tokens/new"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Создать токен ↗
+            </a>
+          </div>
+          <details>
+            <summary>Какие разрешения выбрать?</summary>
+            <p>
+              Fine-grained token: выберите репозиторий <b>yt-pulse</b>, затем разрешения
+              <b>Contents: Read and write</b> и <b>Actions: Read and write</b>.
+              Срок действия лучше ограничить.
+            </p>
+          </details>
+        </form>
+      </section>
+
+      <section class="editor-card" id="editor-card" hidden>
+        <div class="editor-head">
+          <div>
+            <span class="card-number">02</span>
+            <p class="eyebrow">Редактор</p>
+            <h2>Фразы автопоиска</h2>
+          </div>
+          <div class="account">
+            <span class="account-dot"></span>
+            <span id="account-name">GitHub подключён</span>
+            <button id="logout-button" type="button">Выйти</button>
+          </div>
+        </div>
+
+        <div class="editor-toolbar">
+          <form class="add-form" id="add-form">
+            <label for="keyword-input">Новая фраза</label>
+            <div class="add-row">
+              <input
+                id="keyword-input"
+                type="text"
+                placeholder="Например: minecraft client"
+                maxlength="100"
+                autocomplete="off"
+              />
+              <button class="button button-secondary" type="submit">+ Добавить</button>
+            </div>
+            <small>Можно вставить несколько фраз через запятую или с новой строки.</small>
+          </form>
+
+          <div class="keyword-summary">
+            <strong id="keyword-total">0</strong>
+            <span>из 40 фраз</span>
+          </div>
+        </div>
+
+        <div class="keyword-list" id="keyword-list"></div>
+
+        <div class="editor-actions">
+          <p id="change-status">Изменений нет</p>
+          <div>
+            <button class="button button-ghost" id="reset-button" type="button" disabled>
+              Отменить изменения
+            </button>
+            <button class="button button-primary" id="save-button" type="button" disabled>
+              Сохранить и обновить сайт
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="progress-card" id="progress-card" hidden>
+        <span class="spinner" aria-hidden="true"></span>
+        <div>
+          <strong id="progress-title">Сохраняем настройки…</strong>
+          <p id="progress-message">Не закрывайте вкладку.</p>
+        </div>
+      </section>
+
+      <section class="success-card" id="success-card" hidden>
+        <span class="success-icon">✓</span>
+        <div>
+          <strong>Настройки сохранены</strong>
+          <p>
+            GitHub уже запустил обновление статистики. Обычно новые результаты появляются
+            через 1–3 минуты.
+          </p>
+          <div class="success-links">
+            <a href="index.html">Открыть сайт</a>
+            <a
+              href="https://github.com/frishkamarath-afk/yt-pulse/actions"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Ход обновления ↗
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="admin.js" defer></script>
+  </body>
+</html>

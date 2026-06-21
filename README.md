@@ -35,6 +35,14 @@ https://ВАШ-ЛОГИН.github.io/ИМЯ-РЕПОЗИТОРИЯ/
 
 Фразы и лимиты находятся в [`config/keywords.json`](config/keywords.json).
 
+После публикации поисковые фразы также можно менять через:
+
+```text
+https://ВАШ-ЛОГИН.github.io/ИМЯ-РЕПОЗИТОРИЯ/admin.html
+```
+
+Админ-панель сохраняет изменения через GitHub API и запускает обновление статистики. Для входа используйте fine-grained personal access token только для репозитория `yt-pulse` с правами `Contents: Read and write` и `Actions: Read and write`. Токен не хранится в коде или на GitHub Pages.
+
 - `keywords` — поисковые фразы;
 - `searchResultsPerKeyword` — сколько свежих результатов проверить для каждой фразы;
 - `channelSearchResultsPerKeyword` — сколько каналов проверить по названию;

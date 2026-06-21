@@ -1,6 +1,8 @@
 param(
   [string]$Url = "http://localhost:4173/",
-  [int]$DebugPort = 9223
+  [int]$DebugPort = 9223,
+  [ValidateSet("dashboard", "admin")]
+  [string]$Page = "dashboard"
 )
 
 $edgePaths = @(
@@ -98,8 +100,78 @@ try {
   Invoke-Cdp -Socket $socket -Id 3 -Method "Page.navigate" -Params @{ url = $Url } | Out-Null
   Start-Sleep -Milliseconds 1800
 
-  $initial = Invoke-Cdp -Socket $socket -Id 4 -Method "Runtime.evaluate" -Params @{
-    expression = @"
+  if ($Page -eq "admin") {
+    $initial = Invoke-Cdp -Socket $socket -Id 4 -Method "Runtime.evaluate" -Params @{
+      expression = @"
+(() => ({
+  ready: document.readyState,
+  heading: document.querySelector('h1')?.textContent?.trim(),
+  authVisible: document.querySelector('#auth-card')?.hidden === false,
+  editorHidden: document.querySelector('#editor-card')?.hidden === true,
+  tokenType: document.querySelector('#github-token')?.type,
+  scriptLoaded: typeof connect === 'function'
+}))()
+"@
+      returnByValue = $true
+    }
+
+    $editor = Invoke-Cdp -Socket $socket -Id 5 -Method "Runtime.evaluate" -Params @{
+      expression = @"
+(async () => {
+  const requests = [];
+  const config = {
+    keywords: ['alpha', 'beta'],
+    excludeShorts: true,
+    maxChannels: 30
+  };
+  window.fetch = async (url, options = {}) => {
+    requests.push({ url, method: options.method || 'GET' });
+    const json = (value, status = 200) =>
+      new Response(JSON.stringify(value), {
+        status,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    if (url.endsWith('/user')) return json({ login: 'test-admin' });
+    if (url.includes('/contents/config/keywords.json') && (options.method || 'GET') === 'GET') {
+      const bytes = new TextEncoder().encode(JSON.stringify(config));
+      let binary = '';
+      for (const byte of bytes) binary += String.fromCharCode(byte);
+      return json({ sha: 'old-sha', content: btoa(binary) });
+    }
+    if (url.includes('/contents/config/keywords.json') && options.method === 'PUT') {
+      return json({ content: { sha: 'new-sha' } });
+    }
+    if (url.includes('/dispatches') && options.method === 'POST') {
+      return new Response(null, { status: 204 });
+    }
+    return json({ message: 'Unexpected request' }, 404);
+  };
+  await connect('fake-token', false);
+  document.querySelector('#keyword-input').value = 'gamma, delta';
+  document.querySelector('#add-form').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+  await saveChanges();
+  return {
+    items: document.querySelectorAll('.keyword-item').length,
+    total: document.querySelector('#keyword-total')?.textContent?.trim(),
+    keywords: [...state.keywords],
+    successVisible: document.querySelector('#success-card')?.hidden === false,
+    putRequests: requests.filter((request) => request.method === 'PUT').length,
+    dispatchRequests: requests.filter((request) => request.url.includes('/dispatches')).length
+  };
+})()
+"@
+      returnByValue = $true
+      awaitPromise = $true
+    }
+
+    [PSCustomObject]@{
+      Initial = $initial.result.result.value | ConvertTo-Json -Compress
+      Editor = $editor.result.result.value | ConvertTo-Json -Compress
+    } | Format-List
+  }
+  else {
+    $initial = Invoke-Cdp -Socket $socket -Id 4 -Method "Runtime.evaluate" -Params @{
+      expression = @"
 (() => ({
   ready: document.readyState,
   rows: document.querySelectorAll('#channels-body tr').length,
@@ -108,11 +180,11 @@ try {
   loadError: document.querySelector('#last-updated')?.textContent?.includes('Ошибка') === true
 }))()
 "@
-    returnByValue = $true
-  }
+      returnByValue = $true
+    }
 
-  $popover = Invoke-Cdp -Socket $socket -Id 5 -Method "Runtime.evaluate" -Params @{
-    expression = @"
+    $popover = Invoke-Cdp -Socket $socket -Id 5 -Method "Runtime.evaluate" -Params @{
+      expression = @"
 (() => {
   document.querySelector('[data-details]')?.click();
   return {
@@ -121,11 +193,11 @@ try {
   };
 })()
 "@
-    returnByValue = $true
-  }
+      returnByValue = $true
+    }
 
-  $search = Invoke-Cdp -Socket $socket -Id 6 -Method "Runtime.evaluate" -Params @{
-    expression = @"
+    $search = Invoke-Cdp -Socket $socket -Id 6 -Method "Runtime.evaluate" -Params @{
+      expression = @"
 (() => {
   const input = document.querySelector('#channel-search');
   input.value = 'meta';
@@ -136,14 +208,15 @@ try {
   };
 })()
 "@
-    returnByValue = $true
-  }
+      returnByValue = $true
+    }
 
-  [PSCustomObject]@{
-    Initial = $initial.result.result.value | ConvertTo-Json -Compress
-    Popover = $popover.result.result.value | ConvertTo-Json -Compress
-    Search = $search.result.result.value | ConvertTo-Json -Compress
-  } | Format-List
+    [PSCustomObject]@{
+      Initial = $initial.result.result.value | ConvertTo-Json -Compress
+      Popover = $popover.result.result.value | ConvertTo-Json -Compress
+      Search = $search.result.result.value | ConvertTo-Json -Compress
+    } | Format-List
+  }
 }
 finally {
   if ($socket) {
