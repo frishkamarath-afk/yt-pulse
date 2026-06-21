@@ -1,0 +1,208 @@
+{
+  "generatedAt": "2026-06-21T09:00:00.000Z",
+  "demo": true,
+  "source": "demo",
+  "keywords": [
+    "майнкрафт читы",
+    "funtime читы",
+    "анархия пвп",
+    "анархия пионер",
+    "читы 1.16.5",
+    "holyworld читы",
+    "проверка на читы",
+    "reallyworld",
+    "читы на reallyworld",
+    "непобедимый чит на reallyworld",
+    "бесплатный чит на reallyworld",
+    "бесплатный autobuy",
+    "catlavan",
+    "чит",
+    "valhalla",
+    "metahvh",
+    "reallyworld с читами",
+    "pouch",
+    "pouch client"
+  ],
+  "channels": [
+    {
+      "channelId": "demo-voxel-guard",
+      "title": "Voxel Guard",
+      "handle": "@voxelguard",
+      "url": "https://www.youtube.com/",
+      "thumbnail": "",
+      "subscribers": 18400,
+      "averageViews3Months": 12750,
+      "videosCount3Months": 11,
+      "matchedKeywords": ["проверка на читы", "анархия пвп", "reallyworld"],
+      "lastFourVideos": [
+        {
+          "videoId": "demo-vg-1",
+          "title": "Проверка игрока на читы — новый способ",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-06-18T14:20:00.000Z",
+          "views": 18640,
+          "comments": 326
+        },
+        {
+          "videoId": "demo-vg-2",
+          "title": "Анархия PvP: рейд базы",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-06-08T15:10:00.000Z",
+          "views": 14920,
+          "comments": 219
+        },
+        {
+          "videoId": "demo-vg-3",
+          "title": "Что изменилось на ReallyWorld",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-05-29T12:00:00.000Z",
+          "views": 11480,
+          "comments": 174
+        },
+        {
+          "videoId": "demo-vg-4",
+          "title": "Топ ошибок в PvP",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-05-16T16:45:00.000Z",
+          "views": 9240,
+          "comments": 108
+        }
+      ]
+    },
+    {
+      "channelId": "demo-anarchy-lab",
+      "title": "Anarchy Lab",
+      "handle": "@anarchylab",
+      "url": "https://www.youtube.com/",
+      "thumbnail": "",
+      "subscribers": 9200,
+      "averageViews3Months": 8340,
+      "videosCount3Months": 16,
+      "matchedKeywords": ["анархия пионер", "funtime читы", "читы 1.16.5"],
+      "lastFourVideos": [
+        {
+          "videoId": "demo-al-1",
+          "title": "Выживание на анархии: первый день",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-06-20T11:00:00.000Z",
+          "views": 9910,
+          "comments": 167
+        },
+        {
+          "videoId": "demo-al-2",
+          "title": "Пионер — разбор обновления",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-06-13T17:20:00.000Z",
+          "views": 8420,
+          "comments": 132
+        },
+        {
+          "videoId": "demo-al-3",
+          "title": "PvP против клана",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-06-03T10:30:00.000Z",
+          "views": 7160,
+          "comments": 95
+        },
+        {
+          "videoId": "demo-al-4",
+          "title": "База под бедроком",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-05-25T09:15:00.000Z",
+          "views": 6880,
+          "comments": 82
+        }
+      ]
+    },
+    {
+      "channelId": "demo-meta-craft",
+      "title": "Meta Craft",
+      "handle": "@metacraft",
+      "url": "https://www.youtube.com/",
+      "thumbnail": "",
+      "subscribers": 6100,
+      "averageViews3Months": 5220,
+      "videosCount3Months": 8,
+      "matchedKeywords": ["metahvh", "valhalla", "чит"],
+      "lastFourVideos": [
+        {
+          "videoId": "demo-mc-1",
+          "title": "Valhalla: тест функций",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-06-16T13:00:00.000Z",
+          "views": 6420,
+          "comments": 74
+        },
+        {
+          "videoId": "demo-mc-2",
+          "title": "MetaHVH — полный обзор",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-06-01T18:40:00.000Z",
+          "views": 5840,
+          "comments": 61
+        },
+        {
+          "videoId": "demo-mc-3",
+          "title": "Настройки для версии 1.16.5",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-05-19T10:00:00.000Z",
+          "views": 4920,
+          "comments": 43
+        },
+        {
+          "videoId": "demo-mc-4",
+          "title": "Сравнение клиентов",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-05-03T12:30:00.000Z",
+          "views": 3710,
+          "comments": 38
+        }
+      ]
+    },
+    {
+      "channelId": "demo-pouch-notes",
+      "title": "Pouch Notes",
+      "handle": "@pouchnotes",
+      "url": "https://www.youtube.com/",
+      "thumbnail": "",
+      "subscribers": 3700,
+      "averageViews3Months": 2860,
+      "videosCount3Months": 12,
+      "matchedKeywords": ["pouch", "pouch client", "бесплатный autobuy"],
+      "lastFourVideos": [
+        {
+          "videoId": "demo-pn-1",
+          "title": "Pouch Client: что нового",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-06-19T08:00:00.000Z",
+          "views": 3910,
+          "comments": 56
+        },
+        {
+          "videoId": "demo-pn-2",
+          "title": "Настройка autobuy",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-06-11T14:10:00.000Z",
+          "views": 3140,
+          "comments": 42
+        },
+        {
+          "videoId": "demo-pn-3",
+          "title": "Тест клиента на сервере",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-05-31T15:30:00.000Z",
+          "views": 2750,
+          "comments": 31
+        },
+        {
+          "videoId": "demo-pn-4",
+          "title": "Ответы на вопросы",
+          "url": "https://www.youtube.com/",
+          "publishedAt": "2026-05-21T19:00:00.000Z",
+          "views": 1880,
+          "comments": 27
+        }
+      ]
+    }
+  ]
+}

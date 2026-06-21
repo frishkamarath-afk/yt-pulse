@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Личная панель мониторинга YouTube-каналов Minecraft-сегмента."
+    />
+    <meta name="theme-color" content="#0b0d12" />
+    <title>YT Pulse — мониторинг каналов</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#overview" aria-label="YT Pulse — на главную">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" role="img">
+              <path d="M12.2 9.3 22.8 16l-10.6 6.7V9.3Z" />
+            </svg>
+          </span>
+          <span>
+            <strong>YT Pulse</strong>
+            <small>personal radar</small>
+          </span>
+        </a>
+
+        <nav class="side-nav" aria-label="Основная навигация">
+          <a class="active" href="#overview">
+            <span aria-hidden="true">⌁</span>
+            Обзор
+          </a>
+          <a href="#channels">
+            <span aria-hidden="true">◫</span>
+            Каналы
+          </a>
+          <a href="#keywords">
+            <span aria-hidden="true">#</span>
+            Ключевые слова
+          </a>
+        </nav>
+
+        <div class="sidebar-status">
+          <div class="status-line">
+            <span class="status-dot"></span>
+            <span>Автообновление</span>
+          </div>
+          <strong>Раз в сутки</strong>
+          <small id="sidebar-updated">Ожидаем данные</small>
+        </div>
+
+        <p class="sidebar-footnote">
+          YouTube Data API<br />
+          Ключ хранится в GitHub Secrets
+        </p>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Личная панель</p>
+            <h1>Радар каналов</h1>
+          </div>
+          <div class="topbar-actions">
+            <div class="updated-pill">
+              <span class="status-dot"></span>
+              <span id="last-updated">Загрузка данных…</span>
+            </div>
+            <button class="icon-button" id="reload-button" type="button" aria-label="Обновить данные">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 11a8.1 8.1 0 1 0-2.4 5.8M20 4v7h-7" />
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <section class="hero" id="overview">
+          <div>
+            <span class="section-kicker">Minecraft / cheats intelligence</span>
+            <h2>Вся нужная статистика.<br /><em>Без шума.</em></h2>
+            <p>
+              Каналы находятся по названиям, описаниям и тегам роликов.
+              Средние просмотры считаются только за последние три месяца.
+            </p>
+          </div>
+          <div class="hero-orbit" aria-hidden="true">
+            <div class="orbit-ring"></div>
+            <div class="orbit-core">
+              <span>3</span>
+              <small>месяца</small>
+            </div>
+            <span class="orbit-dot dot-one"></span>
+            <span class="orbit-dot dot-two"></span>
+          </div>
+        </section>
+
+        <div class="demo-banner" id="demo-banner" hidden>
+          <span>ДЕМО</span>
+          Сейчас показаны вымышленные данные. После первого запуска GitHub Action они заменятся реальной статистикой.
+        </div>
+
+        <section class="metrics-grid" aria-label="Общая статистика">
+          <article class="metric-card metric-primary">
+            <div class="metric-icon" aria-hidden="true">◉</div>
+            <div>
+              <span>Отслеживается</span>
+              <strong id="metric-channels">—</strong>
+              <small>каналов найдено</small>
+            </div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-icon" aria-hidden="true">↗</div>
+            <div>
+              <span>Среднее за 3 мес.</span>
+              <strong id="metric-average">—</strong>
+              <small>просмотров на ролик</small>
+            </div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-icon" aria-hidden="true">▷</div>
+            <div>
+              <span>Последние 4 ролика</span>
+              <strong id="metric-views">—</strong>
+              <small>просмотров всего</small>
+            </div>
+          </article>
+          <article class="metric-card">
+            <div class="metric-icon" aria-hidden="true">◌</div>
+            <div>
+              <span>Комментарии</span>
+              <strong id="metric-comments">—</strong>
+              <small>на последних роликах</small>
+            </div>
+          </article>
+        </section>
+
+        <section class="channels-section" id="channels">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Мониторинг</p>
+              <h2>Каналы в радаре</h2>
+            </div>
+            <span class="result-count" id="result-count">0 каналов</span>
+          </div>
+
+          <div class="toolbar">
+            <label class="search-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="m20 20-4-4"></path>
+              </svg>
+              <input id="channel-search" type="search" placeholder="Найти канал или тег…" autocomplete="off" />
+            </label>
+            <label class="sort-box">
+              <span>Сортировка</span>
+              <select id="channel-sort">
+                <option value="average-desc">Средние просмотры ↓</option>
+                <option value="average-asc">Средние просмотры ↑</option>
+                <option value="latest">Новые публикации</option>
+                <option value="name">По названию</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Канал</th>
+                  <th>Среднее / 3 месяца</th>
+                  <th>Роликов учтено</th>
+                  <th>Ссылка</th>
+                  <th><span class="sr-only">Подробности</span></th>
+                </tr>
+              </thead>
+              <tbody id="channels-body"></tbody>
+            </table>
+            <div class="empty-state" id="empty-state" hidden>
+              <div>⌕</div>
+              <h3>Ничего не найдено</h3>
+              <p>Попробуйте изменить запрос или дождитесь следующего обновления.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="keywords-section" id="keywords">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Автопоиск</p>
+              <h2>Ключевые слова</h2>
+            </div>
+            <span class="result-count" id="keyword-count">0 фраз</span>
+          </div>
+          <p class="section-description">
+            Сборщик проверяет заголовки, описания и теги найденных видео. Совпавшие фразы отображаются возле канала.
+          </p>
+          <div class="keyword-cloud" id="keyword-cloud"></div>
+        </section>
+
+        <footer>
+          <span>YT Pulse</span>
+          <p>Личный инструмент аналитики · данные обновляются автоматически</p>
+        </footer>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js" defer></script>
+  </body>
+</html>
