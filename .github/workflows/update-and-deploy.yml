@@ -48,7 +48,7 @@ jobs:
       - name: Prepare site
         run: |
           mkdir -p _site/data
-          cp index.html styles.css app.js admin.html admin.css admin.js mod-admin.js mod-service-config.js .nojekyll _site/
+          cp index.html styles.css app.js admin.html admin.css admin.js mod-admin.js moder-panel.js mod-service-config.js .nojekyll _site/
           cp data/channels.json _site/data/
 
       - name: Configure Pages
