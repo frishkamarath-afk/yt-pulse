@@ -24,6 +24,23 @@ if (keywords.length > 40) {
   throw new Error("Слишком много поисковых фраз. Оставьте не более 40 запросов.");
 }
 
+class YouTubeApiError extends Error {
+  constructor(status, body) {
+    super(`YouTube API ${status}: ${body.slice(0, 500)}`);
+    this.name = "YouTubeApiError";
+    this.status = status;
+    this.body = body;
+  }
+}
+
+function isQuotaExceeded(error) {
+  return (
+    error instanceof YouTubeApiError &&
+    error.status === 429 &&
+    /quota exceeded|quotaExceeded|rateLimitExceeded/i.test(error.body)
+  );
+}
+
 function monthsAgoIso(months) {
   const date = new Date();
   date.setUTCMonth(date.getUTCMonth() - months);
@@ -174,7 +191,7 @@ async function youtube(resource, params, attempt = 1) {
     return youtube(resource, params, attempt + 1);
   }
 
-  throw new Error(`YouTube API ${response.status}: ${body.slice(0, 500)}`);
+  throw new YouTubeApiError(response.status, body);
 }
 
 async function videoDetails(videoIds) {
@@ -423,4 +440,13 @@ async function main() {
   console.log(`Готово: ${output.length} каналов записано в data/channels.json`);
 }
 
-await main();
+try {
+  await main();
+} catch (error) {
+  if (isQuotaExceeded(error)) {
+    console.warn("YouTube API quota is exhausted. Existing data/channels.json was kept unchanged.");
+    console.warn("Try manual refresh again after the daily YouTube quota reset or use another API key/project.");
+  } else {
+    throw error;
+  }
+}
