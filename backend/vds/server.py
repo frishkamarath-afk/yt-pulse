@@ -20,6 +20,7 @@ ALLOWED_ORIGIN = os.getenv(
 )
 DB_PATH = Path(os.getenv("YT_VALHALLA_DB", "/var/lib/yt-valhalla/mod-control.db"))
 DEFAULT_DISABLED_MESSAGE = "Мод временно отключён администратором."
+CHECK_INTERVAL_SECONDS = int(os.getenv("YT_VALHALLA_CHECK_INTERVAL_SECONDS", "15"))
 MAX_LOGS = 1000
 LOG_PAGE_SIZE = 200
 
@@ -269,7 +270,7 @@ class Handler(BaseHTTPRequestHandler):
                         "ok": True,
                         "enabled": state["enabled"],
                         "disabledMessage": state["disabledMessage"],
-                        "checkIntervalSeconds": 300,
+                        "checkIntervalSeconds": CHECK_INTERVAL_SECONDS,
                         "serverTime": now_iso(),
                     },
                 )
@@ -301,7 +302,7 @@ class Handler(BaseHTTPRequestHandler):
                     "ok": True,
                     "enabled": state["enabled"],
                     "disabledMessage": state["disabledMessage"],
-                    "checkIntervalSeconds": 300,
+                    "checkIntervalSeconds": CHECK_INTERVAL_SECONDS,
                 },
             )
         except ApiError as error:

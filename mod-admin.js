@@ -72,7 +72,7 @@ function renderModState(state) {
     : "Функции мода заблокированы";
   modElements.description.textContent = state.enabled
     ? "Установки с подтверждённым согласием могут открыть меню и запускать автоматизацию."
-    : "Меню и автоматизация остановлены. Minecraft продолжает работать без функций мода.";
+    : "Меню и автоматизация остановлены. После следующей проверки клиент Minecraft будет принудительно закрыт.";
   modElements.messageInput.value = state.disabledMessage || "";
 }
 
