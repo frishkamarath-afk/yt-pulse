@@ -6,6 +6,8 @@ const GITHUB = {
   workflow: "update-and-deploy.yml",
 };
 
+const MOD_API_ENDPOINT = (window.YT_VALHALLA_MOD_SERVICE?.endpoint || "").replace(/\/+$/, "");
+
 const state = {
   token: "",
   account: null,
@@ -15,9 +17,23 @@ const state = {
   keywords: [],
   saving: false,
   updating: false,
+  started: false,
+};
+
+const telegramState = {
+  requestId: "",
+  sessionToken: sessionStorage.getItem("ytValhallaTelegramSession") || "",
+  busy: false,
 };
 
 const elements = {
+  protectedAdmin: document.querySelector("#protected-admin"),
+  telegramAuthCard: document.querySelector("#telegram-auth-card"),
+  telegramSendCode: document.querySelector("#telegram-send-code"),
+  telegramCodeForm: document.querySelector("#telegram-code-form"),
+  telegramCodeInput: document.querySelector("#telegram-code"),
+  telegramVerifyCode: document.querySelector("#telegram-verify-code"),
+  telegramStatus: document.querySelector("#telegram-auth-status"),
   authCard: document.querySelector("#auth-card"),
   tokenForm: document.querySelector("#token-form"),
   tokenInput: document.querySelector("#github-token"),
@@ -110,6 +126,38 @@ async function github(path, options = {}) {
   return body;
 }
 
+async function telegramApi(path, options = {}) {
+  if (!MOD_API_ENDPOINT) {
+    throw new Error("VDS API не настроен");
+  }
+
+  const response = await fetch(`${MOD_API_ENDPOINT}${path}`, {
+    method: options.method || "GET",
+    cache: "no-store",
+    headers: {
+      ...(options.body ? { "Content-Type": "application/json" } : {}),
+      ...(telegramState.sessionToken ? { "X-Telegram-Session": telegramState.sessionToken } : {}),
+    },
+    body: options.body ? JSON.stringify(options.body) : undefined,
+  });
+
+  let result;
+  try {
+    result = await response.json();
+  } catch {
+    result = null;
+  }
+
+  if (!response.ok || !result?.ok) {
+    const error = new Error(result?.error || `Telegram auth: ${response.status}`);
+    error.code = result?.code;
+    error.status = response.status;
+    throw error;
+  }
+
+  return result;
+}
+
 function showToast(message, error = false) {
   elements.toast.textContent = message;
   elements.toast.classList.toggle("error", error);
@@ -122,6 +170,103 @@ function setProgress(title, message, visible = true) {
   elements.progressTitle.textContent = title;
   elements.progressMessage.textContent = message;
   elements.progressCard.hidden = !visible;
+}
+
+function setTelegramStatus(message, type = "") {
+  elements.telegramStatus.textContent = message;
+  elements.telegramStatus.classList.toggle("error", type === "error");
+  elements.telegramStatus.classList.toggle("success", type === "success");
+}
+
+function unlockAdminPanel() {
+  elements.telegramAuthCard.hidden = true;
+  elements.protectedAdmin.hidden = false;
+  window.YT_VALHALLA_TELEGRAM_SESSION = telegramState.sessionToken;
+  window.YT_VALHALLA_ADMIN_UNLOCKED = true;
+  document.dispatchEvent(new CustomEvent("yt-valhalla-admin-unlocked"));
+  initializeKeywordAdmin();
+  if (typeof window.initializeModAdmin === "function") {
+    window.initializeModAdmin();
+  }
+}
+
+async function requestTelegramCode() {
+  if (telegramState.busy) return;
+  telegramState.busy = true;
+  elements.telegramSendCode.disabled = true;
+  setTelegramStatus("Отправляем код через Telegram…");
+
+  try {
+    const result = await telegramApi("/api/v1/admin/telegram/request", { method: "POST" });
+    telegramState.requestId = result.requestId;
+    elements.telegramCodeInput.disabled = false;
+    elements.telegramVerifyCode.disabled = false;
+    elements.telegramCodeInput.value = "";
+    elements.telegramCodeInput.focus();
+    setTelegramStatus("Код отправлен в Telegram. Введите 6 цифр из сообщения бота.", "success");
+  } catch (error) {
+    const message =
+      error.code === "TELEGRAM_SETUP_REQUIRED"
+        ? "Откройте Telegram-бота, нажмите Start или отправьте /start, затем нажмите кнопку ещё раз."
+        : error.code === "TELEGRAM_CHAT_AMBIGUOUS"
+          ? "Боту написали несколько чатов. Нужно закрепить ваш chat_id на сервере."
+          : error.message;
+    setTelegramStatus(message, "error");
+  } finally {
+    telegramState.busy = false;
+    elements.telegramSendCode.disabled = false;
+  }
+}
+
+async function verifyTelegramCode(code) {
+  if (telegramState.busy || !telegramState.requestId) return;
+  telegramState.busy = true;
+  elements.telegramVerifyCode.disabled = true;
+  setTelegramStatus("Проверяем код…");
+
+  try {
+    const result = await telegramApi("/api/v1/admin/telegram/verify", {
+      method: "POST",
+      body: {
+        requestId: telegramState.requestId,
+        code,
+      },
+    });
+    telegramState.sessionToken = result.sessionToken;
+    sessionStorage.setItem("ytValhallaTelegramSession", telegramState.sessionToken);
+    setTelegramStatus("Telegram подтверждён. Открываю админ-панель…", "success");
+    unlockAdminPanel();
+  } catch (error) {
+    const message =
+      error.code === "CODE_EXPIRED"
+        ? "Код истёк. Запросите новый код."
+        : error.code === "INVALID_CODE"
+          ? "Неверный код. Проверьте 6 цифр из Telegram."
+          : error.message;
+    setTelegramStatus(message, "error");
+  } finally {
+    telegramState.busy = false;
+    elements.telegramVerifyCode.disabled = false;
+  }
+}
+
+async function initializeTelegramGate() {
+  elements.protectedAdmin.hidden = true;
+  elements.telegramAuthCard.hidden = false;
+
+  if (!telegramState.sessionToken) {
+    return;
+  }
+
+  setTelegramStatus("Проверяем сохранённую Telegram-сессию…");
+  try {
+    await telegramApi("/api/v1/admin/telegram/session");
+    unlockAdminPanel();
+  } catch {
+    telegramState.sessionToken = "";
+    sessionStorage.removeItem("ytValhallaTelegramSession");
+    setTelegramStatus("Сессия Telegram истекла. Запросите новый код.");
+  }
 }
 
 function renderKeywords() {
@@ -414,7 +559,19 @@ elements.manualUpdateButton.addEventListener("click", triggerManualUpdate);
 elements.logoutButton.addEventListener("click", logout);
 
 const rememberedToken = sessionStorage.getItem("ytPulseAdminToken");
-if (rememberedToken) {
-  elements.rememberToken.checked = true;
-  connect(rememberedToken, true);
+function initializeKeywordAdmin() {
+  if (state.started) return;
+  state.started = true;
+  if (rememberedToken) {
+    elements.rememberToken.checked = true;
+    connect(rememberedToken, true);
+  }
 }
+
+elements.telegramSendCode.addEventListener("click", requestTelegramCode);
+elements.telegramCodeForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  verifyTelegramCode(elements.telegramCodeInput.value.trim());
+});
+
+initializeTelegramGate();

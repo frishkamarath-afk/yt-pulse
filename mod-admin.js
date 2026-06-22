@@ -49,6 +49,9 @@ async function modRequest(path, options = {}) {
     cache: "no-store",
     headers: {
       Authorization: `Bearer ${modService.adminKey}`,
+      ...(window.YT_VALHALLA_TELEGRAM_SESSION
+        ? { "X-Telegram-Session": window.YT_VALHALLA_TELEGRAM_SESSION }
+        : {}),
       ...(options.body ? { "Content-Type": "application/json" } : {}),
     },
     body: options.body ? JSON.stringify(options.body) : undefined,
@@ -290,11 +293,22 @@ modElements.sessionsBody.addEventListener("click", async (event) => {
   }
 });
 
-const initialTab = sessionStorage.getItem("ytValhallaAdminTab") || "keywords";
-switchAdminTab(initialTab);
+let modAdminStarted = false;
 
-const rememberedModKey = sessionStorage.getItem("ytValhallaModAdminKey");
-if (rememberedModKey) {
-  modElements.rememberKey.checked = true;
-  connectModAdmin(rememberedModKey, true);
+function initializeModAdmin() {
+  if (modAdminStarted) return;
+  modAdminStarted = true;
+
+  const initialTab = sessionStorage.getItem("ytValhallaAdminTab") || "keywords";
+  switchAdminTab(initialTab);
+
+  const rememberedModKey = sessionStorage.getItem("ytValhallaModAdminKey");
+  if (rememberedModKey) {
+    modElements.rememberKey.checked = true;
+    connectModAdmin(rememberedModKey, true);
+  }
 }
+
+window.initializeModAdmin = initializeModAdmin;
+document.addEventListener("yt-valhalla-admin-unlocked", initializeModAdmin);
+if (window.YT_VALHALLA_ADMIN_UNLOCKED) initializeModAdmin();

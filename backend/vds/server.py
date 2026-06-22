@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 import json
+import hashlib
 import os
 import secrets
 import sqlite3
 import threading
+import urllib.error
+import urllib.request
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -21,6 +24,17 @@ ALLOWED_ORIGIN = os.getenv(
 DB_PATH = Path(os.getenv("YT_VALHALLA_DB", "/var/lib/yt-valhalla/mod-control.db"))
 DEFAULT_DISABLED_MESSAGE = "Мод временно отключён администратором."
 CHECK_INTERVAL_SECONDS = int(os.getenv("YT_VALHALLA_CHECK_INTERVAL_SECONDS", "15"))
+TELEGRAM_BOT_TOKEN = os.getenv("YT_VALHALLA_TELEGRAM_BOT_TOKEN", "").strip()
+TELEGRAM_ADMIN_CHAT_ID = os.getenv("YT_VALHALLA_TELEGRAM_ADMIN_CHAT_ID", "").strip()
+TELEGRAM_CODE_TTL_SECONDS = int(os.getenv("YT_VALHALLA_TELEGRAM_CODE_TTL_SECONDS", "300"))
+TELEGRAM_SESSION_TTL_SECONDS = int(
+    os.getenv("YT_VALHALLA_TELEGRAM_SESSION_TTL_SECONDS", "43200")
+)
+TELEGRAM_REQUIRED = os.getenv("YT_VALHALLA_TELEGRAM_REQUIRED", "true").lower() not in (
+    "0",
+    "false",
+    "no",
+)
 MAX_LOGS = 1000
 LOG_PAGE_SIZE = 200
 SESSION_LIST_SIZE = 120
@@ -32,6 +46,10 @@ DB_LOCK = threading.Lock()
 
 def now_iso():
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def now_seconds():
+    return int(datetime.now(timezone.utc).timestamp())
 
 
 def connect_db():
@@ -92,6 +110,31 @@ def initialize_db():
 
             CREATE INDEX IF NOT EXISTS active_sessions_last_seen_idx
                 ON active_sessions(last_seen DESC);
+
+            CREATE TABLE IF NOT EXISTS telegram_config (
+                id INTEGER PRIMARY KEY CHECK (id = 1),
+                chat_id TEXT NOT NULL,
+                username TEXT NOT NULL DEFAULT '',
+                first_name TEXT NOT NULL DEFAULT '',
+                configured_at TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS telegram_codes (
+                request_id TEXT PRIMARY KEY,
+                code_hash TEXT NOT NULL,
+                expires_at INTEGER NOT NULL,
+                attempts INTEGER NOT NULL DEFAULT 0,
+                consumed INTEGER NOT NULL DEFAULT 0,
+                created_at TEXT NOT NULL,
+                public_ip TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS telegram_sessions (
+                token_hash TEXT PRIMARY KEY,
+                expires_at INTEGER NOT NULL,
+                created_at TEXT NOT NULL,
+                public_ip TEXT NOT NULL
+            );
             """
         )
         connection.execute(
@@ -119,6 +162,211 @@ def bounded_int(value, minimum, maximum):
 
 def constant_time_equal(left, right):
     return bool(left and right and secrets.compare_digest(str(left), str(right)))
+
+
+def secret_hash(value):
+    payload = f"{ADMIN_KEY}:{value}".encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def cleanup_telegram_auth():
+    current = now_seconds()
+    with DB_LOCK, connect_db() as connection:
+        connection.execute(
+            "DELETE FROM telegram_codes WHERE expires_at < ? OR consumed = 1",
+            (current,),
+        )
+        connection.execute(
+            "DELETE FROM telegram_sessions WHERE expires_at < ?",
+            (current,),
+        )
+
+
+def telegram_api(method, payload):
+    if not TELEGRAM_BOT_TOKEN:
+        raise ApiError(
+            503,
+            "TELEGRAM_NOT_CONFIGURED",
+            "Telegram bot token is not configured on the server",
+        )
+
+    request = urllib.request.Request(
+        f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/{method}",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=10) as response:
+            body = json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as error:
+        try:
+            body = json.loads(error.read().decode("utf-8"))
+        except Exception:
+            body = {"description": "Telegram API error"}
+        raise ApiError(
+            502,
+            "TELEGRAM_API_ERROR",
+            clean(body.get("description") or "Telegram API error", 240),
+        )
+    except Exception:
+        raise ApiError(502, "TELEGRAM_API_ERROR", "Telegram API is unavailable")
+
+    if not body.get("ok"):
+        raise ApiError(
+            502,
+            "TELEGRAM_API_ERROR",
+            clean(body.get("description") or "Telegram API error", 240),
+        )
+    return body.get("result")
+
+
+def configured_telegram_chat():
+    if TELEGRAM_ADMIN_CHAT_ID:
+        return str(TELEGRAM_ADMIN_CHAT_ID)
+
+    with DB_LOCK, connect_db() as connection:
+        row = connection.execute(
+            "SELECT chat_id FROM telegram_config WHERE id = 1"
+        ).fetchone()
+        if row:
+            return row["chat_id"]
+
+    updates = telegram_api(
+        "getUpdates",
+        {"limit": 20, "timeout": 0, "allowed_updates": ["message"]},
+    )
+    chats = {}
+    for update in updates or []:
+        message = update.get("message") or {}
+        chat = message.get("chat") or {}
+        if chat.get("type") != "private" or chat.get("id") is None:
+            continue
+        chat_id = str(chat["id"])
+        chats[chat_id] = {
+            "username": clean(chat.get("username"), 80),
+            "first_name": clean(chat.get("first_name"), 80),
+        }
+
+    if not chats:
+        raise ApiError(
+            409,
+            "TELEGRAM_SETUP_REQUIRED",
+            "Open the Telegram bot and send /start, then request the code again",
+        )
+    if len(chats) > 1:
+        raise ApiError(
+            409,
+            "TELEGRAM_CHAT_AMBIGUOUS",
+            "Several Telegram chats wrote to the bot. Set YT_VALHALLA_TELEGRAM_ADMIN_CHAT_ID on the server",
+        )
+
+    chat_id, meta = next(iter(chats.items()))
+    with DB_LOCK, connect_db() as connection:
+        connection.execute(
+            """
+            INSERT OR REPLACE INTO telegram_config(id, chat_id, username, first_name, configured_at)
+            VALUES (1, ?, ?, ?, ?)
+            """,
+            (chat_id, meta["username"], meta["first_name"], now_iso()),
+        )
+    return chat_id
+
+
+def create_telegram_code(public_ip):
+    cleanup_telegram_auth()
+    chat_id = configured_telegram_chat()
+    request_id = secrets.token_urlsafe(18)
+    code = f"{secrets.randbelow(1000000):06d}"
+    expires_at = now_seconds() + TELEGRAM_CODE_TTL_SECONDS
+    with DB_LOCK, connect_db() as connection:
+        connection.execute(
+            """
+            INSERT INTO telegram_codes(request_id, code_hash, expires_at, attempts, consumed, created_at, public_ip)
+            VALUES (?, ?, ?, 0, 0, ?, ?)
+            """,
+            (request_id, secret_hash(f"{request_id}:{code}"), expires_at, now_iso(), public_ip),
+        )
+
+    telegram_api(
+        "sendMessage",
+        {
+            "chat_id": chat_id,
+            "text": (
+                "YT Valhalla admin code: "
+                f"{code}\n\n"
+                f"Expires in {TELEGRAM_CODE_TTL_SECONDS // 60} min.\n"
+                f"IP: {public_ip}"
+            ),
+            "disable_web_page_preview": True,
+        },
+    )
+    return request_id
+
+
+def verify_telegram_code(request_id, code, public_ip):
+    cleanup_telegram_auth()
+    clean_request_id = clean(request_id, 80)
+    clean_code = "".join(char for char in str(code or "") if char.isdigit())[:8]
+    if not clean_request_id or len(clean_code) != 6:
+        raise ApiError(400, "BAD_REQUEST", "Six-digit code is required")
+
+    with DB_LOCK, connect_db() as connection:
+        row = connection.execute(
+            """
+            SELECT code_hash, expires_at, attempts, consumed
+            FROM telegram_codes
+            WHERE request_id = ?
+            """,
+            (clean_request_id,),
+        ).fetchone()
+        if not row or row["consumed"]:
+            raise ApiError(401, "INVALID_CODE", "Invalid or expired code")
+        if row["expires_at"] < now_seconds():
+            connection.execute(
+                "DELETE FROM telegram_codes WHERE request_id = ?",
+                (clean_request_id,),
+            )
+            raise ApiError(410, "CODE_EXPIRED", "Code expired")
+        if row["attempts"] >= 5:
+            raise ApiError(429, "TOO_MANY_ATTEMPTS", "Too many attempts")
+
+        connection.execute(
+            "UPDATE telegram_codes SET attempts = attempts + 1 WHERE request_id = ?",
+            (clean_request_id,),
+        )
+        expected = row["code_hash"]
+        actual = secret_hash(f"{clean_request_id}:{clean_code}")
+        if not constant_time_equal(actual, expected):
+            raise ApiError(401, "INVALID_CODE", "Invalid code")
+
+        token = secrets.token_urlsafe(32)
+        expires_at = now_seconds() + TELEGRAM_SESSION_TTL_SECONDS
+        connection.execute(
+            "UPDATE telegram_codes SET consumed = 1 WHERE request_id = ?",
+            (clean_request_id,),
+        )
+        connection.execute(
+            """
+            INSERT INTO telegram_sessions(token_hash, expires_at, created_at, public_ip)
+            VALUES (?, ?, ?, ?)
+            """,
+            (secret_hash(token), expires_at, now_iso(), clean(public_ip, 64)),
+        )
+    return token, expires_at
+
+
+def validate_telegram_session(value):
+    cleanup_telegram_auth()
+    token = clean(value, 256)
+    if not token:
+        return False
+    with DB_LOCK, connect_db() as connection:
+        row = connection.execute(
+            "SELECT expires_at FROM telegram_sessions WHERE token_hash = ?",
+            (secret_hash(token),),
+        ).fetchone()
+    return bool(row and row["expires_at"] >= now_seconds())
 
 
 def read_state():
@@ -396,7 +644,10 @@ class Handler(BaseHTTPRequestHandler):
         ):
             self.send_header("Access-Control-Allow-Origin", origin)
             self.send_header("Vary", "Origin")
-        self.send_header("Access-Control-Allow-Headers", "Authorization, Content-Type")
+        self.send_header(
+            "Access-Control-Allow-Headers",
+            "Authorization, Content-Type, X-Telegram-Session",
+        )
         self.send_header("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS")
         self.send_header("Cache-Control", "no-store")
         self.send_header("X-Content-Type-Options", "nosniff")
@@ -427,6 +678,11 @@ class Handler(BaseHTTPRequestHandler):
                         "sessions": read_sessions(),
                     },
                 )
+            if parsed.path == "/api/v1/admin/telegram/session":
+                session = self.headers.get("X-Telegram-Session", "")
+                if not validate_telegram_session(session):
+                    raise ApiError(401, "TELEGRAM_REQUIRED", "Telegram verification required")
+                return self.respond(200, {"ok": True})
             raise ApiError(404, "NOT_FOUND", "Route not found")
         except ApiError as error:
             self.respond(error.status, {"ok": False, "code": error.code, "error": str(error)})
@@ -436,6 +692,32 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
             path = urlparse(self.path).path
+            if path == "/api/v1/admin/telegram/request":
+                request_id = create_telegram_code(client_ip(self))
+                return self.respond(
+                    200,
+                    {
+                        "ok": True,
+                        "requestId": request_id,
+                        "expiresInSeconds": TELEGRAM_CODE_TTL_SECONDS,
+                    },
+                )
+            if path == "/api/v1/admin/telegram/verify":
+                body = self.read_json()
+                token, expires_at = verify_telegram_code(
+                    body.get("requestId"),
+                    body.get("code"),
+                    client_ip(self),
+                )
+                return self.respond(
+                    200,
+                    {
+                        "ok": True,
+                        "sessionToken": token,
+                        "expiresAt": expires_at,
+                        "expiresInSeconds": TELEGRAM_SESSION_TTL_SECONDS,
+                    },
+                )
             if path not in ("/api/v1/launch", "/api/v1/heartbeat"):
                 raise ApiError(404, "NOT_FOUND", "Route not found")
             body = self.read_json()
@@ -503,6 +785,10 @@ class Handler(BaseHTTPRequestHandler):
         value = authorization[7:] if authorization.startswith("Bearer ") else ""
         if not constant_time_equal(value, ADMIN_KEY):
             raise ApiError(401, "UNAUTHORIZED", "Invalid admin key")
+        if TELEGRAM_REQUIRED:
+            session = self.headers.get("X-Telegram-Session", "")
+            if not validate_telegram_session(session):
+                raise ApiError(401, "TELEGRAM_REQUIRED", "Telegram verification required")
 
     def read_json(self):
         length = bounded_int(self.headers.get("Content-Length"), 0, 65536)

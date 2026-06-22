@@ -21,6 +21,51 @@
         <a class="back-link" href="index.html">← Вернуться на сайт</a>
       </header>
 
+      <section class="telegram-auth-card" id="telegram-auth-card">
+        <div class="auth-copy">
+          <span class="card-number">00</span>
+          <div>
+            <p class="eyebrow">Telegram security</p>
+            <h1>Подтверждение входа</h1>
+            <p>
+              Для входа в админ-панель запросите одноразовый код. Бот отправит его в Telegram,
+              после этого введите код здесь.
+            </p>
+            <a class="telegram-bot-link" href="https://t.me/zva2famodsvalz_bot" target="_blank" rel="noreferrer">
+              Открыть @zva2famodsvalz_bot →
+            </a>
+          </div>
+        </div>
+
+        <div class="telegram-auth-form">
+          <button class="button button-primary" id="telegram-send-code" type="button">
+            Отправить код в Telegram
+          </button>
+          <form id="telegram-code-form">
+            <label for="telegram-code">Код из бота</label>
+            <div class="token-row">
+              <input
+                id="telegram-code"
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="6"
+                placeholder="000000"
+                autocomplete="one-time-code"
+                disabled
+              />
+              <button class="button button-secondary" id="telegram-verify-code" type="submit" disabled>
+                Подтвердить
+              </button>
+            </div>
+          </form>
+          <p id="telegram-auth-status">
+            Если бот ещё не писал вам код, откройте его и нажмите Start или отправьте /start.
+          </p>
+        </div>
+      </section>
+
+      <div id="protected-admin" hidden>
       <nav class="admin-tabs" aria-label="Разделы админ-панели">
         <button class="active" type="button" data-admin-tab="keywords">
           <span>#</span>
@@ -355,11 +400,12 @@
         <span>YT Valhalla</span>
         <p>© 2026 Valhalla DLC. Все права защищены.</p>
       </footer>
+      </div>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="mod-service-config.js?v=20260622-1"></script>
-    <script src="admin.js?v=20260622-manual-update" defer></script>
-    <script src="mod-admin.js?v=20260622-3" defer></script>
+    <script src="admin.js?v=20260622-telegram-auth" defer></script>
+    <script src="mod-admin.js?v=20260622-telegram-auth" defer></script>
   </body>
 </html>

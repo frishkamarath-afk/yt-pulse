@@ -189,6 +189,78 @@ a {
   padding: 34px;
 }
 
+.telegram-auth-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 42px;
+  margin-top: 52px;
+  border: 1px solid rgba(216, 255, 62, 0.18);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(216, 255, 62, 0.1), transparent 36%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.025), transparent 38%),
+    var(--panel);
+  padding: 34px;
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.28);
+}
+
+.telegram-auth-card h1 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 400;
+  letter-spacing: -0.055em;
+}
+
+.telegram-auth-card .auth-copy p:last-of-type {
+  max-width: 520px;
+}
+
+.telegram-bot-link {
+  display: inline-flex;
+  margin-top: 14px;
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.telegram-auth-form {
+  display: grid;
+  align-content: center;
+  gap: 16px;
+}
+
+.telegram-auth-form form {
+  display: grid;
+  gap: 8px;
+}
+
+.telegram-auth-form label {
+  display: block;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+#telegram-auth-status {
+  min-height: 32px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+#telegram-auth-status.error {
+  color: var(--danger);
+}
+
+#telegram-auth-status.success {
+  color: var(--accent);
+}
+
 .auth-copy {
   display: flex;
   align-items: flex-start;
@@ -1002,7 +1074,8 @@ details p {
 }
 
 @media (max-width: 760px) {
-  .auth-card {
+  .auth-card,
+  .telegram-auth-card {
     grid-template-columns: 1fr;
     gap: 28px;
   }
