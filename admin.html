@@ -6,7 +6,7 @@
     <meta name="description" content="Админ-панель управления поисковыми фразами YT Valhalla." />
     <meta name="theme-color" content="#0b0d12" />
     <title>Админ-панель — YT Valhalla</title>
-    <link rel="stylesheet" href="admin.css?v=20260622-2" />
+    <link rel="stylesheet" href="admin.css?v=20260622-manual-update" />
   </head>
   <body>
     <main class="admin-shell">
@@ -139,6 +139,26 @@
             </button>
           </div>
         </div>
+
+        <div class="manual-update-panel">
+          <div>
+            <p class="eyebrow">Ручное обновление</p>
+            <h3>Обновить каналы сейчас</h3>
+            <p>
+              Запускает поиск YouTube-каналов по текущим тегам и пересобирает сайт. Используйте, когда нужно
+              обновить список без ожидания автообновления.
+            </p>
+            <a id="manual-run-link" href="https://github.com/frishkamarath-afk/yt-pulse/actions" target="_blank" rel="noreferrer" hidden>
+              Открыть ход обновления →
+            </a>
+          </div>
+          <div class="manual-update-actions">
+            <button class="button button-primary" id="manual-update-button" type="button">
+              Обновить каналы
+            </button>
+            <span id="manual-update-status">Готово к запуску</span>
+          </div>
+        </div>
       </section>
 
       <section class="progress-card" id="progress-card" data-admin-panel="keywords" hidden>
@@ -152,7 +172,7 @@
       <section class="success-card" id="success-card" data-admin-panel="keywords" hidden>
         <span class="success-icon">✓</span>
         <div>
-          <strong>Настройки сохранены</strong>
+          <strong>Обновление запущено</strong>
           <p>
             GitHub уже запустил обновление статистики. Обычно новые результаты появляются
             через 1–3 минуты.
@@ -338,7 +358,7 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="mod-service-config.js?v=20260622-1"></script>
-    <script src="admin.js?v=20260621-2" defer></script>
+    <script src="admin.js?v=20260622-manual-update" defer></script>
     <script src="mod-admin.js?v=20260622-3" defer></script>
   </body>
 </html>

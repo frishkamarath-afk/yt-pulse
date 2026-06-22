@@ -840,6 +840,48 @@ details p {
   gap: 8px;
 }
 
+.manual-update-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  border-top: 1px solid var(--line);
+  padding: 24px 30px 28px;
+}
+
+.manual-update-panel h3 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -0.035em;
+}
+
+.manual-update-panel p:not(.eyebrow) {
+  max-width: 560px;
+  margin: 9px 0 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.manual-update-panel a {
+  display: inline-flex;
+  margin-top: 12px;
+  color: var(--accent);
+  font-size: 9px;
+}
+
+.manual-update-actions {
+  display: grid;
+  justify-items: end;
+  gap: 9px;
+  flex: 0 0 auto;
+}
+
+.manual-update-actions span {
+  color: var(--muted);
+  font-size: 9px;
+}
+
 .progress-card,
 .success-card {
   display: flex;
@@ -971,9 +1013,14 @@ details p {
 
   .editor-toolbar,
   .editor-actions,
+  .manual-update-panel,
   .mod-switch-panel {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .manual-update-actions {
+    justify-items: start;
   }
 
   .keyword-summary {
@@ -1043,7 +1090,8 @@ details p {
 
   .editor-toolbar,
   .keyword-list,
-  .editor-actions {
+  .editor-actions,
+  .manual-update-panel {
     padding-right: 20px;
     padding-left: 20px;
   }

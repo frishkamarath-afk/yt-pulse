@@ -14,6 +14,7 @@ const state = {
   originalKeywords: [],
   keywords: [],
   saving: false,
+  updating: false,
 };
 
 const elements = {
@@ -31,6 +32,9 @@ const elements = {
   changeStatus: document.querySelector("#change-status"),
   resetButton: document.querySelector("#reset-button"),
   saveButton: document.querySelector("#save-button"),
+  manualUpdateButton: document.querySelector("#manual-update-button"),
+  manualUpdateStatus: document.querySelector("#manual-update-status"),
+  manualRunLink: document.querySelector("#manual-run-link"),
   progressCard: document.querySelector("#progress-card"),
   progressTitle: document.querySelector("#progress-title"),
   progressMessage: document.querySelector("#progress-message"),
@@ -153,6 +157,7 @@ function renderKeywords() {
   elements.resetButton.disabled = !changed || state.saving;
   elements.saveButton.disabled =
     !changed || state.saving || state.keywords.length === 0 || state.keywords.length > 40;
+  elements.manualUpdateButton.disabled = state.saving || state.updating;
 }
 
 async function loadRepositoryConfig() {
@@ -288,6 +293,62 @@ async function saveChanges() {
   }
 }
 
+async function findLatestManualRun() {
+  const runs = await github(
+    `/repos/${GITHUB.owner}/${GITHUB.repo}/actions/workflows/${GITHUB.workflow}/runs?branch=${GITHUB.branch}&event=workflow_dispatch&per_page=1&t=${Date.now()}`,
+  );
+  return runs?.workflow_runs?.[0] || null;
+}
+
+async function triggerManualUpdate() {
+  if (state.saving || state.updating) return;
+
+  state.updating = true;
+  elements.successCard.hidden = true;
+  elements.manualRunLink.hidden = true;
+  elements.manualUpdateButton.disabled = true;
+  elements.manualUpdateStatus.textContent = "Запускаем обновление…";
+  setProgress(
+    "Запускаем обновление каналов…",
+    "GitHub Action соберёт свежую статистику YouTube и заново опубликует сайт.",
+  );
+
+  try {
+    await github(
+      `/repos/${GITHUB.owner}/${GITHUB.repo}/actions/workflows/${GITHUB.workflow}/dispatches`,
+      {
+        method: "POST",
+        body: JSON.stringify({ ref: GITHUB.branch }),
+      },
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 1800));
+    const latestRun = await findLatestManualRun().catch(() => null);
+
+    if (latestRun?.html_url) {
+      elements.manualRunLink.href = latestRun.html_url;
+      elements.manualRunLink.hidden = false;
+    }
+
+    elements.manualUpdateStatus.textContent = "Обновление запущено";
+    elements.successCard.hidden = false;
+    showToast("Ручное обновление каналов запущено");
+  } catch (error) {
+    const message =
+      error.status === 403
+        ? "Нужны права Actions: write для запуска обновления"
+        : error.status === 404
+          ? "Workflow обновления не найден или нет доступа"
+          : error.message;
+    elements.manualUpdateStatus.textContent = "Не удалось запустить";
+    showToast(message, true);
+  } finally {
+    state.updating = false;
+    setProgress("", "", false);
+    renderKeywords();
+  }
+}
+
 function logout() {
   sessionStorage.removeItem("ytPulseAdminToken");
   state.token = "";
@@ -349,6 +410,7 @@ elements.resetButton.addEventListener("click", () => {
 });
 
 elements.saveButton.addEventListener("click", saveChanges);
+elements.manualUpdateButton.addEventListener("click", triggerManualUpdate);
 elements.logoutButton.addEventListener("click", logout);
 
 const rememberedToken = sessionStorage.getItem("ytPulseAdminToken");
