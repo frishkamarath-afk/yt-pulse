@@ -11,7 +11,7 @@ fi
 : "${CLIENT_KEY:?CLIENT_KEY is required}"
 
 apt-get update
-apt-get install -y python3 caddy
+apt-get install -y python3 nginx certbot python3-certbot-nginx
 
 if command -v ufw >/dev/null 2>&1 && ufw status | grep -qi "Status: active"; then
   ufw allow OpenSSH
@@ -36,12 +36,33 @@ YT_VALHALLA_ALLOWED_ORIGIN=https://frishkamarath-afk.github.io
 EOF
 chmod 0600 /etc/yt-valhalla-mod.env
 
-sed "s/__MOD_DOMAIN__/${MOD_DOMAIN}/g" Caddyfile.template >/etc/caddy/Caddyfile
-caddy validate --config /etc/caddy/Caddyfile
+cat >/etc/nginx/conf.d/yt-valhalla-mod.conf <<EOF
+server {
+    listen 80;
+    listen [::]:80;
+    server_name ${MOD_DOMAIN};
+
+    access_log /var/log/nginx/yt-valhalla-mod.access.log;
+    error_log /var/log/nginx/yt-valhalla-mod.error.log;
+
+    location / {
+        proxy_pass http://127.0.0.1:8787;
+        proxy_http_version 1.1;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+    }
+}
+EOF
+nginx -t
 
 systemctl daemon-reload
 systemctl enable --now yt-valhalla-mod.service
-systemctl enable --now caddy
-systemctl restart caddy
+systemctl enable --now nginx
+systemctl restart yt-valhalla-mod.service
+systemctl reload nginx
+certbot --nginx -d "${MOD_DOMAIN}" --non-interactive --agree-tos --register-unsafely-without-email --redirect
+systemctl reload nginx
 
 echo "Installed: https://${MOD_DOMAIN}/health"

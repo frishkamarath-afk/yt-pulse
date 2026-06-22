@@ -12,6 +12,7 @@
 ## Установка на VDS
 
 Нужен Debian/Ubuntu сервер с открытыми портами `80` и `443`.
+Установщик использует `nginx` как reverse proxy и `certbot` для бесплатного HTTPS-сертификата Let's Encrypt.
 
 ```bash
 cd /root/yt-valhalla-mod
@@ -22,7 +23,7 @@ bash install.sh
 ```
 
 `MOD_DOMAIN` можно сделать через `sslip.io`: для IP `1.2.3.4` домен будет `1-2-3-4.sslip.io`.
-Caddy сам выпустит HTTPS-сертификат.
+Certbot сам выпустит HTTPS-сертификат и настроит nginx.
 
 ## Проверка
 
