@@ -21,10 +21,19 @@ HOST = os.getenv("YT_VALHALLA_HOST", "127.0.0.1")
 PORT = int(os.getenv("YT_VALHALLA_PORT", "8787"))
 ADMIN_KEY = os.environ["YT_VALHALLA_ADMIN_KEY"]
 CLIENT_KEY = os.environ["YT_VALHALLA_CLIENT_KEY"]
-ALLOWED_ORIGIN = os.getenv(
+DEFAULT_ALLOWED_ORIGIN = os.getenv(
     "YT_VALHALLA_ALLOWED_ORIGIN",
     "https://frishkamarath-afk.github.io",
 )
+ALLOWED_ORIGINS = {
+    origin.strip().rstrip("/")
+    for origin in os.getenv("YT_VALHALLA_ALLOWED_ORIGINS", DEFAULT_ALLOWED_ORIGIN).split(",")
+    if origin.strip()
+}
+ALLOW_ANY_HTTPS_ORIGIN = os.getenv(
+    "YT_VALHALLA_ALLOW_ANY_HTTPS_ORIGIN",
+    "false",
+).lower() in ("1", "true", "yes")
 DB_PATH = Path(os.getenv("YT_VALHALLA_DB", "/var/lib/yt-valhalla/mod-control.db"))
 DEFAULT_DISABLED_MESSAGE = "Мод временно отключён администратором."
 CHECK_INTERVAL_SECONDS = int(os.getenv("YT_VALHALLA_CHECK_INTERVAL_SECONDS", "5"))
@@ -192,6 +201,22 @@ def bounded_int(value, minimum, maximum):
 
 def constant_time_equal(left, right):
     return bool(left and right and secrets.compare_digest(str(left), str(right)))
+
+
+def origin_is_allowed(origin):
+    normalized = str(origin or "").strip().rstrip("/")
+    if not normalized:
+        return False
+    if "*" in ALLOWED_ORIGINS or normalized in ALLOWED_ORIGINS:
+        return True
+    if ALLOW_ANY_HTTPS_ORIGIN and normalized.startswith("https://"):
+        return True
+    if (
+        os.getenv("YT_VALHALLA_ALLOW_LOCALHOST", "false") == "true"
+        and normalized.startswith(("http://localhost:", "http://127.0.0.1:"))
+    ):
+        return True
+    return False
 
 
 def secret_hash(value):
@@ -730,10 +755,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def end_headers(self):
         origin = self.headers.get("Origin", "")
-        if origin == ALLOWED_ORIGIN or (
-            os.getenv("YT_VALHALLA_ALLOW_LOCALHOST", "false") == "true"
-            and origin.startswith(("http://localhost:", "http://127.0.0.1:"))
-        ):
+        if origin_is_allowed(origin):
             self.send_header("Access-Control-Allow-Origin", origin)
             self.send_header("Vary", "Origin")
         self.send_header(

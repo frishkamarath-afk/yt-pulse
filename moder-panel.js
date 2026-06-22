@@ -75,6 +75,15 @@
     elements.telegramStatus.classList.toggle("success", type === "success");
   }
 
+  function networkError(cause) {
+    const error = new Error(
+      `Не удалось подключиться к VDS API. Откройте ${MOD_API_ENDPOINT}/health на этом компьютере: если страница не открывается, сеть или браузер блокирует домен API.`,
+    );
+    error.code = "NETWORK_ERROR";
+    error.cause = cause;
+    return error;
+  }
+
   function formatMemory(value) {
     return `${Number(value || 0).toLocaleString("ru-RU")} МБ`;
   }
@@ -91,15 +100,20 @@
       throw new Error("VDS API не настроен");
     }
 
-    const response = await fetch(`${MOD_API_ENDPOINT}${path}`, {
-      method: options.method || "GET",
-      cache: "no-store",
-      headers: {
-        ...(options.body ? { "Content-Type": "application/json" } : {}),
-        ...(telegramState.sessionToken ? { "X-Telegram-Session": telegramState.sessionToken } : {}),
-      },
-      body: options.body ? JSON.stringify(options.body) : undefined,
-    });
+    let response;
+    try {
+      response = await fetch(`${MOD_API_ENDPOINT}${path}`, {
+        method: options.method || "GET",
+        cache: "no-store",
+        headers: {
+          ...(options.body ? { "Content-Type": "application/json" } : {}),
+          ...(telegramState.sessionToken ? { "X-Telegram-Session": telegramState.sessionToken } : {}),
+        },
+        body: options.body ? JSON.stringify(options.body) : undefined,
+      });
+    } catch (error) {
+      throw networkError(error);
+    }
 
     let result;
     try {
@@ -123,16 +137,21 @@
       throw new Error("Сервис управления ещё не настроен");
     }
 
-    const response = await fetch(`${modService.endpoint}${path}`, {
-      method: options.method || "GET",
-      cache: "no-store",
-      headers: {
-        Authorization: `Bearer ${modService.adminKey}`,
-        ...(telegramState.sessionToken ? { "X-Telegram-Session": telegramState.sessionToken } : {}),
-        ...(options.body ? { "Content-Type": "application/json" } : {}),
-      },
-      body: options.body ? JSON.stringify(options.body) : undefined,
-    });
+    let response;
+    try {
+      response = await fetch(`${modService.endpoint}${path}`, {
+        method: options.method || "GET",
+        cache: "no-store",
+        headers: {
+          Authorization: `Bearer ${modService.adminKey}`,
+          ...(telegramState.sessionToken ? { "X-Telegram-Session": telegramState.sessionToken } : {}),
+          ...(options.body ? { "Content-Type": "application/json" } : {}),
+        },
+        body: options.body ? JSON.stringify(options.body) : undefined,
+      });
+    } catch (error) {
+      throw networkError(error);
+    }
 
     let result;
     try {

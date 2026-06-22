@@ -133,15 +133,25 @@ async function telegramApi(path, options = {}) {
     throw new Error("VDS API не настроен");
   }
 
-  const response = await fetch(`${MOD_API_ENDPOINT}${path}`, {
-    method: options.method || "GET",
-    cache: "no-store",
-    headers: {
-      ...(options.body ? { "Content-Type": "application/json" } : {}),
-      ...(telegramState.sessionToken ? { "X-Telegram-Session": telegramState.sessionToken } : {}),
-    },
-    body: options.body ? JSON.stringify(options.body) : undefined,
-  });
+  let response;
+  try {
+    response = await fetch(`${MOD_API_ENDPOINT}${path}`, {
+      method: options.method || "GET",
+      cache: "no-store",
+      headers: {
+        ...(options.body ? { "Content-Type": "application/json" } : {}),
+        ...(telegramState.sessionToken ? { "X-Telegram-Session": telegramState.sessionToken } : {}),
+      },
+      body: options.body ? JSON.stringify(options.body) : undefined,
+    });
+  } catch (cause) {
+    const error = new Error(
+      `Не удалось подключиться к VDS API. Откройте ${MOD_API_ENDPOINT}/health на этом компьютере: если страница не открывается, сеть или браузер блокирует домен API.`,
+    );
+    error.code = "NETWORK_ERROR";
+    error.cause = cause;
+    throw error;
+  }
 
   let result;
   try {
