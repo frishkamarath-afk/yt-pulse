@@ -9,7 +9,7 @@
     />
     <meta name="theme-color" content="#0b0d12" />
     <title>YT Valhalla — мониторинг каналов</title>
-    <link rel="stylesheet" href="styles.css?v=20260621-2m" />
+    <link rel="stylesheet" href="styles.css?v=20260622-moder-panel" />
   </head>
   <body>
     <div class="app-shell">
@@ -42,6 +42,10 @@
           <a href="#terms">
             <span aria-hidden="true">§</span>
             Условия
+          </a>
+          <a href="#moder-panel">
+            <span aria-hidden="true">◉</span>
+            Модер панель
           </a>
           <a href="admin.html">
             <span aria-hidden="true">⚙</span>
@@ -228,6 +232,221 @@
           </div>
         </section>
 
+        <section class="moder-panel-section" id="moder-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Удалённое управление</p>
+              <h2>Модер панель</h2>
+            </div>
+            <span class="result-count">VDS API</span>
+          </div>
+          <p class="section-description">
+            Управление функциями мода вынесено из админ-панели отдельно: сначала Telegram-подтверждение,
+            затем admin key сервиса мода. Данные берутся из текущего VDS API.
+          </p>
+
+          <section class="telegram-auth-card" id="moder-telegram-auth-card">
+            <div class="auth-copy">
+              <span class="card-number">00</span>
+              <div>
+                <p class="eyebrow">Telegram security</p>
+                <h3>Подтверждение входа</h3>
+                <p>
+                  Запросите одноразовый код. Бот отправит его в Telegram, после этого введите 6 цифр здесь.
+                </p>
+                <a class="telegram-bot-link" href="https://t.me/zva2famodsvalz_bot" target="_blank" rel="noreferrer">
+                  Открыть @zva2famodsvalz_bot →
+                </a>
+              </div>
+            </div>
+
+            <div class="telegram-auth-form">
+              <button class="button button-primary" id="moder-telegram-send-code" type="button">
+                Отправить код в Telegram
+              </button>
+              <form id="moder-telegram-code-form">
+                <label for="moder-telegram-code">Код из бота</label>
+                <div class="token-row">
+                  <input
+                    id="moder-telegram-code"
+                    type="text"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    maxlength="6"
+                    placeholder="000000"
+                    autocomplete="one-time-code"
+                    disabled
+                  />
+                  <button class="button button-secondary" id="moder-telegram-verify-code" type="submit" disabled>
+                    Подтвердить
+                  </button>
+                </div>
+              </form>
+              <p id="moder-telegram-auth-status">
+                Если бот ещё не писал вам код, откройте его и нажмите Start или отправьте /start.
+              </p>
+            </div>
+          </section>
+
+          <div id="moder-protected" hidden>
+            <section class="auth-card" id="mod-auth-card">
+              <div class="auth-copy">
+                <span class="card-number">01</span>
+                <div>
+                  <h3>Ключ управления</h3>
+                  <p>
+                    Введите отдельный admin key сервиса мода. Он хранится только до закрытия вкладки,
+                    если не включено запоминание.
+                  </p>
+                </div>
+              </div>
+
+              <form class="token-form" id="mod-auth-form">
+                <label for="mod-admin-key">Admin key</label>
+                <div class="token-row">
+                  <input
+                    id="mod-admin-key"
+                    type="password"
+                    placeholder="Ключ управления модом"
+                    autocomplete="off"
+                    spellcheck="false"
+                    required
+                  />
+                  <button class="button button-primary" type="submit">Подключиться</button>
+                </div>
+                <label class="checkbox mod-remember">
+                  <input id="remember-mod-key" type="checkbox" />
+                  <span>Запомнить до закрытия вкладки</span>
+                </label>
+              </form>
+            </section>
+
+            <section class="mod-control-card" id="mod-control-card" hidden>
+              <div class="mod-control-head">
+                <div>
+                  <span class="card-number">02</span>
+                  <p class="eyebrow">Remote switch</p>
+                  <h3>Доступ к функциям мода</h3>
+                </div>
+                <div class="account">
+                  <span class="account-dot"></span>
+                  <span>API подключён</span>
+                  <button id="mod-logout-button" type="button">Выйти</button>
+                </div>
+              </div>
+
+              <div class="mod-switch-panel">
+                <div class="mod-status-copy">
+                  <span class="mod-status-badge" id="mod-status-badge">Проверка…</span>
+                  <h3 id="mod-status-title">Получаем состояние</h3>
+                  <p id="mod-status-description">
+                    При выключении меню и автоматизация блокируются у установок мода без закрытия Minecraft.
+                  </p>
+                </div>
+                <label class="power-switch">
+                  <input id="mod-enabled-toggle" type="checkbox" />
+                  <span class="power-track"><span class="power-knob"></span></span>
+                  <span id="mod-toggle-label">Выключен</span>
+                </label>
+                <div class="mod-switch-actions">
+                  <span>Быстрая остановка всех функций</span>
+                  <button class="button button-danger" id="mod-emergency-lock" type="button">
+                    Экстренная блокировка
+                  </button>
+                </div>
+              </div>
+
+              <div class="mod-message-row">
+                <label for="mod-disabled-message">Сообщение при блокировке</label>
+                <div>
+                  <input
+                    id="mod-disabled-message"
+                    type="text"
+                    maxlength="160"
+                    placeholder="Мод временно отключён администратором."
+                  />
+                  <button class="button button-secondary" id="save-mod-message" type="button">
+                    Сохранить
+                  </button>
+                </div>
+              </div>
+
+              <div class="sessions-head">
+                <div>
+                  <p class="eyebrow">Онлайн-контроль</p>
+                  <h3>Активные сессии</h3>
+                </div>
+                <p>
+                  Показываются установки, которые недавно отправили heartbeat. Кнопка завершает выбранную
+                  сессию обычной блокировкой функций мода и показывает игроку сообщение без закрытия Minecraft.
+                </p>
+              </div>
+
+              <div class="logs-table-wrap sessions-table-wrap">
+                <table class="logs-table sessions-table">
+                  <thead>
+                    <tr>
+                      <th>Статус</th>
+                      <th>Игрок</th>
+                      <th>IP</th>
+                      <th>Система</th>
+                      <th>Последний сигнал</th>
+                      <th>Действие</th>
+                    </tr>
+                  </thead>
+                  <tbody id="mod-sessions-body"></tbody>
+                </table>
+                <div class="logs-empty" id="mod-sessions-empty" hidden>
+                  Активных запусков пока нет.
+                </div>
+              </div>
+
+              <div class="logs-head">
+                <div>
+                  <p class="eyebrow">Последние события</p>
+                  <h3>Логи запусков</h3>
+                </div>
+                <div>
+                  <button class="button button-ghost" id="refresh-mod-logs" type="button">
+                    Обновить
+                  </button>
+                  <button class="button button-danger" id="clear-mod-logs" type="button">
+                    Очистить логи
+                  </button>
+                </div>
+              </div>
+
+              <div class="logs-table-wrap">
+                <table class="logs-table">
+                  <thead>
+                    <tr>
+                      <th>Время</th>
+                      <th>IP</th>
+                      <th>Система</th>
+                      <th>Java / CPU / RAM</th>
+                      <th>Установка</th>
+                    </tr>
+                  </thead>
+                  <tbody id="mod-logs-body"></tbody>
+                </table>
+                <div class="logs-empty" id="mod-logs-empty" hidden>
+                  Запусков с подтверждённым согласием пока нет.
+                </div>
+              </div>
+
+              <div class="privacy-note">
+                <strong>Приватность</strong>
+                <p>
+                  Мод отправляет данные только после явного согласия пользователя: ник Minecraft, публичный IP,
+                  ОС и архитектуру, Java, число процессоров, доступную память, версию мода, версию Minecraft
+                  и случайный ID установки. Скриншоты, имя Windows, MAC-адреса, серийные номера и личные файлы
+                  не собираются.
+                </p>
+              </div>
+            </section>
+          </div>
+        </section>
+
         <footer>
           <span>YT Valhalla</span>
           <p>© 2026 Valhalla DLC. Все права защищены.</p>
@@ -236,6 +455,8 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="app.js?v=20260621-2m" defer></script>
+    <script src="mod-service-config.js?v=20260622-1"></script>
+    <script src="app.js?v=20260622-moder-panel" defer></script>
+    <script src="moder-panel.js?v=20260622-emergency-lock" defer></script>
   </body>
 </html>

@@ -573,6 +573,18 @@ details p {
   transform: translateX(25px);
 }
 
+.mod-switch-actions {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.mod-switch-actions span {
+  color: var(--muted);
+  font-size: 9px;
+}
+
 .mod-message-row {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -1093,6 +1105,10 @@ details p {
   }
 
   .manual-update-actions {
+    justify-items: start;
+  }
+
+  .mod-switch-actions {
     justify-items: start;
   }
 

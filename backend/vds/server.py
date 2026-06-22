@@ -23,7 +23,7 @@ ALLOWED_ORIGIN = os.getenv(
 )
 DB_PATH = Path(os.getenv("YT_VALHALLA_DB", "/var/lib/yt-valhalla/mod-control.db"))
 DEFAULT_DISABLED_MESSAGE = "Мод временно отключён администратором."
-CHECK_INTERVAL_SECONDS = int(os.getenv("YT_VALHALLA_CHECK_INTERVAL_SECONDS", "15"))
+CHECK_INTERVAL_SECONDS = int(os.getenv("YT_VALHALLA_CHECK_INTERVAL_SECONDS", "5"))
 TELEGRAM_BOT_TOKEN = os.getenv("YT_VALHALLA_TELEGRAM_BOT_TOKEN", "").strip()
 TELEGRAM_ADMIN_CHAT_ID = os.getenv("YT_VALHALLA_TELEGRAM_ADMIN_CHAT_ID", "").strip()
 TELEGRAM_CODE_TTL_SECONDS = int(os.getenv("YT_VALHALLA_TELEGRAM_CODE_TTL_SECONDS", "300"))
@@ -397,7 +397,7 @@ def client_state_for_install(install_id):
     enabled = state["enabled"] and not force_disabled
     message = state["disabledMessage"]
     if force_disabled:
-        message = "Сессия завершена администратором."
+        message = "Функции мода отключены администратором для этой сессии."
     return {
         "ok": True,
         "enabled": enabled,

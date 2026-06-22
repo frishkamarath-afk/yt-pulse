@@ -6,7 +6,7 @@
     <meta name="description" content="Админ-панель управления поисковыми фразами YT Valhalla." />
     <meta name="theme-color" content="#0b0d12" />
     <title>Админ-панель — YT Valhalla</title>
-    <link rel="stylesheet" href="admin.css?v=20260622-manual-update" />
+    <link rel="stylesheet" href="admin.css?v=20260622-emergency-lock" />
   </head>
   <body>
     <main class="admin-shell">
@@ -304,6 +304,12 @@
             <span class="power-track"><span class="power-knob"></span></span>
             <span id="mod-toggle-label">Выключен</span>
           </label>
+          <div class="mod-switch-actions">
+            <span>Быстрая остановка всех функций</span>
+            <button class="button button-danger" id="mod-emergency-lock" type="button">
+              Экстренная блокировка
+            </button>
+          </div>
         </div>
 
         <div class="mod-message-row">
@@ -328,7 +334,7 @@
           </div>
           <p>
             Показываются установки, которые отправили heartbeat недавно. Кнопка завершает
-            конкретную сессию и закрывает Minecraft у этого игрока.
+            конкретную сессию обычной блокировкой функций мода без закрытия Minecraft.
           </p>
         </div>
 
@@ -390,7 +396,7 @@
             Мод отправляет данные только после явного согласия пользователя:
             ник Minecraft, публичный IP, ОС и архитектуру, Java, число процессоров,
             доступную память, версию мода и случайный ID установки. Админ может видеть
-            активную сессию и завершить её удалённо. Скриншоты, имя Windows, MAC-адреса,
+            активную сессию и отключить для неё функции мода. Скриншоты, имя Windows, MAC-адреса,
             серийные номера и личные файлы не собираются.
           </p>
         </div>
@@ -406,6 +412,6 @@
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="mod-service-config.js?v=20260622-1"></script>
     <script src="admin.js?v=20260622-telegram-auth" defer></script>
-    <script src="mod-admin.js?v=20260622-telegram-auth" defer></script>
+    <script src="mod-admin.js?v=20260622-emergency-lock" defer></script>
   </body>
 </html>

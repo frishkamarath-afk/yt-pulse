@@ -17,6 +17,7 @@ const modElements = {
   logoutButton: document.querySelector("#mod-logout-button"),
   toggle: document.querySelector("#mod-enabled-toggle"),
   toggleLabel: document.querySelector("#mod-toggle-label"),
+  emergencyLock: document.querySelector("#mod-emergency-lock"),
   badge: document.querySelector("#mod-status-badge"),
   title: document.querySelector("#mod-status-title"),
   description: document.querySelector("#mod-status-description"),
@@ -77,7 +78,7 @@ function renderModState(state) {
     : "Функции мода заблокированы";
   modElements.description.textContent = state.enabled
     ? "Установки с подтверждённым согласием могут открыть меню и запускать автоматизацию."
-    : "Меню и автоматизация остановлены. После следующей проверки клиент Minecraft будет принудительно закрыт.";
+    : "Меню и автоматизация остановлены. Minecraft остаётся открытым, игрок видит сообщение о блокировке.";
   modElements.messageInput.value = state.disabledMessage || "";
 }
 
@@ -232,6 +233,30 @@ modElements.toggle.addEventListener("change", async () => {
   }
 });
 
+modElements.emergencyLock.addEventListener("click", async () => {
+  if (
+    !confirm("Экстренно заблокировать функции мода для всех установок? Minecraft не закроется, но меню и автоматизация остановятся после ближайшей проверки.")
+  ) {
+    return;
+  }
+  modElements.emergencyLock.disabled = true;
+  try {
+    const result = await modRequest("/api/v1/admin/state", {
+      method: "PATCH",
+      body: {
+        enabled: false,
+        disabledMessage: "Экстренная блокировка: функции мода отключены администратором.",
+      },
+    });
+    renderModState(result.state);
+    showToast("Экстренная блокировка функций включена");
+  } catch (error) {
+    showToast(error.message, true);
+  } finally {
+    modElements.emergencyLock.disabled = false;
+  }
+});
+
 modElements.saveMessage.addEventListener("click", async () => {
   try {
     const result = await modRequest("/api/v1/admin/state", {
@@ -273,7 +298,7 @@ modElements.sessionsBody.addEventListener("click", async (event) => {
   if (!installId) return;
   if (
     forceDisabled &&
-    !confirm("Завершить эту сессию? Minecraft у выбранного игрока закроется после следующей проверки.")
+    !confirm("Завершить эту сессию? Функции мода будут отключены только для выбранной установки, Minecraft не закроется.")
   ) {
     return;
   }
@@ -285,7 +310,7 @@ modElements.sessionsBody.addEventListener("click", async (event) => {
     });
     renderModState(result.state);
     renderModSessions(result.sessions || []);
-    showToast(forceDisabled ? "Сессия отправлена на завершение" : "Сессия разблокирована");
+    showToast(forceDisabled ? "Сессия переведена в режим блокировки функций" : "Сессия разблокирована");
   } catch (error) {
     showToast(error.message, true);
   } finally {

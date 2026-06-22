@@ -22,6 +22,7 @@ const elements = {
   metricAverage: document.querySelector("#metric-average"),
   metricViews: document.querySelector("#metric-views"),
   metricComments: document.querySelector("#metric-comments"),
+  sideNavLinks: [...document.querySelectorAll('.side-nav a[href^="#"]')],
 };
 
 const numberFormatter = new Intl.NumberFormat("ru-RU");
@@ -266,6 +267,13 @@ function showToast(message) {
   showToast.timeout = window.setTimeout(() => elements.toast.classList.remove("visible"), 2600);
 }
 
+function setActiveNav(hash = window.location.hash || "#overview") {
+  const currentHash = hash === "#" ? "#overview" : hash;
+  elements.sideNavLinks.forEach((link) => {
+    link.classList.toggle("active", link.getAttribute("href") === currentHash);
+  });
+}
+
 async function loadData({ manual = false } = {}) {
   elements.reloadButton.classList.add("loading");
   try {
@@ -302,6 +310,10 @@ elements.sort.addEventListener("change", (event) => {
 
 elements.reloadButton.addEventListener("click", () => loadData({ manual: true }));
 
+elements.sideNavLinks.forEach((link) => {
+  link.addEventListener("click", () => setActiveNav(link.getAttribute("href")));
+});
+
 elements.body.addEventListener("click", (event) => {
   const closeButton = event.target.closest(".popover-close");
   if (closeButton) {
@@ -331,4 +343,7 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+window.addEventListener("hashchange", () => setActiveNav());
+
+setActiveNav();
 loadData();
