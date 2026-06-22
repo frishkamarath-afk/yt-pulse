@@ -220,24 +220,31 @@ async function discoverChannels(cutoff) {
       discovered.set(channelId, current);
     }
 
-    const channelResponse = await youtube("search", {
-      part: "snippet",
-      type: "channel",
-      order: "relevance",
-      q: contextualQuery(keyword),
-      maxResults: Math.min(number(settings.channelSearchResultsPerKeyword) || 3, 10),
-      regionCode: settings.regionCode || "RU",
-      relevanceLanguage: settings.relevanceLanguage || "ru",
-      safeSearch: "none",
-    });
+    const channelSearchResults =
+      settings.channelSearchResultsPerKeyword === undefined
+        ? 3
+        : Math.min(Math.max(0, number(settings.channelSearchResultsPerKeyword)), 10);
 
-    for (const item of channelResponse.items || []) {
-      const channelId = item.id?.channelId || item.snippet?.channelId;
-      const title = normalize(item.snippet?.title);
-      if (!channelId || !title.includes(normalize(keyword))) continue;
-      const current = discovered.get(channelId) || { channelId, keywords: new Set() };
-      current.keywords.add(keyword);
-      discovered.set(channelId, current);
+    if (channelSearchResults > 0) {
+      const channelResponse = await youtube("search", {
+        part: "snippet",
+        type: "channel",
+        order: "relevance",
+        q: contextualQuery(keyword),
+        maxResults: channelSearchResults,
+        regionCode: settings.regionCode || "RU",
+        relevanceLanguage: settings.relevanceLanguage || "ru",
+        safeSearch: "none",
+      });
+
+      for (const item of channelResponse.items || []) {
+        const channelId = item.id?.channelId || item.snippet?.channelId;
+        const title = normalize(item.snippet?.title);
+        if (!channelId || !title.includes(normalize(keyword))) continue;
+        const current = discovered.get(channelId) || { channelId, keywords: new Set() };
+        current.keywords.add(keyword);
+        discovered.set(channelId, current);
+      }
     }
   }
 

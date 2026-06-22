@@ -3,8 +3,6 @@ name: Update YouTube statistics and deploy
 on:
   push:
     branches: ["main"]
-  schedule:
-    - cron: "17 3,15 * * *"
   workflow_dispatch:
 
 permissions:
@@ -29,13 +27,13 @@ jobs:
           node-version: 22
 
       - name: Update YouTube data
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: node scripts/update-data.mjs
 
       - name: Commit fresh statistics
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'workflow_dispatch'
         run: |
           if git diff --quiet -- data/channels.json; then
             echo "Statistics are already up to date."

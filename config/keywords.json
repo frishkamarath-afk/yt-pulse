@@ -26,8 +26,8 @@
     "читы 1.21.4",
     "читы 1.21.11"
   ],
-  "searchResultsPerKeyword": 10,
-  "channelSearchResultsPerKeyword": 3,
+  "searchResultsPerKeyword": 8,
+  "channelSearchResultsPerKeyword": 0,
   "maxChannels": 50,
   "maxVideosPerChannel": 100,
   "periodMonths": 2,

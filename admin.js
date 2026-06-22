@@ -242,7 +242,7 @@ async function saveChanges() {
   setProgress("Сохраняем поисковые фразы…", "Создаём коммит в GitHub.");
 
   try {
-    // Refresh SHA immediately before writing so a scheduled statistics commit
+    // Refresh SHA immediately before writing so another statistics commit
     // cannot cause a stale-file conflict.
     await loadRepositoryConfig();
     state.config.keywords = cleaned;
