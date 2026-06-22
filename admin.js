@@ -7,6 +7,8 @@ const GITHUB = {
 };
 
 const MOD_API_ENDPOINT = (window.YT_VALHALLA_MOD_SERVICE?.endpoint || "").replace(/\/+$/, "");
+const TELEGRAM_ROLE = "admin";
+const TELEGRAM_SESSION_KEY = "ytValhallaTelegramAdminSession";
 
 const state = {
   token: "",
@@ -22,7 +24,7 @@ const state = {
 
 const telegramState = {
   requestId: "",
-  sessionToken: sessionStorage.getItem("ytValhallaTelegramSession") || "",
+  sessionToken: sessionStorage.getItem(TELEGRAM_SESSION_KEY) || "",
   busy: false,
 };
 
@@ -197,7 +199,10 @@ async function requestTelegramCode() {
   setTelegramStatus("Отправляем код через Telegram…");
 
   try {
-    const result = await telegramApi("/api/v1/admin/telegram/request", { method: "POST" });
+    const result = await telegramApi("/api/v1/admin/telegram/request", {
+      method: "POST",
+      body: { role: TELEGRAM_ROLE },
+    });
     telegramState.requestId = result.requestId;
     elements.telegramCodeInput.disabled = false;
     elements.telegramVerifyCode.disabled = false;
@@ -233,7 +238,7 @@ async function verifyTelegramCode(code) {
       },
     });
     telegramState.sessionToken = result.sessionToken;
-    sessionStorage.setItem("ytValhallaTelegramSession", telegramState.sessionToken);
+    sessionStorage.setItem(TELEGRAM_SESSION_KEY, telegramState.sessionToken);
     setTelegramStatus("Telegram подтверждён. Открываю админ-панель…", "success");
     unlockAdminPanel();
   } catch (error) {
@@ -260,11 +265,11 @@ async function initializeTelegramGate() {
 
   setTelegramStatus("Проверяем сохранённую Telegram-сессию…");
   try {
-    await telegramApi("/api/v1/admin/telegram/session");
+    await telegramApi(`/api/v1/admin/telegram/session?role=${TELEGRAM_ROLE}`);
     unlockAdminPanel();
   } catch {
     telegramState.sessionToken = "";
-    sessionStorage.removeItem("ytValhallaTelegramSession");
+    sessionStorage.removeItem(TELEGRAM_SESSION_KEY);
     setTelegramStatus("Сессия Telegram истекла. Запросите новый код.");
   }
 }

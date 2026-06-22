@@ -13,6 +13,10 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 
+def telegram_username(value):
+    return str(value or "").strip().lstrip("@").lower()
+
+
 HOST = os.getenv("YT_VALHALLA_HOST", "127.0.0.1")
 PORT = int(os.getenv("YT_VALHALLA_PORT", "8787"))
 ADMIN_KEY = os.environ["YT_VALHALLA_ADMIN_KEY"]
@@ -26,6 +30,13 @@ DEFAULT_DISABLED_MESSAGE = "Мод временно отключён админ�
 CHECK_INTERVAL_SECONDS = int(os.getenv("YT_VALHALLA_CHECK_INTERVAL_SECONDS", "5"))
 TELEGRAM_BOT_TOKEN = os.getenv("YT_VALHALLA_TELEGRAM_BOT_TOKEN", "").strip()
 TELEGRAM_ADMIN_CHAT_ID = os.getenv("YT_VALHALLA_TELEGRAM_ADMIN_CHAT_ID", "").strip()
+TELEGRAM_MODERATOR_CHAT_ID = os.getenv("YT_VALHALLA_TELEGRAM_MODERATOR_CHAT_ID", "").strip()
+TELEGRAM_ADMIN_USERNAME = telegram_username(
+    os.getenv("YT_VALHALLA_TELEGRAM_ADMIN_USERNAME", "zzshka_dz")
+)
+TELEGRAM_MODERATOR_USERNAME = telegram_username(
+    os.getenv("YT_VALHALLA_TELEGRAM_MODERATOR_USERNAME", "STEPASHIK1")
+)
 TELEGRAM_CODE_TTL_SECONDS = int(os.getenv("YT_VALHALLA_TELEGRAM_CODE_TTL_SECONDS", "300"))
 TELEGRAM_SESSION_TTL_SECONDS = int(
     os.getenv("YT_VALHALLA_TELEGRAM_SESSION_TTL_SECONDS", "43200")
@@ -121,6 +132,7 @@ def initialize_db():
 
             CREATE TABLE IF NOT EXISTS telegram_codes (
                 request_id TEXT PRIMARY KEY,
+                role TEXT NOT NULL DEFAULT 'admin',
                 code_hash TEXT NOT NULL,
                 expires_at INTEGER NOT NULL,
                 attempts INTEGER NOT NULL DEFAULT 0,
@@ -131,12 +143,30 @@ def initialize_db():
 
             CREATE TABLE IF NOT EXISTS telegram_sessions (
                 token_hash TEXT PRIMARY KEY,
+                role TEXT NOT NULL DEFAULT 'admin',
                 expires_at INTEGER NOT NULL,
                 created_at TEXT NOT NULL,
                 public_ip TEXT NOT NULL
             );
+
+            CREATE TABLE IF NOT EXISTS telegram_chat_bindings (
+                role TEXT PRIMARY KEY,
+                chat_id TEXT NOT NULL,
+                username TEXT NOT NULL DEFAULT '',
+                first_name TEXT NOT NULL DEFAULT '',
+                configured_at TEXT NOT NULL
+            );
             """
         )
+        for table in ("telegram_codes", "telegram_sessions"):
+            columns = {
+                row["name"]
+                for row in connection.execute(f"PRAGMA table_info({table})").fetchall()
+            }
+            if "role" not in columns:
+                connection.execute(
+                    f"ALTER TABLE {table} ADD COLUMN role TEXT NOT NULL DEFAULT 'admin'"
+                )
         connection.execute(
             """
             INSERT OR IGNORE INTO settings(id, enabled, disabled_message, updated_at)
@@ -167,6 +197,39 @@ def constant_time_equal(left, right):
 def secret_hash(value):
     payload = f"{ADMIN_KEY}:{value}".encode("utf-8")
     return hashlib.sha256(payload).hexdigest()
+
+
+def normalize_telegram_role(value):
+    role = clean(value, 24).lower()
+    if role in ("moderator", "moder", "mod"):
+        return "moderator"
+    return "admin"
+
+
+def telegram_role_target(role):
+    role = normalize_telegram_role(role)
+    if role == "moderator":
+        return TELEGRAM_MODERATOR_CHAT_ID, TELEGRAM_MODERATOR_USERNAME
+    return TELEGRAM_ADMIN_CHAT_ID, TELEGRAM_ADMIN_USERNAME
+
+
+def save_telegram_chat(role, chat_id, meta):
+    with DB_LOCK, connect_db() as connection:
+        connection.execute(
+            """
+            INSERT OR REPLACE INTO telegram_chat_bindings(role, chat_id, username, first_name, configured_at)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (role, chat_id, meta["username"], meta["first_name"], now_iso()),
+        )
+        if role == "admin":
+            connection.execute(
+                """
+                INSERT OR REPLACE INTO telegram_config(id, chat_id, username, first_name, configured_at)
+                VALUES (1, ?, ?, ?, ?)
+                """,
+                (chat_id, meta["username"], meta["first_name"], now_iso()),
+            )
 
 
 def cleanup_telegram_auth():
@@ -221,14 +284,31 @@ def telegram_api(method, payload):
     return body.get("result")
 
 
-def configured_telegram_chat():
-    if TELEGRAM_ADMIN_CHAT_ID:
-        return str(TELEGRAM_ADMIN_CHAT_ID)
+def configured_telegram_chat(role="admin"):
+    role = normalize_telegram_role(role)
+    explicit_chat_id, target_username = telegram_role_target(role)
+    if explicit_chat_id:
+        return str(explicit_chat_id)
 
     with DB_LOCK, connect_db() as connection:
-        row = connection.execute(
-            "SELECT chat_id FROM telegram_config WHERE id = 1"
-        ).fetchone()
+        if target_username:
+            row = connection.execute(
+                """
+                SELECT chat_id
+                FROM telegram_chat_bindings
+                WHERE role = ? AND lower(username) = ?
+                """,
+                (role, target_username),
+            ).fetchone()
+        else:
+            row = connection.execute(
+                "SELECT chat_id FROM telegram_chat_bindings WHERE role = ?",
+                (role,),
+            ).fetchone()
+            if not row and role == "admin":
+                row = connection.execute(
+                    "SELECT chat_id FROM telegram_config WHERE id = 1"
+                ).fetchone()
         if row:
             return row["chat_id"]
 
@@ -254,6 +334,23 @@ def configured_telegram_chat():
             "TELEGRAM_SETUP_REQUIRED",
             "Open the Telegram bot and send /start, then request the code again",
         )
+
+    if target_username:
+        matching = [
+            (chat_id, meta)
+            for chat_id, meta in chats.items()
+            if meta["username"].lower() == target_username
+        ]
+        if not matching:
+            raise ApiError(
+                409,
+                "TELEGRAM_USER_NOT_FOUND",
+                f"Telegram user @{target_username} did not write /start to the bot",
+            )
+        chat_id, meta = matching[-1]
+        save_telegram_chat(role, chat_id, meta)
+        return chat_id
+
     if len(chats) > 1:
         raise ApiError(
             409,
@@ -262,30 +359,24 @@ def configured_telegram_chat():
         )
 
     chat_id, meta = next(iter(chats.items()))
-    with DB_LOCK, connect_db() as connection:
-        connection.execute(
-            """
-            INSERT OR REPLACE INTO telegram_config(id, chat_id, username, first_name, configured_at)
-            VALUES (1, ?, ?, ?, ?)
-            """,
-            (chat_id, meta["username"], meta["first_name"], now_iso()),
-        )
+    save_telegram_chat(role, chat_id, meta)
     return chat_id
 
 
-def create_telegram_code(public_ip):
+def create_telegram_code(public_ip, role="admin"):
     cleanup_telegram_auth()
-    chat_id = configured_telegram_chat()
+    role = normalize_telegram_role(role)
+    chat_id = configured_telegram_chat(role)
     request_id = secrets.token_urlsafe(18)
     code = f"{secrets.randbelow(1000000):06d}"
     expires_at = now_seconds() + TELEGRAM_CODE_TTL_SECONDS
     with DB_LOCK, connect_db() as connection:
         connection.execute(
             """
-            INSERT INTO telegram_codes(request_id, code_hash, expires_at, attempts, consumed, created_at, public_ip)
-            VALUES (?, ?, ?, 0, 0, ?, ?)
+            INSERT INTO telegram_codes(request_id, role, code_hash, expires_at, attempts, consumed, created_at, public_ip)
+            VALUES (?, ?, ?, ?, 0, 0, ?, ?)
             """,
-            (request_id, secret_hash(f"{request_id}:{code}"), expires_at, now_iso(), public_ip),
+            (request_id, role, secret_hash(f"{request_id}:{code}"), expires_at, now_iso(), public_ip),
         )
 
     telegram_api(
@@ -293,7 +384,7 @@ def create_telegram_code(public_ip):
         {
             "chat_id": chat_id,
             "text": (
-                "YT Valhalla admin code: "
+                f"YT Valhalla {role} code: "
                 f"{code}\n\n"
                 f"Expires in {TELEGRAM_CODE_TTL_SECONDS // 60} min.\n"
                 f"IP: {public_ip}"
@@ -314,7 +405,7 @@ def verify_telegram_code(request_id, code, public_ip):
     with DB_LOCK, connect_db() as connection:
         row = connection.execute(
             """
-            SELECT code_hash, expires_at, attempts, consumed
+            SELECT code_hash, role, expires_at, attempts, consumed
             FROM telegram_codes
             WHERE request_id = ?
             """,
@@ -348,25 +439,26 @@ def verify_telegram_code(request_id, code, public_ip):
         )
         connection.execute(
             """
-            INSERT INTO telegram_sessions(token_hash, expires_at, created_at, public_ip)
-            VALUES (?, ?, ?, ?)
+            INSERT INTO telegram_sessions(token_hash, role, expires_at, created_at, public_ip)
+            VALUES (?, ?, ?, ?, ?)
             """,
-            (secret_hash(token), expires_at, now_iso(), clean(public_ip, 64)),
+            (secret_hash(token), row["role"], expires_at, now_iso(), clean(public_ip, 64)),
         )
     return token, expires_at
 
 
-def validate_telegram_session(value):
+def validate_telegram_session(value, allowed_roles=("admin",)):
     cleanup_telegram_auth()
     token = clean(value, 256)
     if not token:
         return False
+    roles = tuple(normalize_telegram_role(role) for role in (allowed_roles or ()))
     with DB_LOCK, connect_db() as connection:
         row = connection.execute(
-            "SELECT expires_at FROM telegram_sessions WHERE token_hash = ?",
+            "SELECT role, expires_at FROM telegram_sessions WHERE token_hash = ?",
             (secret_hash(token),),
         ).fetchone()
-    return bool(row and row["expires_at"] >= now_seconds())
+    return bool(row and row["expires_at"] >= now_seconds() and (not roles or row["role"] in roles))
 
 
 def read_state():
@@ -679,8 +771,10 @@ class Handler(BaseHTTPRequestHandler):
                     },
                 )
             if parsed.path == "/api/v1/admin/telegram/session":
+                params = parse_qs(parsed.query)
+                role = normalize_telegram_role(params.get("role", ["admin"])[0])
                 session = self.headers.get("X-Telegram-Session", "")
-                if not validate_telegram_session(session):
+                if not validate_telegram_session(session, (role,)):
                     raise ApiError(401, "TELEGRAM_REQUIRED", "Telegram verification required")
                 return self.respond(200, {"ok": True})
             raise ApiError(404, "NOT_FOUND", "Route not found")
@@ -693,11 +787,14 @@ class Handler(BaseHTTPRequestHandler):
         try:
             path = urlparse(self.path).path
             if path == "/api/v1/admin/telegram/request":
-                request_id = create_telegram_code(client_ip(self))
+                body = self.read_json()
+                role = normalize_telegram_role(body.get("role"))
+                request_id = create_telegram_code(client_ip(self), role)
                 return self.respond(
                     200,
                     {
                         "ok": True,
+                        "role": role,
                         "requestId": request_id,
                         "expiresInSeconds": TELEGRAM_CODE_TTL_SECONDS,
                     },
@@ -787,7 +884,7 @@ class Handler(BaseHTTPRequestHandler):
             raise ApiError(401, "UNAUTHORIZED", "Invalid admin key")
         if TELEGRAM_REQUIRED:
             session = self.headers.get("X-Telegram-Session", "")
-            if not validate_telegram_session(session):
+            if not validate_telegram_session(session, ("admin", "moderator")):
                 raise ApiError(401, "TELEGRAM_REQUIRED", "Telegram verification required")
 
     def read_json(self):

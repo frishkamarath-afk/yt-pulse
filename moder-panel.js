@@ -1,9 +1,11 @@
 (() => {
   const MOD_API_ENDPOINT = (window.YT_VALHALLA_MOD_SERVICE?.endpoint || "").replace(/\/+$/, "");
+  const TELEGRAM_ROLE = "moderator";
+  const TELEGRAM_SESSION_KEY = "ytValhallaTelegramModeratorSession";
 
   const telegramState = {
     requestId: "",
-    sessionToken: sessionStorage.getItem("ytValhallaTelegramSession") || "",
+    sessionToken: sessionStorage.getItem(TELEGRAM_SESSION_KEY) || "",
     busy: false,
   };
 
@@ -152,7 +154,7 @@
   function handleTelegramRequired(error) {
     if (error.code !== "TELEGRAM_REQUIRED") return false;
     telegramState.sessionToken = "";
-    sessionStorage.removeItem("ytValhallaTelegramSession");
+    sessionStorage.removeItem(TELEGRAM_SESSION_KEY);
     window.YT_VALHALLA_TELEGRAM_SESSION = "";
     elements.protectedPanel.hidden = true;
     elements.telegramAuthCard.hidden = false;
@@ -167,7 +169,10 @@
     setTelegramStatus("Отправляем код через Telegram…");
 
     try {
-      const result = await telegramApi("/api/v1/admin/telegram/request", { method: "POST" });
+      const result = await telegramApi("/api/v1/admin/telegram/request", {
+        method: "POST",
+        body: { role: TELEGRAM_ROLE },
+      });
       telegramState.requestId = result.requestId;
       elements.telegramCodeInput.disabled = false;
       elements.telegramVerifyCode.disabled = false;
@@ -203,7 +208,7 @@
         },
       });
       telegramState.sessionToken = result.sessionToken;
-      sessionStorage.setItem("ytValhallaTelegramSession", telegramState.sessionToken);
+      sessionStorage.setItem(TELEGRAM_SESSION_KEY, telegramState.sessionToken);
       setTelegramStatus("Telegram подтверждён. Открываю модер панель…", "success");
       unlockModerPanel();
     } catch (error) {
@@ -237,11 +242,11 @@
 
     setTelegramStatus("Проверяем сохранённую Telegram-сессию…");
     try {
-      await telegramApi("/api/v1/admin/telegram/session");
+      await telegramApi(`/api/v1/admin/telegram/session?role=${TELEGRAM_ROLE}`);
       unlockModerPanel();
     } catch {
       telegramState.sessionToken = "";
-      sessionStorage.removeItem("ytValhallaTelegramSession");
+      sessionStorage.removeItem(TELEGRAM_SESSION_KEY);
       setTelegramStatus("Сессия Telegram истекла. Запросите новый код.");
     }
   }

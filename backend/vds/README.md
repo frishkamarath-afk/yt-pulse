@@ -23,6 +23,12 @@ CLIENT_KEY="client-key" \
 bash install.sh
 ```
 
+Telegram-коды разделены по ролям:
+
+- `TELEGRAM_ADMIN_USERNAME=zzshka_dz` — вход в старую админ-панель;
+- `TELEGRAM_MODERATOR_USERNAME=STEPASHIK1` — вход в новую `Модер панель`;
+- вместо username можно указать `TELEGRAM_ADMIN_CHAT_ID` или `TELEGRAM_MODERATOR_CHAT_ID`.
+
 `MOD_DOMAIN` можно сделать через `sslip.io`: для IP `1.2.3.4` домен будет `1-2-3-4.sslip.io`.
 Certbot сам выпустит HTTPS-сертификат и настроит nginx.
 
