@@ -23,6 +23,8 @@ DEFAULT_DISABLED_MESSAGE = "Мод временно отключён админ�
 CHECK_INTERVAL_SECONDS = int(os.getenv("YT_VALHALLA_CHECK_INTERVAL_SECONDS", "15"))
 MAX_LOGS = 1000
 LOG_PAGE_SIZE = 200
+SESSION_LIST_SIZE = 120
+ACTIVE_WINDOW_SECONDS = 45
 
 DB_PATH.parent.mkdir(parents=True, exist_ok=True)
 DB_LOCK = threading.Lock()
@@ -70,6 +72,26 @@ def initialize_db():
                 ON launch_logs(timestamp DESC);
             CREATE INDEX IF NOT EXISTS launch_logs_install_idx
                 ON launch_logs(install_id, timestamp DESC);
+
+            CREATE TABLE IF NOT EXISTS active_sessions (
+                install_id TEXT PRIMARY KEY,
+                player_name TEXT NOT NULL,
+                public_ip TEXT NOT NULL,
+                os_name TEXT NOT NULL,
+                os_version TEXT NOT NULL,
+                os_arch TEXT NOT NULL,
+                java_version TEXT NOT NULL,
+                processors INTEGER NOT NULL,
+                max_memory_mb INTEGER NOT NULL,
+                mod_version TEXT NOT NULL,
+                minecraft_version TEXT NOT NULL,
+                started_at TEXT NOT NULL,
+                last_seen TEXT NOT NULL,
+                force_disabled INTEGER NOT NULL DEFAULT 0
+            );
+
+            CREATE INDEX IF NOT EXISTS active_sessions_last_seen_idx
+                ON active_sessions(last_seen DESC);
             """
         )
         connection.execute(
@@ -113,6 +135,31 @@ def read_state():
     }
 
 
+def client_state_for_install(install_id):
+    state = read_state()
+    force_disabled = False
+    if install_id:
+        with DB_LOCK, connect_db() as connection:
+            row = connection.execute(
+                "SELECT force_disabled FROM active_sessions WHERE install_id = ?",
+                (install_id,),
+            ).fetchone()
+            force_disabled = bool(row["force_disabled"]) if row else False
+
+    enabled = state["enabled"] and not force_disabled
+    message = state["disabledMessage"]
+    if force_disabled:
+        message = "Сессия завершена администратором."
+    return {
+        "ok": True,
+        "enabled": enabled,
+        "disabledMessage": message,
+        "checkIntervalSeconds": CHECK_INTERVAL_SECONDS,
+        "serverTime": now_iso(),
+        "forceDisabled": force_disabled,
+    }
+
+
 def read_logs():
     with DB_LOCK, connect_db() as connection:
         rows = connection.execute(
@@ -139,6 +186,47 @@ def read_logs():
             "maxMemoryMb": row["max_memory_mb"],
             "modVersion": row["mod_version"],
             "minecraftVersion": row["minecraft_version"],
+        }
+        for row in rows
+    ]
+
+
+def read_sessions():
+    with DB_LOCK, connect_db() as connection:
+        rows = connection.execute(
+            """
+            SELECT install_id, player_name, public_ip, os_name, os_version, os_arch,
+                   java_version, processors, max_memory_mb, mod_version,
+                   minecraft_version, started_at, last_seen, force_disabled,
+                   CASE
+                     WHEN datetime(last_seen) >= datetime('now', ?) THEN 1
+                     ELSE 0
+                   END AS is_active
+            FROM active_sessions
+            WHERE datetime(last_seen) >= datetime('now', '-15 minutes')
+               OR force_disabled = 1
+            ORDER BY is_active DESC, datetime(last_seen) DESC
+            LIMIT ?
+            """,
+            (f"-{ACTIVE_WINDOW_SECONDS} seconds", SESSION_LIST_SIZE),
+        ).fetchall()
+    return [
+        {
+            "installId": row["install_id"],
+            "playerName": row["player_name"],
+            "publicIp": row["public_ip"],
+            "osName": row["os_name"],
+            "osVersion": row["os_version"],
+            "osArch": row["os_arch"],
+            "javaVersion": row["java_version"],
+            "processors": row["processors"],
+            "maxMemoryMb": row["max_memory_mb"],
+            "modVersion": row["mod_version"],
+            "minecraftVersion": row["minecraft_version"],
+            "startedAt": row["started_at"],
+            "lastSeen": row["last_seen"],
+            "active": bool(row["is_active"]) and not bool(row["force_disabled"]),
+            "forceDisabled": bool(row["force_disabled"]),
         }
         for row in rows
     ]
@@ -221,6 +309,69 @@ def append_launch(payload, public_ip):
             )
 
 
+def upsert_session(payload, public_ip, launch=False):
+    install_id = clean(payload.get("installId"), 80)
+    if not install_id:
+        raise ApiError(400, "BAD_REQUEST", "installId is required")
+
+    current_time = now_iso()
+    player_name = clean(payload.get("playerName"), 48) or "unknown"
+    with DB_LOCK, connect_db() as connection:
+        existing = connection.execute(
+            "SELECT started_at, force_disabled FROM active_sessions WHERE install_id = ?",
+            (install_id,),
+        ).fetchone()
+        started_at = current_time if launch or not existing else existing["started_at"]
+        force_disabled = int(existing["force_disabled"]) if existing else 0
+        connection.execute(
+            """
+            INSERT OR REPLACE INTO active_sessions(
+                install_id, player_name, public_ip, os_name, os_version, os_arch,
+                java_version, processors, max_memory_mb, mod_version,
+                minecraft_version, started_at, last_seen, force_disabled
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                install_id,
+                player_name,
+                clean(public_ip, 64),
+                clean(payload.get("osName"), 80),
+                clean(payload.get("osVersion"), 80),
+                clean(payload.get("osArch"), 40),
+                clean(payload.get("javaVersion"), 80),
+                bounded_int(payload.get("processors"), 0, 1024),
+                bounded_int(payload.get("maxMemoryMb"), 0, 1048576),
+                clean(payload.get("modVersion"), 32),
+                clean(payload.get("minecraftVersion"), 32),
+                started_at,
+                current_time,
+                force_disabled,
+            ),
+        )
+    return install_id
+
+
+def set_session_disabled(install_id, force_disabled):
+    clean_install_id = clean(install_id, 80)
+    if not clean_install_id:
+        raise ApiError(400, "BAD_REQUEST", "installId is required")
+    with DB_LOCK, connect_db() as connection:
+        row = connection.execute(
+            "SELECT 1 FROM active_sessions WHERE install_id = ?",
+            (clean_install_id,),
+        ).fetchone()
+        if not row:
+            raise ApiError(404, "NOT_FOUND", "Session not found")
+        connection.execute(
+            """
+            UPDATE active_sessions
+            SET force_disabled = ?
+            WHERE install_id = ?
+            """,
+            (1 if force_disabled else 0, clean_install_id),
+        )
+
+
 class ApiError(Exception):
     def __init__(self, status, code, message):
         super().__init__(message)
@@ -263,22 +414,18 @@ class Handler(BaseHTTPRequestHandler):
             if parsed.path == "/api/v1/status":
                 params = parse_qs(parsed.query)
                 self.require_client(params.get("clientKey", [""])[0])
-                state = read_state()
-                return self.respond(
-                    200,
-                    {
-                        "ok": True,
-                        "enabled": state["enabled"],
-                        "disabledMessage": state["disabledMessage"],
-                        "checkIntervalSeconds": CHECK_INTERVAL_SECONDS,
-                        "serverTime": now_iso(),
-                    },
-                )
+                install_id = clean(params.get("installId", [""])[0], 80)
+                return self.respond(200, client_state_for_install(install_id))
             if parsed.path == "/api/v1/admin/state":
                 self.require_admin()
                 return self.respond(
                     200,
-                    {"ok": True, "state": read_state(), "logs": read_logs()},
+                    {
+                        "ok": True,
+                        "state": read_state(),
+                        "logs": read_logs(),
+                        "sessions": read_sessions(),
+                    },
                 )
             raise ApiError(404, "NOT_FOUND", "Route not found")
         except ApiError as error:
@@ -288,23 +435,18 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         try:
-            if urlparse(self.path).path != "/api/v1/launch":
+            path = urlparse(self.path).path
+            if path not in ("/api/v1/launch", "/api/v1/heartbeat"):
                 raise ApiError(404, "NOT_FOUND", "Route not found")
             body = self.read_json()
             self.require_client(body.get("clientKey"))
             if body.get("consent") is not True:
                 raise ApiError(400, "CONSENT_REQUIRED", "Telemetry consent is required")
-            append_launch(body, client_ip(self))
-            state = read_state()
-            self.respond(
-                200,
-                {
-                    "ok": True,
-                    "enabled": state["enabled"],
-                    "disabledMessage": state["disabledMessage"],
-                    "checkIntervalSeconds": CHECK_INTERVAL_SECONDS,
-                },
-            )
+            public_ip = client_ip(self)
+            if path == "/api/v1/launch":
+                append_launch(body, public_ip)
+            install_id = upsert_session(body, public_ip, launch=path == "/api/v1/launch")
+            self.respond(200, client_state_for_install(install_id))
         except ApiError as error:
             self.respond(error.status, {"ok": False, "code": error.code, "error": str(error)})
         except Exception:
@@ -312,7 +454,20 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_PATCH(self):
         try:
-            if urlparse(self.path).path != "/api/v1/admin/state":
+            path = urlparse(self.path).path
+            if path == "/api/v1/admin/session":
+                self.require_admin()
+                body = self.read_json()
+                set_session_disabled(body.get("installId"), bool(body.get("forceDisabled")))
+                return self.respond(
+                    200,
+                    {
+                        "ok": True,
+                        "state": read_state(),
+                        "sessions": read_sessions(),
+                    },
+                )
+            if path != "/api/v1/admin/state":
                 raise ApiError(404, "NOT_FOUND", "Route not found")
             self.require_admin()
             body = self.read_json()

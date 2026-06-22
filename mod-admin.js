@@ -24,6 +24,8 @@ const modElements = {
   saveMessage: document.querySelector("#save-mod-message"),
   refreshLogs: document.querySelector("#refresh-mod-logs"),
   clearLogs: document.querySelector("#clear-mod-logs"),
+  sessionsBody: document.querySelector("#mod-sessions-body"),
+  sessionsEmpty: document.querySelector("#mod-sessions-empty"),
   logsBody: document.querySelector("#mod-logs-body"),
   logsEmpty: document.querySelector("#mod-logs-empty"),
 };
@@ -106,6 +108,55 @@ function renderModLogs(logs = []) {
     .join("");
 }
 
+function formatDateTime(value) {
+  if (!value) return "—";
+  return new Date(value).toLocaleString("ru-RU");
+}
+
+function renderModSessions(sessions = []) {
+  modElements.sessionsEmpty.hidden = sessions.length > 0;
+  modElements.sessionsBody.innerHTML = sessions
+    .map((session) => {
+      const statusClass = session.forceDisabled ? "terminated" : session.active ? "online" : "offline";
+      const statusText = session.forceDisabled ? "Завершена" : session.active ? "Онлайн" : "Нет сигнала";
+      const actionText = session.forceDisabled ? "Разблокировать" : "Завершить сессию";
+      const actionClass = session.forceDisabled ? "button-secondary" : "button-danger";
+      const actionValue = session.forceDisabled ? "false" : "true";
+      return `
+        <tr>
+          <td><span class="session-status ${statusClass}">${statusText}</span></td>
+          <td>
+            <strong>${escapeHtml(session.playerName || "unknown")}</strong><br />
+            <span class="session-install">${escapeHtml(session.installId || "—")}</span>
+          </td>
+          <td><strong>${escapeHtml(session.publicIp || "—")}</strong></td>
+          <td>
+            <strong>${escapeHtml(session.osName || "—")}</strong><br />
+            ${escapeHtml([session.osVersion, session.osArch].filter(Boolean).join(" · "))}<br />
+            Java ${escapeHtml(session.javaVersion || "—")} · ${escapeHtml(formatMemory(session.maxMemoryMb))}
+          </td>
+          <td>
+            <strong>${escapeHtml(formatDateTime(session.lastSeen))}</strong><br />
+            старт: ${escapeHtml(formatDateTime(session.startedAt))}
+          </td>
+          <td>
+            <div class="session-actions">
+              <button
+                class="button ${actionClass}"
+                type="button"
+                data-session-action="${actionValue}"
+                data-install-id="${escapeHtml(session.installId || "")}"
+              >
+                ${actionText}
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+    })
+    .join("");
+}
+
 async function refreshModControl() {
   if (modService.busy) return;
   modService.busy = true;
@@ -113,6 +164,7 @@ async function refreshModControl() {
     const result = await modRequest("/api/v1/admin/state");
     modService.connected = true;
     renderModState(result.state);
+    renderModSessions(result.sessions || []);
     renderModLogs(result.logs);
     modElements.authCard.hidden = true;
     modElements.controlCard.hidden = false;
@@ -207,6 +259,34 @@ modElements.clearLogs.addEventListener("click", async () => {
     showToast("Логи удалены");
   } catch (error) {
     showToast(error.message, true);
+  }
+});
+
+modElements.sessionsBody.addEventListener("click", async (event) => {
+  const button = event.target.closest("[data-session-action]");
+  if (!button) return;
+  const installId = button.dataset.installId;
+  const forceDisabled = button.dataset.sessionAction === "true";
+  if (!installId) return;
+  if (
+    forceDisabled &&
+    !confirm("Завершить эту сессию? Minecraft у выбранного игрока закроется после следующей проверки.")
+  ) {
+    return;
+  }
+  button.disabled = true;
+  try {
+    const result = await modRequest("/api/v1/admin/session", {
+      method: "PATCH",
+      body: { installId, forceDisabled },
+    });
+    renderModState(result.state);
+    renderModSessions(result.sessions || []);
+    showToast(forceDisabled ? "Сессия отправлена на завершение" : "Сессия разблокирована");
+  } catch (error) {
+    showToast(error.message, true);
+  } finally {
+    button.disabled = false;
   }
 });
 

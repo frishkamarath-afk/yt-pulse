@@ -6,7 +6,7 @@
     <meta name="description" content="Админ-панель управления поисковыми фразами YT Valhalla." />
     <meta name="theme-color" content="#0b0d12" />
     <title>Админ-панель — YT Valhalla</title>
-    <link rel="stylesheet" href="admin.css?v=20260621-1" />
+    <link rel="stylesheet" href="admin.css?v=20260622-2" />
   </head>
   <body>
     <main class="admin-shell">
@@ -255,6 +255,36 @@
           </div>
         </div>
 
+        <div class="sessions-head">
+          <div>
+            <p class="eyebrow">Онлайн-контроль</p>
+            <h3>Активные запуски</h3>
+          </div>
+          <p>
+            Показываются установки, которые отправили heartbeat недавно. Кнопка завершает
+            конкретную сессию и закрывает Minecraft у этого игрока.
+          </p>
+        </div>
+
+        <div class="logs-table-wrap sessions-table-wrap">
+          <table class="logs-table sessions-table">
+            <thead>
+              <tr>
+                <th>Статус</th>
+                <th>Игрок</th>
+                <th>IP</th>
+                <th>Система</th>
+                <th>Последний сигнал</th>
+                <th>Действие</th>
+              </tr>
+            </thead>
+            <tbody id="mod-sessions-body"></tbody>
+          </table>
+          <div class="logs-empty" id="mod-sessions-empty" hidden>
+            Активных запусков пока нет.
+          </div>
+        </div>
+
         <div class="logs-head">
           <div>
             <p class="eyebrow">Последние события</p>
@@ -292,9 +322,10 @@
           <strong>Приватность</strong>
           <p>
             Мод отправляет данные только после явного согласия пользователя:
-            публичный IP, ОС и архитектуру, Java, число процессоров, доступную память,
-            версию мода и случайный ID установки. Имя Windows, MAC-адреса, серийные
-            номера и личные файлы не собираются.
+            ник Minecraft, публичный IP, ОС и архитектуру, Java, число процессоров,
+            доступную память, версию мода и случайный ID установки. Админ может видеть
+            активную сессию и завершить её удалённо. Скриншоты, имя Windows, MAC-адреса,
+            серийные номера и личные файлы не собираются.
           </p>
         </div>
       </section>
@@ -308,6 +339,6 @@
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="mod-service-config.js?v=20260622-1"></script>
     <script src="admin.js?v=20260621-2" defer></script>
-    <script src="mod-admin.js?v=20260622-2" defer></script>
+    <script src="mod-admin.js?v=20260622-3" defer></script>
   </body>
 </html>
